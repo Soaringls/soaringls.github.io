@@ -174,7 +174,8 @@ sidebar:
 # Sidebar Avatar
 avatar:
   # Replace the default image and set the url here.
-  url: /images/avatar.gif
+  # url: /images/avatar.gif
+  url: /images/sunshine.jpg
   # If true, the avatar will be dispalyed in circle.
   rounded: true
   # If true, the avatar will be rotated with the cursor.
@@ -188,8 +189,8 @@ site_state: true
 # Key is the link label showing to end users.
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
-  GitHub: https://github.com/yongcongwang || github
-  E-Mail: mailto:yongcong.wang@outlook.com || envelope
+  GitHub: https://github.com/Soaringls || github
+  E-Mail: mailto:sxls1992@gmail.com || envelope
   #Weibo: https://weibo.com/yourname || weibo
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
@@ -309,7 +310,7 @@ related_posts:
 # Dependencies: https://github.com/hexojs/hexo-deployer-git
 post_edit:
   enable: true
-  url: https://github.com/yongcongwang/blog/tree/write/source/ # Link for view source
+  url: https://github.com/Soaringls/blog/tree/note/source/ # Link for view source
   #url: https://github.com/user-name/repo-name/edit/branch-name/subdirectory-name # Link for fork & edit
 
 # Show previous post and next post in post footer if exists
@@ -406,7 +407,7 @@ bookmark:
 # `Follow me on GitHub` banner in the top-right corner.
 github_banner:
   enable: true
-  permalink: https://github.com/yongcongwang
+  permalink: https://github.com/Soaringls
   title: Follow me on GitHub
 
 
