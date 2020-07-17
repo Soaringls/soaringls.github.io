@@ -45,11 +45,11 @@ different platform
 
 #### Data flow of ETH-ICP <br>
 
-  ![](../images/lidar-odometry/libpointmatcher/default_icp_chain.svg)
-  ![](../images/lidar-odometry/libpointmatcher/icp_tutorial_reading.gif)
+  ![](/images/lidar-odometry/libpointmatcher/default_icp_chain.svg)
+  ![](/images/lidar-odometry/libpointmatcher/icp_tutorial_reading.gif)
 
 #### Theory of eth-icp algorithm
-![](../images/lidar-odometry/eth-icp-basic-algorithm.png)
+![](/images/lidar-odometry/eth-icp-basic-algorithm.png)
 1. Reading and Reference Sources
 shapes P are point clouds and can be written in a matrix form with each column a point vector:
 $$
@@ -58,8 +58,8 @@ $$
 where $p_i$is a point and N the number of points in the point cloud
 Features is an [Eigen matrix](http://eigen.tuxfamily.org/dox/classEigen_1_1Matrix.html) typically containing the coordinates of the points which form the cloud.  Each column corresponds to a point in the cloud.  The rows correspond to the dimensions of the points in homogeneous coordinates.  Homogeneous coordinates are used to allow for translations and rotations.  For 2D point clouds, there will thus be 3 rows and for 4 rows for 3D point clouds.
 
-![features matrix](../images/lidar-odometry/libpointmatcher/featuresMatrix.png) 
-<!-- <img src="../images/lidar-odometry/libpointmatcher/featuresMatrix.png" style="float:center" /> -->
+![features matrix](/images/lidar-odometry/libpointmatcher/featuresMatrix.png) 
+<!-- <img src="/images/lidar-odometry/libpointmatcher/featuresMatrix.png" style="float:center" /> -->
 
 1. Transformation Functions
    In case of a rigid transformation, if points are represented using homogeneous coordinates, a transformation T can be represented as a matrix T such that:
@@ -81,14 +81,14 @@ Features is an [Eigen matrix](http://eigen.tuxfamily.org/dox/classEigen_1_1Matri
 
    $$
    \begin{aligned}
-       \hat{\mathcal{T}}_{\mathbb{A}}^{\mathbb{B}} = ({\mathop{\bigcirc}\limits_{i}}\mathcal{T}_{i-1}^i)\circ\mathcal{T_{init}} \\ \Leftrightarrow \hat{\boldsymbol{T}}_{\mathbb{A}}^{\mathbb{B}}=\left(\mathop{\prod}\limits_{i}\boldsymbol{T}_{i-1}^i\right)\boldsymbol{T}_{init}
+   \hat{\mathcal{T}}_{\mathbb{A}}^{\mathbb{B}} = ({\mathop{\bigcirc}\limits_{ \mathcal{T}_{i-1}^i)\circ\mathcal{T_{init}} \\ \Leftrightarrow \hat{\boldsymbol{T {\mathbb{A}}^{\mathbb{B}}=\left(\mathop{\prod}\limits_{i}\boldsymbol{T}_{i ^i\right)\boldsymbol{T}_{init}
    \end{aligned}
    $$
 
    $$
    \hat{T^B_A}=arg\min_{T}(error(T(P^A),Q^B))
    $$
-   ![](../images/lidar-odometry/eth-icp-flow-graph.png)
+   ![](/images/lidar-odometry/eth-icp-flow-graph.png)
 
 2. Data Filters
    - Feature Enhancement
@@ -99,17 +99,21 @@ Features is an [Eigen matrix](http://eigen.tuxfamily.org/dox/classEigen_1_1Matri
      example1:
      random subsampling in order to decimate the point cloud:
      
-     $$\mathcal{P}^{\acute{}} = datafilter(\mathcal{P}) = \left\{\boldsymbol{p}\in\mathcal{P}:\eta(\boldsymbol{p}) < \theta\right\}$$
+     $$
+     \mathcal{P}^{\acute{}} = datafilter(\mathcal{P}) = \{\boldsymbol{p}\in\mathcal{P}:\eta(\boldsymbol{p}) < \theta\}
+     $$
      
      where $\eta\in[0,1)$ is a uniform-distributed random value and θ ∈ [0, 1] a fixed threshold, corresponding to the fraction of points to keep
      
      example2:
      the computation of normal vectors in a point cloud:
      
-     $$\mathcal{P}^{\acute{}} = datafilter(\mathcal{P}) = \left\{\boldsymbol{p}\in\mathcal{P}:\eta(\boldsymbol{p}) < \theta\right\}$$
+     $$
+     \mathcal{P}^{\acute{}} = datafilter(\mathcal{P}) = \{\boldsymbol{p}\in\mathcal{P}:\eta(\boldsymbol{p}) < \theta\}
+     $$
 
     datafilter example:
-    ![descriptors matrix](../images/lidar-odometry/libpointmatcher/descriptorsMatrix.png)
+    ![descriptors matrix](/images/lidar-odometry/libpointmatcher/descriptorsMatrix.png)
     **Surface Normal Filter**
     The surface normal to each point is estimated by finding a number of neighboring points and taking the eigen-vector corresponding to the smallest eigen-value of all neighboring points.
     __Required descriptors:__ none   
@@ -118,13 +122,13 @@ Features is an [Eigen matrix](http://eigen.tuxfamily.org/dox/classEigen_1_1Matri
     `densities`  
     `eigValues`  
     `eigVectors`  
-    ![](../images/lidar-odometry/libpointmatcher/orient_norm.png)
+    ![](/images/lidar-odometry/libpointmatcher/orient_norm.png)
     **Maximum Density Filter**
     This filter is used to homogenize the density of a point cloud by rejecting a sub-sample of points in high-density regions.Points are only considered for rejection if they exceed a density threshold, otherwise they are preserved.
     __Required descriptors:__ `densities`   
     __Output descriptor:__ none 
-    ![](../images/lidar-odometry/libpointmatcher/max_dens_before.png)
-    ![](../images/lidar-odometry/libpointmatcher/max_dens_after.png)
+    ![](/images/lidar-odometry/libpointmatcher/max_dens_before.png)
+    ![](/images/lidar-odometry/libpointmatcher/max_dens_after.png)
 
 
 
@@ -135,13 +139,13 @@ __Test Algorithm__:eth-icp and pcl-icp
 __Test Result__: 
 ##### offline test
 comparison of the post poses and lidar-odometry by eth-icp
-![](../images/lidar-odometry/regis_icp_eth.png)
-![](../images/lidar-odometry/regis_icp_eth.png)
+![](/images/lidar-odometry/regis_icp_eth.png)
+![](/images/lidar-odometry/regis_icp_eth.png)
 comparison of the post poses and lidar-odometry by icp-pcl
-![](../images/lidar-odometry/regis_icp_pcl.png)
+![](/images/lidar-odometry/regis_icp_pcl.png)
 ##### online test
 comparison of the post poses and lidar-odometry by eth-icp
-![](../images/lidar-odometry/ranger_icp_eth1.mp4.gif)
-![](../images/lidar-odometry/regis_icp_eth_filter1.png)
+![](/images/lidar-odometry/ranger_icp_eth1.mp4.gif)
+![](/images/lidar-odometry/regis_icp_eth_filter1.png)
 comparison of the post poses and lidar-odometry by icp-pcl
-![](../images/lidar-odometry/ranger_icp_pcl.png)
+![](/images/lidar-odometry/ranger_icp_pcl.png)

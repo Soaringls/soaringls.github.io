@@ -100,8 +100,8 @@ theme: next
 deploy:
   type: git
   repo: git@github.com:Soaringls/Soaringls.github.io.git
-  # branch: gh-pages
-  branch: page
+  branch: gh-pages
+  # branch: page
 
 # Security
 ##
