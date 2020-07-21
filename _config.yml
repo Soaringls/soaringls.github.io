@@ -4,7 +4,7 @@
 
 # Site
 title: Notebook
-subtitle: Stay Hungry, Stay Foolish.
+subtitle: record my daily work, Stay Hungry, Stay Foolish.
 keywords: blog, notes
 author: Dexter
 language: en
@@ -12,7 +12,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://blog.yongcong.wang #TODO
+url: http://blog.dexter.cool/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -101,7 +101,6 @@ deploy:
   type: git
   repo: git@github.com:Soaringls/Soaringls.github.io.git
   branch: gh-pages
-  # branch: page
 
 # Security
 ##
