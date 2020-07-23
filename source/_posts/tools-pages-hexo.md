@@ -1,12 +1,14 @@
 ---
-title: hexo usage when build myblog
+title: tools pages's server hexo for blog
 date: 2020-07-04 18:10:03
 categories: tools
 tags:
- - tools
+ - pages
 description: common command of hexo
 ---
+
 ### usage of hexo
+<!-- more -->
 #### common command of hexo
 ```sh
 hexo c    #clean
