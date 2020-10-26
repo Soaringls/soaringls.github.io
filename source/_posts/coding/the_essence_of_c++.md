@@ -167,3 +167,27 @@ To pass large amounts of data(into a function)
 To return large amount of data(out of a function)
 
 - Don't! Instead use move operations
+  
+## How to get a lot of data cheaply out of a function?
+Consider
+
+- factory functions
+- functions returning lots of objects
+
+Return a pointer to a **new**'d object?
+
+- M* operator+(const M&, const M&);
+- M* pm = m1 + m2
+- M* q = *pm + m3
+
+Return a reference to a **new**'d object?
+
+- M& operator+(const M&, const M&);
+- M m = m1 + m2;
+
+Pass a target object?
+
+- void operator+(const M&, const M&, M& rea);
+- M m;
+- operator+(m1, m2, m);
+
