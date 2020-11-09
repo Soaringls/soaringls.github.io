@@ -175,7 +175,6 @@ To pass large amounts of data(into a function)
 To return large amount of data(out of a function)
 
 - Don't! Instead use move operations
-
 ## How to get a lot of data cheaply out of a function?
 Consider
 
