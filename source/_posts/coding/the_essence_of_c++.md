@@ -6,46 +6,54 @@ categories:
   - coding
 ---
 
-# What did/do I want?
-## Type safety
+## What did/do I want?
+Type safety
 - Encapsulate necessary unsafe operations
-## Resource safety
+
+Resource safety
 - it's not all memory
-## Performance
+
+Performance
 - For some parts of almost all systems,it's important
-## Predictability
+
+Predictability
 - For hard and soft real time
-## Teachability
+
+Teachability
 - Complexity of code should be proportional to the complexity of the task
-## Readability
+
+Readability
 - People and machines("analyzability")
-# Who did/do I want it for?
-## Primary concerns
+## Who did/do I want it for?
+Primary concerns
 - Systems propramming
 - Embedded systems
 - Resource constrained systems
 - Large systems
-## Experts
+
+Experts
 - "c++ is expert friendly"
-## Novices
+
+Novices
 - "c++ is not just expert friendly"
 
-# C++ in two lines
-## What is C++?
-### Direct map to hardware
+## C++ in two lines
+###  What is C++?
+Direct map to hardware
 - of instructions and dundamental data types
 - Initially from C
-### Zero-Overhead abstraction
+
+Zero-Overhead abstraction
 - Classes with constructors and destructors,inheritance,generic programming,functional programming techniques
 - Initially from Simula
-### Much of the inspiration came from operating systems
-### What does C++ wants to be when it grows up?
+
+Much of the inspiration came from operating systems
+What does C++ wants to be when it grows up?
 - See above
 - And better at it for more modern hardware and techniques
 - Compatibility/stability is a feature
 
-# C++
-## A light-weight abstraction programming language
+## Cpp is a light-weight abstraction programming language
 building and using efficient and elegant abstractions
 ## Key strengths:
 - software infrastructure
@@ -167,3 +175,63 @@ To pass large amounts of data(into a function)
 To return large amount of data(out of a function)
 
 - Don't! Instead use move operations
+
+## How to get a lot of data cheaply out of a function?
+Consider
+
+- factory functions
+- functions returning lots of objects
+
+Return a pointer to a **new**'d object?
+
+- M* operator+(const M&, const M&);
+- M* pm = m1 + m2;  //ugly: and who does the delete?
+- M* q = *pm + m3;  //ugly: and who does the delete?
+
+Return a reference to a **new**'d object?
+
+- M& operator+(const M&, const M&);
+- M m = m1 + m2; //looks OK; but who does the delete? delete what?
+
+Pass a target object?
+
+- void operator+(const M&, const M&, M& result);
+- M m;
+- operator+(m1, m2, m); //ugly: We are regressing(退化,回归) towards assembly code(汇编代码)
+
+**conslusion**
+- **Consider**
+factory functions
+functions returning lots of objects(in containers)
+- **Return an object!**
+`M operator+(const M&, const M&);`
+How? Becase copies are expensive
+Tricks to avoid copying are brittle
+Tricks to avoid copying are not general
+- **Return a handle**
+sample and cheap
+### Move semantics
+- Direct support in C++11:Move constructor
+  ```cpp
+  class  Matrix{
+    Representation rep;
+    //...
+    Matrix(Matrix&& a) //move constructor
+    {
+      rep = a.rep; //*this gets a's elements
+      a.rep = {};  //a becomes the empty Matrix
+    }
+  };
+  Matrix res = a + b;
+  ```
+- Often, you can avoid writing copy and move operations
+Easily avoid
+  ```cpp
+  class Matrix{
+    vector<double> elem; //elements here
+    //...matrix access...
+  };
+  ```
+- Matrix just "inherit" resource management from vector
+- Copy and a move operations can often be implicitly generated from members
+Good copy and move operations, e.g from the standard library
