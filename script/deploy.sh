@@ -5,7 +5,7 @@ set -e  # exit if err
 
 # vars
 HEXO_DIR=$(cd $(dirname $0); pwd)/..
-
+echo "dir: "$HEXO_DIR
 # src filse
 cd ${HEXO_DIR}
 git add .
