@@ -10,6 +10,8 @@ echo "dir: "$HEXO_DIR
 cd ${HEXO_DIR}
 pwd
 git add .
+git add ./source/
+git add ./script/
 commit_msg=$(date "+%Y.%m.%d %H:%M:%S")
 git commit -m "update note $commit_msg"
 git push origin note
