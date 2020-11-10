@@ -12,12 +12,14 @@ cd ${REPO_DIR}
 # nodejs
 # curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
 sudo apt-get install -y libssl1.0-dev nodejs-dev node-gyp
-sudo apt-get install -y nodejs
+sudo apt-get install -y nodejs #10.13.0及以上
 
 # hexo
 sudo apt install npm
 sudo npm install -g hexo-cli
 sudo npm install
+
+# sudo npm install hexo-cli@3.1.0 -g
 
 # theme
 THEME_NEXT_DIR=${REPO_DIR}/themes/next

@@ -1,3 +1,10 @@
+---
+title: usage of vector's multi
+date: 2020-07-08 11:07:05
+mathjax: true
+tags:
+  - math
+---
 #### 向量点乘
 - 二维向量
   $$
