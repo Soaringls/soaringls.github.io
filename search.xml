@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>c++-模板的使用</title>
+    <url>/2020/07/08/c-template/</url>
+    <content><![CDATA[<p>仅以记录工作上遇到的耽误了些许时间的哪些坑…</p>
+<a id="more"></a>
+<h3 id="坑1-类成员模板函数在源文件-cc文件-中实现后竟然忘记实例化声明…"><a href="#坑1-类成员模板函数在源文件-cc文件-中实现后竟然忘记实例化声明…" class="headerlink" title="坑1-类成员模板函数在源文件(cc文件)中实现后竟然忘记实例化声明…"></a>坑1-类成员模板函数在源文件(cc文件)中实现后竟然忘记实例化声明…</h3><p>类的成员模板函数使用:</p>
+<ol>
+<li>成员模板的函数的实现放到头文件<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//test.h</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">      Test()=<span class="keyword">default</span>;</span><br><span class="line">      ~Test()=<span class="keyword">default</span>;</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">      <span class="function"><span class="keyword">bool</span> <span class="title">CalRobustScore</span><span class="params">(<span class="keyword">const</span> <span class="keyword">typename</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;T&gt;&amp; data, <span class="keyword">double</span>&amp; score)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//成员模板实现于头文件中</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">CalRobustScore</span><span class="params">(<span class="keyword">const</span> <span class="keyword">typename</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;T&gt;&amp; data, <span class="keyword">double</span>&amp; score)</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>成员模板的函数的实现放到源文件，但必须实例化声明<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//test.h</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">      Test()=<span class="keyword">default</span>;</span><br><span class="line">      ~Test()=<span class="keyword">default</span>;</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">      <span class="function"><span class="keyword">bool</span> <span class="title">CalRobustScore</span><span class="params">(<span class="keyword">const</span> <span class="keyword">typename</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;T&gt;&amp; data, <span class="keyword">double</span>&amp; score)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//test.cc</span></span><br><span class="line"><span class="comment">//成员模板实现于源文件中</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">CalRobustScore</span><span class="params">(<span class="keyword">const</span> <span class="keyword">typename</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;T&gt;&amp; data, <span class="keyword">double</span>&amp; score)</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//然后必须实例化声明，否则该函数被调用是将找不到</span></span><br><span class="line"><span class="keyword">template</span> <span class="keyword">bool</span> CalRobustScore&lt;<span class="keyword">double</span>&gt;(<span class="keyword">const</span> <span class="keyword">typename</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; data, <span class="keyword">double</span>&amp; score);</span><br><span class="line"><span class="keyword">template</span> <span class="keyword">bool</span> CalRobustScore&lt;<span class="keyword">float</span>&gt;(<span class="keyword">const</span> <span class="keyword">typename</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">float</span>&gt;&amp; data, <span class="keyword">double</span>&amp; score);</span><br><span class="line">... <span class="comment">//其他可能的类型</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>programing</tag>
+        <tag>c++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OpenCL与CUDA  OpenCL与GPU</title>
+    <url>/2020/07/08/coding-opencl/</url>
+    <content><![CDATA[<p>仅以记录工作上遇到的耽误了些许时间的哪些坑…</p>
+<a id="more"></a>]]></content>
+      <tags>
+        <tag>programing</tag>
+        <tag>c++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/10/10/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick   Start"></a>Quick   Start</h2><a id="more"></a>
+<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More  info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>icp算法的20年</title>
+    <url>/2020/07/08/lidar-ethicp-usage/</url>
+    <content><![CDATA[<p>使用方法</p>
+<a id="more"></a>
+
+<p>datafilter: 不同降采样方法去除噪声等以抑制传感器噪声<br>matcher: 最邻近搜索方法</p>
+<h3 id="matcher"><a href="#matcher" class="headerlink" title="matcher"></a>matcher</h3><p>KDTreeMatcher:<br>{“knn”, “number of nearest neighbors to consider it the reference”, “1”, “1”, “2147483647”, &amp;P::Comp<unsigned>},<br>                {“epsilon”, “approximation to use for the nearest-neighbor search”, “0”, “0”, “inf”, &amp;P::Comp<T>},<br>                {“searchType”, “Nabo search type. 0: brute force, check distance to every point in the data (very slow), 1: kd-tree with linear heap, good for small knn (<del>up to 30) and 2: kd-tree with tree heap, good for large knn (</del>from 30)”, “1”, “0”, “2”, &amp;P::Comp<unsigned>},<br>                {“maxDist”, “maximum distance to consider for neighbors”, “inf”, “0”, “inf”, &amp;P::Comp<T>}</p>
+]]></content>
+      <tags>
+        <tag>pointcloud</tag>
+        <tag>registration</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>icp算法的20年</title>
+    <url>/2020/07/08/lidar-ethicp/</url>
+    <content><![CDATA[<p>$$<br>y = \frac{a}{b}<br>$$</p>
+<h3 id="ETH-libpointmatcher使用"><a href="#ETH-libpointmatcher使用" class="headerlink" title="ETH-libpointmatcher使用"></a>ETH-libpointmatcher使用</h3><p>使用的eigen版本需和pcl的一致，</p>
+<p>科学实验方法的三个原则: 可比较(可评估)、可复现(稳定重复)、可证明(可解释)<br>算法内在：什么参数、不同参数下表现的差异<br>算法外在：准确度、精度</p>
+<a id="more"></a>
+<p>The first one is to remove some points that do not bring any valuable infor-<br>mation for the registration. As the complexity of the algorithm is linear<br>in the number of points, reducing this number can have a significant<br>impact on the time of registration. The second use of filters can be to<br>add information to the point. The typical example is the inference of<br>local structural properties of the shape, such as normal information or<br>curvature. This information, which is usually not present in the raw<br>sensor data, can allow for better registration through a more precise<br>association of the points, or the computation of the error to minimize</p>
+<p>$$<br>\hat{T^B_A}=arg\min_{T}(error(T(P^A),Q^B))<br>$$</p>
+<p>different platform </p>
+<table>
+<thead>
+<tr>
+<th align="left">parameters</th>
+<th align="left">Arto(rough Terrain outdoor robot)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">DataFilter</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="ICP-of-ETH"><a href="#ICP-of-ETH" class="headerlink" title="ICP of ETH"></a>ICP of ETH</h3><h4 id="Dependency"><a href="#Dependency" class="headerlink" title="Dependency"></a>Dependency</h4><ol>
+<li>eigen:matrix and liear-albebra library</li>
+<li>libnabo:from eth, a fast k nearest neighbour library for low-dimensional spaces</li>
+<li>libboost</li>
+</ol>
+<h4 id="Data-flow-of-ETH-ICP"><a href="#Data-flow-of-ETH-ICP" class="headerlink" title="Data flow of ETH-ICP "></a>Data flow of ETH-ICP <br></h4><p>  <img data-src="/images/lidar-odometry/libpointmatcher/default_icp_chain.svg" alt=""><br>  <img data-src="/images/lidar-odometry/libpointmatcher/icp_tutorial_reading.gif" alt=""></p>
+<h4 id="Theory-of-eth-icp-algorithm"><a href="#Theory-of-eth-icp-algorithm" class="headerlink" title="Theory of eth-icp algorithm"></a>Theory of eth-icp algorithm</h4><p><img data-src="/images/lidar-odometry/eth-icp-basic-algorithm.png" alt=""></p>
+<ol>
+<li>Reading and Reference Sources<br>shapes P are point clouds and can be written in a matrix form with each column a point vector:<br>$$<br>\mathcal P = \bold P=[p_1\quad p_2\quad …\quad p_N]<br>$$<br>where $p_i$is a point and N the number of points in the point cloud<br>Features is an <a href="http://eigen.tuxfamily.org/dox/classEigen_1_1Matrix.html" target="_blank" rel="noopener">Eigen matrix</a> typically containing the coordinates of the points which form the cloud.  Each column corresponds to a point in the cloud.  The rows correspond to the dimensions of the points in homogeneous coordinates.  Homogeneous coordinates are used to allow for translations and rotations.  For 2D point clouds, there will thus be 3 rows and for 4 rows for 3D point clouds.</li>
+</ol>
+<p><img data-src="/images/lidar-odometry/libpointmatcher/featuresMatrix.png" alt="features matrix"> </p>
+<!-- <img data-src="/images/lidar-odometry/libpointmatcher/featuresMatrix.png" style="float:center" /> -->
+
+<ol>
+<li><p>Transformation Functions<br>In case of a rigid transformation, if points are represented using homogeneous coordinates, a transformation T can be represented as a matrix T such that:</p>
+<p>$$<br>\mathcal T(\mathcal P) = \boldsymbol{TP} = [\boldsymbol{T}\boldsymbol{p_1}\quad \boldsymbol{T}\boldsymbol{p_2}\quad …\quad \boldsymbol{T}\boldsymbol{p_N}]<br>$$</p>
+<p>$\boldsymbol{T}$ is  then of the form:</p>
+<p>$$<br>\boldsymbol{T} = \begin{bmatrix}\boldsymbol{R} &amp; \boldsymbol{t} \ \boldsymbol{0^T} &amp; 1<br>\end{bmatrix}<br>$$</p>
+<p>where$\boldsymbol{R}$ is a rotation matrix and $\boldsymbol{t}$ is a translation vector</p>
+<p>The generic formula computiing the final transform Equation becomes a simple matrix product:</p>
+<p>$$<br>\begin{aligned}<br>\hat{\mathcal{T}}<em>{\mathbb{A}}^{\mathbb{B}} = ({\mathop{\bigcirc}\limits</em>{ \mathcal{T}<em>{i-1}^i)\circ\mathcal{T</em>{init}} \ \Leftrightarrow \hat{\boldsymbol{T {\mathbb{A}}^{\mathbb{B}}=\left(\mathop{\prod}\limits_{i}\boldsymbol{T}<em>{i ^i\right)\boldsymbol{T}</em>{init}<br>\end{aligned}<br>$$</p>
+<p>$$<br>\hat{T^B_A}=arg\min_{T}(error(T(P^A),Q^B))<br>$$<br><img data-src="/images/lidar-odometry/eth-icp-flow-graph.png" alt=""></p>
+</li>
+<li><p>Data Filters</p>
+<ul>
+<li><p>Feature Enhancement</p>
+</li>
+<li><p>Descriptor Enhancement</p>
+</li>
+<li><p>Feature Reduction<br>features are sparse but not uniformly distributed. Nevertheless, the fact that sensors can provide a huge number of readings on a short period of time reates a bottleneck in term of computation power for the association as explained later</p>
+</li>
+<li><p>Sensor Noise<br>example1:<br>random subsampling in order to decimate the point cloud:</p>
+<p>$$<br>\mathcal{P}^{\acute{}} = datafilter(\mathcal{P}) = {\boldsymbol{p}\in\mathcal{P}:\eta(\boldsymbol{p}) &lt; \theta}<br>$$</p>
+<p>where $\eta\in[0,1)$ is a uniform-distributed random value and θ ∈ [0, 1] a fixed threshold, corresponding to the fraction of points to keep</p>
+<p>example2:<br>the computation of normal vectors in a point cloud:</p>
+<p>$$<br>\mathcal{P}^{\acute{}} = datafilter(\mathcal{P}) = {\boldsymbol{p}\in\mathcal{P}:\eta(\boldsymbol{p}) &lt; \theta}<br>$$</p>
+<p>datafilter example:<br><img data-src="/images/lidar-odometry/libpointmatcher/descriptorsMatrix.png" alt="descriptors matrix"><br><strong>Surface Normal Filter</strong><br>The surface normal to each point is estimated by finding a number of neighboring points and taking the eigen-vector corresponding to the smallest eigen-value of all neighboring points.<br><strong>Required descriptors:</strong> none<br><strong>Output descriptor:</strong><br><code>normals</code><br><code>densities</code><br><code>eigValues</code><br><code>eigVectors</code><br><img data-src="/images/lidar-odometry/libpointmatcher/orient_norm.png" alt=""><br><strong>Maximum Density Filter</strong><br>This filter is used to homogenize the density of a point cloud by rejecting a sub-sample of points in high-density regions.Points are only considered for rejection if they exceed a density threshold, otherwise they are preserved.<br><strong>Required descriptors:</strong> <code>densities</code><br><strong>Output descriptor:</strong> none<br><img data-src="/images/lidar-odometry/libpointmatcher/max_dens_before.png" alt=""><br><img data-src="/images/lidar-odometry/libpointmatcher/max_dens_after.png" alt=""></p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h4><p><strong>Test Platform</strong>:offline test and online(ranger) test<br><strong>Test Data</strong>:24/06/2020 dataset for mapping from hengtong<br><strong>Test Algorithm</strong>:eth-icp and pcl-icp<br><strong>Test Result</strong>: </p>
+<h5 id="offline-test"><a href="#offline-test" class="headerlink" title="offline test"></a>offline test</h5><p>comparison of the post poses and lidar-odometry by eth-icp<br><img data-src="/images/lidar-odometry/regis_icp_eth.png" alt=""><br><img data-src="/images/lidar-odometry/regis_icp_eth.png" alt=""><br>comparison of the post poses and lidar-odometry by icp-pcl<br><img data-src="/images/lidar-odometry/regis_icp_pcl.png" alt=""></p>
+<h5 id="online-test"><a href="#online-test" class="headerlink" title="online test"></a>online test</h5><p>comparison of the post poses and lidar-odometry by eth-icp<br><img data-src="/images/lidar-odometry/ranger_icp_eth1.mp4.gif" alt=""><br><img data-src="/images/lidar-odometry/regis_icp_eth_filter1.png" alt=""><br>comparison of the post poses and lidar-odometry by icp-pcl<br><img data-src="/images/lidar-odometry/ranger_icp_pcl.png" alt=""></p>
+]]></content>
+      <tags>
+        <tag>pointcloud</tag>
+        <tag>registration</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>lidar segmentation and filtered by hdmap</title>
+    <url>/2020/07/12/lidar-segmentation-hdmap/</url>
+    <content><![CDATA[<p>基本流程：</p>
+<ol>
+<li>分割地面点和非地面点</li>
+<li>基于非地面点进行点云分割</li>
+<li>实时加载hdmap将位于道路上的分割结果进去滤出(亦可通过tracking将动态障碍物滤除)<a id="more"></a>
+<h4 id="整体概览"><a href="#整体概览" class="headerlink" title="整体概览"></a>整体概览</h4></li>
+<li>左下角为原始点云数据</li>
+<li>右下角为检测的地面点云</li>
+<li>左上角为分割的结果(已根据hdmap滤出位于道路上的动态障碍物)</li>
+<li>右上角为滤出动态障碍物后点云<br><img data-src="/images/lidar-segmentation-hdmap/general_viewer.gif" alt="general view of the lidar segmentation"><h4 id="地面的分割"><a href="#地面的分割" class="headerlink" title="地面的分割"></a>地面的分割</h4>采用极坐标投影网格和平面拟合的方法<br><img data-src="/images/lidar-segmentation-hdmap/ground_detect.mp4.gif" alt="ground detect,and the objects on road is filtered by hdmap"><br><img data-src="/images/lidar-segmentation-hdmap/ground_detect.png" alt="the detail of ground detection"><h4 id="点云聚类"><a href="#点云聚类" class="headerlink" title="点云聚类"></a>点云聚类</h4>采用网格投影-&gt;膨胀-&gt;连通分析-&gt;收缩<br><img data-src="/images/lidar-segmentation-hdmap/objs_filtered0_byhdmap.mp4.gif" alt=""><br><img data-src="/images/lidar-segmentation-hdmap/objs_filtered_byhdmap.mp4.gif" alt="vechicle and pedestrian filtered by hdmap"></li>
+</ol>
+]]></content>
+      <categories>
+        <category>pointcloud</category>
+      </categories>
+      <tags>
+        <tag>pointcloud</tag>
+        <tag>segmentation</tag>
+        <tag>hdmap</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>common usage of Eigen</title>
+    <url>/2020/07/17/slam-eigen/</url>
+    <content><![CDATA[<p>使用方法</p>
+<a id="more"></a>
+<h3 id="查看已安装的eigen的版本号"><a href="#查看已安装的eigen的版本号" class="headerlink" title="查看已安装的eigen的版本号"></a>查看已安装的eigen的版本号</h3><p>文件<code>eigen3/Eigen/src/Core/util/Macros.h</code>内含版本号</p>
+<p>datafilter: 不同降采样方法去除噪声等以抑制传感器噪声<br>matcher: 最邻近搜索方法</p>
+]]></content>
+      <tags>
+        <tag>eigen</tag>
+        <tag>math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>tools python-matploglib</title>
+    <url>/2020/07/22/tools-python-matplotlib/</url>
+    <content><![CDATA[<p>主要记录日常python使用的matplotlib绘图时出现的常见情况</p>
+<a id="more"></a>
+<h2 id="matplotlib"><a href="#matplotlib" class="headerlink" title="matplotlib"></a>matplotlib</h2><h4 id="color-table-for-reference"><a href="#color-table-for-reference" class="headerlink" title="color table for reference"></a>color table for reference</h4><p><img data-src="/images/python/matplotlib_color_table.png" alt="matplotlib_color_table"></p>
+]]></content>
+      <categories>
+        <category>tools</category>
+      </categories>
+      <tags>
+        <tag>programing</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>tools pages&#39;s server hexo for blog</title>
+    <url>/2020/07/04/tools-pages-hexo/</url>
+    <content><![CDATA[<h3 id="usage-of-hexo"><a href="#usage-of-hexo" class="headerlink" title="usage of hexo"></a>usage of hexo</h3><a id="more"></a>
+<h4 id="common-command-of-hexo"><a href="#common-command-of-hexo" class="headerlink" title="common command of hexo"></a>common command of hexo</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo c    <span class="comment">#clean</span></span><br><span class="line">hexo g -d <span class="comment">#生成并上传</span></span><br><span class="line">hexo s    <span class="comment">#server</span></span><br><span class="line">hexo s -g <span class="comment">#生成并本地预览</span></span><br></pre></td></tr></table></figure>
+<h4 id="commond-reference-of-hexo"><a href="#commond-reference-of-hexo" class="headerlink" title="commond reference of hexo"></a>commond reference of hexo</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo new <span class="string">"postName"</span> <span class="comment">#新建文章</span></span><br><span class="line">hexo new page <span class="string">"pageName"</span> <span class="comment">#新建页面</span></span><br><span class="line">hexo generate <span class="comment">#生成静态页面至public目录  hexo g</span></span><br><span class="line">hexo server <span class="comment">#开启预览访问端口（默认端口4000，'ctrl + c'关闭server） hexo s</span></span><br><span class="line">hexo deploy <span class="comment">#部署到GitHub hexo d</span></span><br><span class="line">hexo <span class="built_in">help</span>  <span class="comment"># 查看帮助</span></span><br><span class="line">hexo version  <span class="comment">#查看Hexo的版本</span></span><br><span class="line"></span><br><span class="line">hexo n == hexo new</span><br><span class="line">hexo g == hexo generate</span><br><span class="line">hexo s == hexo server</span><br><span class="line">hexo d == hexo deploy</span><br></pre></td></tr></table></figure>
+
+<h4 id="文章加密"><a href="#文章加密" class="headerlink" title="文章加密"></a>文章加密</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-blog-encrypt</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>tools</category>
+      </categories>
+      <tags>
+        <tag>pages</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>tools-devel-environment</title>
+    <url>/2020/10/10/tools-devel-environment/</url>
+    <content><![CDATA[<p>依赖库下载</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#python</span></span><br><span class="line">wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz</span><br><span class="line"><span class="comment">#google-series</span></span><br><span class="line">wget https://github.com/google/googletest/archive/release-1.8.0.tar.gz</span><br><span class="line">wget https://github.com/gflags/gflags/archive/v2.2.0.tar.gz</span><br><span class="line">wget https://github.com/google/glog/archive/v0.3.5.tar.gz</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>Some useful functions from Cppreferenct</title>
+    <url>/2020/11/04/coding-cpp-useful-funcs/</url>
+    <content><![CDATA[<h1 id="Strategy-Pattern"><a href="#Strategy-Pattern" class="headerlink" title="Strategy Pattern"></a>Strategy Pattern</h1><h2 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h2><ul>
+<li>Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from the clients that use it.</li>
+<li>Capture the abstraction in an interface, bury implementation details in derived classes.<a id="more"></a>
+
+</li>
+</ul>
+<h3 id="std-adjacent-find"><a href="#std-adjacent-find" class="headerlink" title="std::adjacent_find"></a>std::adjacent_find</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v1&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">40</span>, <span class="number">40</span>, <span class="number">41</span>, <span class="number">41</span>, <span class="number">5</span>&#125;;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">auto</span> i1 = <span class="built_in">std</span>::adjacent_find(v1.begin(), v1.end());</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> (i1 == v1.end()) &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"no matching adjacent elements\n"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"the first adjacent pair of equal elements at: "</span></span><br><span class="line">                  &lt;&lt; <span class="built_in">std</span>::distance(v1.begin(), i1) &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">auto</span> i2 = <span class="built_in">std</span>::adjacent_find(v1.begin(), v1.end(), <span class="built_in">std</span>::greater&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">    <span class="keyword">if</span> (i2 == v1.end()) &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"The entire vector is sorted in ascending order\n"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"The last element in the non-decreasing subsequence is at: "</span></span><br><span class="line">                  &lt;&lt; <span class="built_in">std</span>::distance(v1.begin(), i2) &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Output is:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">The first adjacent pair of equal elements at: 4</span><br><span class="line">The last element in the non-decreasing subsequence is at: 7</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>coding</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>usage of vector&#39;s multi</title>
+    <url>/2020/07/08/math-multiple-of-vector/</url>
+    <content><![CDATA[<h4 id="向量点乘"><a href="#向量点乘" class="headerlink" title="向量点乘"></a>向量点乘</h4><ul>
+<li>二维向量<br>$$<br>\begin{aligned}<br>  \bold{\overrightarrow{a}} &amp;= a_1\bold{i}+a_2\bold{j}\<br>\bold{\overrightarrow{b}} &amp;= b_1\bold{i}+b_2\bold{j} \<br>\bold{\overrightarrow{a}}\cdot\bold{\overrightarrow{b}} &amp;= a_1b_1\bold{i}+a_2b_2\bold{j}<br>\end{aligned} \tag{1}<br>$$</li>
+<li>三维向量<br>$$<br>\begin{aligned}<br>  \bold{\overrightarrow{a}} &amp;= a_1\bold{i}+a_2\bold{j}+a_3\bold{k}\<br>\bold{\overrightarrow{b}} &amp;= b_1\bold{i}+b_2\bold{j}+b_3\bold{k}  \<br>\bold{\overrightarrow{a}}\cdot\bold{\overrightarrow{b}} &amp;= a_1b_1\bold{i}+a_2b_2\bold{j}+a_3b_3\bold{k}<br>\end{aligned}\tag{2}<br>$$<h4 id="向量叉乘"><a href="#向量叉乘" class="headerlink" title="向量叉乘"></a>向量叉乘</h4></li>
+<li>三维向量<br>$$<br>\begin{aligned}<br>  \bold{\overrightarrow{a}} &amp;= a_1\bold{i}+a_2\bold{j}+a_3\bold{k}\<br>\bold{\overrightarrow{b}} &amp;= b_1\bold{i}+b_2\bold{j}+b_3\bold{k}  \<br>\bold{\overrightarrow{a}}\times\bold{\overrightarrow{b}} &amp;=<br>   \begin{bmatrix}<pre><code>\bold{i} &amp; \bold{j}&amp; \bold{k}\\
+a_1      &amp; a_2     &amp;a_3\\
+b_1      &amp; b_2     &amp;b_3</code></pre>   \end{bmatrix} \ &amp;= (a_2b_3 - a_3b_2)\bold{i} + (a_3b_1 - a_1b_3)\bold{j} + (a_1b_2 - a_2b_1)\bold{k} \<br>   &amp;=<br>   \begin{bmatrix}       <pre><code>a_2 &amp; a_3  \\        
+b_2 &amp; b_3            </code></pre>   \end{bmatrix}\bold{i} +<br>   \begin{bmatrix}       <pre><code>a_3 &amp; a_1  \\        
+b_3 &amp; b_1            </code></pre>   \end{bmatrix}\bold{j}+<br>   \begin{bmatrix}       <pre><code>a_1 &amp; a_2  \\        
+b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned}\tag{3}<br>$$</li>
+<li>二维向量<br>$$<br>\begin{aligned}<br>  \bold{\overrightarrow{a}} &amp;= a_1\bold{i}+a_2\bold{j}\<br>\bold{\overrightarrow{b}} &amp;= b_1\bold{i}+b_2\bold{j}  \<br>\bold{\overrightarrow{a}}\times\bold{\overrightarrow{b}} &amp;=<br>   \begin{bmatrix}<pre><code>\bold{i} &amp; \bold{j}&amp; \bold{k}\\
+a_1      &amp; a_2     &amp;0\\
+b_1      &amp; b_2     &amp;0</code></pre>   \end{bmatrix} \ &amp;=  (a_1b_2 - a_2b_1)\bold{k} \<br>   &amp;=<br>   \begin{bmatrix}       <pre><code>a_1 &amp; a_2  \\        
+b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} \tag{4}<br>$$</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Terminator Shortcuts Usage</title>
+    <url>/2020/10/30/tools-terminator-shortcuts-usage/</url>
+    <content><![CDATA[<p>Terminator Shortcuts Usage<br>| shortcuts         | info                                                 |<br>| :—————- | :————————————————— |<br>| ctrl+shift+o      | split windows horizontal                             |<br>| ctrl+shift+e      | split windows vertical                               |<br>| ctrl+shift+x      | switch between current window and all windows        |<br>| ctrl+shift+arrows | move splitter bars of current working window         |<br>| alt+arrows        | switch between different working windows             |<br>| ctrl+shift+w      | close current window                                 |<br>| ctrl+shift+q      | close all window,that means close current terminator |</p>
+]]></content>
+      <categories>
+        <category>tools</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>usage of mathjax</title>
+    <url>/2020/07/08/tools-markdowon/</url>
+    <content><![CDATA[<p>花体字母$\mathcal{H}$</p>
+]]></content>
+      <tags>
+        <tag>math</tag>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Bjarne Strooustrup:The Essence of C++</title>
+    <url>/2020/10/25/coding-the-essence-of-c/</url>
+    <content><![CDATA[<h2 id="What-did-do-I-want"><a href="#What-did-do-I-want" class="headerlink" title="What did/do I want?"></a>What did/do I want?</h2><p>Type safety</p>
+<ul>
+<li>Encapsulate necessary unsafe operations</li>
+</ul>
+<p>Resource safety</p>
+<ul>
+<li>it’s not all memory</li>
+</ul>
+<p>Performance</p>
+<ul>
+<li>For some parts of almost all systems,it’s important</li>
+</ul>
+<p>Predictability</p>
+<ul>
+<li>For hard and soft real time</li>
+</ul>
+<p>Teachability</p>
+<ul>
+<li>Complexity of code should be proportional to the complexity of the task</li>
+</ul>
+<p>Readability</p>
+<ul>
+<li>People and machines(“analyzability”)<h2 id="Who-did-do-I-want-it-for"><a href="#Who-did-do-I-want-it-for" class="headerlink" title="Who did/do I want it for?"></a>Who did/do I want it for?</h2>Primary concerns</li>
+<li>Systems propramming</li>
+<li>Embedded systems</li>
+<li>Resource constrained systems</li>
+<li>Large systems</li>
+</ul>
+<p>Experts</p>
+<ul>
+<li>“c++ is expert friendly”</li>
+</ul>
+<p>Novices</p>
+<ul>
+<li>“c++ is not just expert friendly”</li>
+</ul>
+<h2 id="C-in-two-lines"><a href="#C-in-two-lines" class="headerlink" title="C++ in two lines"></a>C++ in two lines</h2><h3 id="What-is-C"><a href="#What-is-C" class="headerlink" title="What is C++?"></a>What is C++?</h3><p>Direct map to hardware</p>
+<ul>
+<li>of instructions and dundamental data types</li>
+<li>Initially from C</li>
+</ul>
+<p>Zero-Overhead abstraction</p>
+<ul>
+<li>Classes with constructors and destructors,inheritance,generic programming,functional programming techniques</li>
+<li>Initially from Simula</li>
+</ul>
+<p>Much of the inspiration came from operating systems<br>What does C++ wants to be when it grows up?</p>
+<ul>
+<li>See above</li>
+<li>And better at it for more modern hardware and techniques</li>
+<li>Compatibility/stability is a feature</li>
+</ul>
+<h2 id="Cpp-is-a-light-weight-abstraction-programming-language"><a href="#Cpp-is-a-light-weight-abstraction-programming-language" class="headerlink" title="Cpp is a light-weight abstraction programming language"></a>Cpp is a light-weight abstraction programming language</h2><p>building and using efficient and elegant abstractions</p>
+<h2 id="Key-strengths"><a href="#Key-strengths" class="headerlink" title="Key strengths:"></a>Key strengths:</h2><ul>
+<li>software infrastructure</li>
+<li>resource-constrained applications<h3 id="Resource-Management"><a href="#Resource-Management" class="headerlink" title="Resource Management"></a>Resource Management</h3><h4 id="A-resource-is-something-that-must-be-acquired-and-latter-released"><a href="#A-resource-is-something-that-must-be-acquired-and-latter-released" class="headerlink" title="A resource is something that must be acquired and latter released"></a>A resource is something that must be acquired and latter released</h4></li>
+<li>Explicitly or implicitly</li>
+<li>Resource management should not be manual<ul>
+<li>we don’t want leaks(泄露)</li>
+</ul>
+</li>
+</ul>
+<h4 id="A-resource-should-have-an-owner"><a href="#A-resource-should-have-an-owner" class="headerlink" title="A resource should have an owner"></a>A resource should have an owner</h4><ul>
+<li>Usually a “handle”</li>
+<li>A “handle” should present a well-defined and useful abstraction</li>
+</ul>
+<h4 id="All-the-standard-library-containers-manage-their-elements"><a href="#All-the-standard-library-containers-manage-their-elements" class="headerlink" title="All the standard-library containers manage their elements"></a>All the standard-library containers manage their elements</h4><ul>
+<li>vector</li>
+<li>list,forward_list(singly-linked list),…</li>
+<li>map,unordered_map(hash table),…</li>
+<li>set,multi_set,…</li>
+<li>string</li>
+</ul>
+<h4 id="Other-standard-library-classes-manage-other-resoures"><a href="#Other-standard-library-classes-manage-other-resoures" class="headerlink" title="Other standard-library classes manage other resoures"></a>Other standard-library classes manage other resoures</h4><ul>
+<li>Not just memory(Garbage collection is not sufficient)</li>
+<li>thread,lock_guard,…</li>
+<li>istream,fstream,…</li>
+<li>unique_ptr,shared_ptr,…</li>
+</ul>
+<h4 id="Use-constructors-and-destructor"><a href="#Use-constructors-and-destructor" class="headerlink" title="Use constructors and destructor"></a>Use constructors and destructor</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  Vector(<span class="built_in">initializer_list</span>&lt;T&gt;);<span class="comment">//vector of elements of type T</span></span><br><span class="line">  ~Vector();</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  T* elem; <span class="comment">//pointer to elements</span></span><br><span class="line">  <span class="keyword">int</span> sz;  <span class="comment">//number of  elements</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fct</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Vector&lt;<span class="keyword">double</span>&gt; vd&#123;<span class="number">1</span>, <span class="number">1.625</span>, <span class="number">3.14</span>, <span class="number">2.998e8</span>&#125;;</span><br><span class="line">    Vector&lt;<span class="built_in">string</span>&gt; vs&#123;<span class="string">"Strachey"</span>, <span class="string">"Richards"</span>&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Pointer-Misuse"><a href="#Pointer-Misuse" class="headerlink" title="Pointer Misuse"></a>Pointer Misuse</h4><blockquote>
+<p>Many(most) uses of pointers in local scope are not exception safe</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    Gadget* p = <span class="keyword">new</span> Gadget(n);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">100</span>) <span class="keyword">throw</span> <span class="built_in">std</span>::runtime_error(<span class="string">"Weird!"</span>);<span class="comment">//leak</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">200</span>) <span class="keyword">return</span>;                            <span class="comment">//leak</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">delete</span> p; <span class="comment">//I want my garbage collector!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">But garbage collection would not release non-memory resources</span><br><span class="line">Why use a &quot;naked&quot; pointer?</span><br></pre></td></tr></table></figure>
+<h4 id="Resource-Handles-and-Pointers"><a href="#Resource-Handles-and-Pointers" class="headerlink" title="Resource Handles and Pointers"></a>Resource Handles and Pointers</h4><blockquote>
+<p>A std::shared_ptr releases its object at when the last shared_ptr to it is destroyed</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> p = make_shared&lt;Gadget&gt;(n); <span class="comment">//manage that pointer!</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">100</span>) <span class="keyword">throw</span> <span class="built_in">std</span>::runtime_error(<span class="string">"Weird!"</span>);<span class="comment">//no leak</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">200</span>) <span class="keyword">return</span>;                            <span class="comment">//no leak</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>shared_ptr</strong> provides a form of garbage collection(But I’m not sharing anything!)</p>
+<blockquote>
+<p>A <strong>std::unique_ptr</strong> releases its object at when it goes out of scope</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> p = make_unique&lt;Gadget&gt;(n); <span class="comment">//manage that pointer!</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">100</span>) <span class="keyword">throw</span> <span class="built_in">std</span>::runtime_error(<span class="string">"Weird!"</span>);<span class="comment">//no leak</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">200</span>) <span class="keyword">return</span>;                            <span class="comment">//no leak</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This is simple and cheap<br>No more expensive than a “plain old pointer”</p>
+<h4 id="Error-Handling-and-Resources"><a href="#Error-Handling-and-Resources" class="headerlink" title="Error Handling and Resources"></a>Error Handling and Resources</h4><p>“Resource Acquistion Is Intialization”(RAII)</p>
+<ol>
+<li>Acquire during construction</li>
+<li>Release in destructor</li>
+</ol>
+<p>Throw exception in case of failure</p>
+<blockquote>
+<p>In particular, throw is a constructor cannot construct and object</p>
+</blockquote>
+<p>Never throw while holding a resource <strong>not</strong> owned by a handle</p>
+<blockquote>
+<p>Never leak</p>
+</blockquote>
+<p>In general</p>
+<blockquote>
+<p>Leave established invariants intact when leaving a scope</p>
+</blockquote>
+<h2 id="Why-do-we-use-pointers"><a href="#Why-do-we-use-pointers" class="headerlink" title="Why do we use pointers?"></a>Why do we use pointers?</h2><p>And references,iterators,etc.<br>To represent ownership</p>
+<ul>
+<li><strong>Don’t Stop!</strong> Instead, use handles</li>
+</ul>
+<p>To reference resources</p>
+<ul>
+<li>from within a handle</li>
+</ul>
+<p>To represent positions</p>
+<ul>
+<li>Be careful</li>
+</ul>
+<p>To pass large amounts of data(into a function)</p>
+<ul>
+<li>E.g. pass by <strong>const</strong> reference</li>
+</ul>
+<p>To return large amount of data(out of a function)</p>
+<ul>
+<li><p>Don’t! Instead use move operations</p>
+<h2 id="How-to-get-a-lot-of-data-cheaply-out-of-a-function"><a href="#How-to-get-a-lot-of-data-cheaply-out-of-a-function" class="headerlink" title="How to get a lot of data cheaply out of a function?"></a>How to get a lot of data cheaply out of a function?</h2><p>Consider</p>
+</li>
+<li><p>factory functions</p>
+</li>
+<li><p>functions returning lots of objects</p>
+</li>
+</ul>
+<p>Return a pointer to a <strong>new</strong>‘d object?</p>
+<ul>
+<li>M* operator+(const M&amp;, const M&amp;);</li>
+<li>M* pm = m1 + m2;  //ugly: and who does the delete?</li>
+<li>M* q = *pm + m3;  //ugly: and who does the delete?</li>
+</ul>
+<p>Return a reference to a <strong>new</strong>‘d object?</p>
+<ul>
+<li>M&amp; operator+(const M&amp;, const M&amp;);</li>
+<li>M m = m1 + m2; //looks OK; but who does the delete? delete what?</li>
+</ul>
+<p>Pass a target object?</p>
+<ul>
+<li>void operator+(const M&amp;, const M&amp;, M&amp; result);</li>
+<li>M m;</li>
+<li>operator+(m1, m2, m); //ugly: We are regressing(退化,回归) towards assembly code(汇编代码)</li>
+</ul>
+<p><strong>conslusion</strong></p>
+<ul>
+<li><strong>Consider</strong><br>factory functions<br>functions returning lots of objects(in containers)</li>
+<li><strong>Return an object!</strong><br><code>M operator+(const M&amp;, const M&amp;);</code><br>How? Becase copies are expensive<br>Tricks to avoid copying are brittle<br>Tricks to avoid copying are not general</li>
+<li><strong>Return a handle</strong><br>sample and cheap<h3 id="Move-semantics"><a href="#Move-semantics" class="headerlink" title="Move semantics"></a>Move semantics</h3></li>
+<li>Direct support in C++11:Move constructor<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">Matrix</span>&#123;</span></span><br><span class="line">  Representation rep;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  Matrix(Matrix&amp;&amp; a) <span class="comment">//move constructor</span></span><br><span class="line">  &#123;</span><br><span class="line">    rep = a.rep; <span class="comment">//*this gets a's elements</span></span><br><span class="line">    a.rep = &#123;&#125;;  <span class="comment">//a becomes the empty Matrix</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">Matrix res = a + b;</span><br></pre></td></tr></table></figure></li>
+<li>Often, you can avoid writing copy and move operations<br>Easily avoid<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Matrix</span>&#123;</span></span><br><span class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; elem; <span class="comment">//elements here</span></span><br><span class="line">  <span class="comment">//...matrix access...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li>Matrix just “inherit” resource management from vector</li>
+<li>Copy and a move operations can often be implicitly generated from members<br>Good copy and move operations, e.g from the standard library</li>
+</ul>
+]]></content>
+      <categories>
+        <category>coding</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Several Design Patterns By C++</title>
+    <url>/2020/10/13/coding-several-design-patterns-by-cpp/</url>
+    <content><![CDATA[<h1 id="Strategy-Pattern"><a href="#Strategy-Pattern" class="headerlink" title="Strategy Pattern"></a>Strategy Pattern</h1><h2 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h2><ul>
+<li>Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from the clients that use it.</li>
+<li>Capture the abstraction in an interface, bury implementation details in derived classes.<a id="more"></a>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//By dexter @ 11/10/2020</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Strategy</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">Strategy</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">  <span class="keyword">virtual</span> ~Strategy()&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">exec</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  Strategy(<span class="keyword">const</span> Strategy&amp; rhs);</span><br><span class="line">  Strategy&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Strategy&amp; rhs);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteStrategyA</span> :</span> <span class="keyword">public</span> Strategy &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">ConcreteStrategyA</span><span class="params">()</span> : <span class="title">Strategy</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  ~ConcreteStrategyA() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">exec</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"ConcreteStrategyA::exec()"</span>&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  ConcreteStrategyA(<span class="keyword">const</span> ConcreteStrategyA&amp; rhs);</span><br><span class="line">  ConcreteStrategyA&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> ConcreteStrategyA&amp; rhs);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteStrategyB</span> :</span> <span class="keyword">public</span> Strategy &#123;</span><br><span class="line"> <span class="keyword">public</span>: </span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">ConcreteStrategyB</span><span class="params">()</span> : <span class="title">Strategy</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  ~ConcreteStrategyB()&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">exec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"ConcreteStrategyB::exec()"</span>&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>: </span><br><span class="line">  ConcreteStrategyB(<span class="keyword">const</span> ConcreteStrategyB&amp; rhs);</span><br><span class="line">  ConcreteStrategyB&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> ConcreteStrategyB&amp; rhs);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Context</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">Context</span><span class="params">(Strategy* strategy)</span> : <span class="title">strategy_</span><span class="params">(strategy)</span></span>&#123;&#125;</span><br><span class="line">  ~Context()&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">setSetrategy</span><span class="params">(Strategy* strategy)</span> </span>&#123;</span><br><span class="line">    strategy_ = strategy;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">exec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    strategy_-&gt;exec();</span><br><span class="line">  &#125;</span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  Context(<span class="keyword">const</span> Context&amp; rhs);</span><br><span class="line">  Context&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Context&amp; rhs);</span><br><span class="line"></span><br><span class="line">  Strategy* strategy_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  ConcreteStrategyA stra_a;</span><br><span class="line">  ConcreteStrategyB stra_b;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">cerr</span>&lt;&lt;<span class="string">"set a strategy:\n"</span>;</span><br><span class="line">  <span class="function">Context <span class="title">cont</span><span class="params">(&amp;stra_a)</span></span>;</span><br><span class="line">  cont.exec();</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">cerr</span>&lt;&lt;<span class="string">"set a strategy:\n"</span>;</span><br><span class="line">  cont.setSetrategy(&amp;stra_b);</span><br><span class="line">  cont.exec();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+output:<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">set</span> a strategy:</span><br><span class="line">ConcreteStrategyA::<span class="built_in">exec</span>()</span><br><span class="line"><span class="built_in">set</span> a strategy:</span><br><span class="line">ConcreteStrategyB::<span class="built_in">exec</span>()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="Observer-Pattern"><a href="#Observer-Pattern" class="headerlink" title="Observer Pattern"></a>Observer Pattern</h1><p>Observer pattern is used when there is one-to-many relationship between objects such as if one object is modified, its dependent objects are to be notified automatically.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//By dexter @ 12/10/2020</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>: </span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">Observer</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  <span class="keyword">virtual</span> ~Observer() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  Observer(<span class="keyword">const</span> Observer&amp; rhs);</span><br><span class="line">  Observer&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Observer&amp; rhs);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteObserveA</span> :</span> <span class="keyword">public</span> Observer &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">ConcreteObserveA</span><span class="params">()</span> : <span class="title">Observer</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  ~ConcreteObserveA() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="built_in">std</span>::<span class="built_in">cerr</span>&lt;&lt;<span class="string">"ConcreteObserveA::update\n"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>: </span><br><span class="line">  ConcreteObserveA(<span class="keyword">const</span> ConcreteObserveA&amp; rhs);</span><br><span class="line">  ConcreteObserveA&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> ConcreteObserveA&amp; rhs);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteObserveB</span> :</span> <span class="keyword">public</span> Observer &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">ConcreteObserveB</span><span class="params">()</span> : <span class="title">Observer</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  ~ConcreteObserveB() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="built_in">std</span>::<span class="built_in">cerr</span>&lt;&lt;<span class="string">"ConcreteObserveB::update\n"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>: </span><br><span class="line">  ConcreteObserveB(<span class="keyword">const</span> ConcreteObserveB&amp; rhs);</span><br><span class="line">  ConcreteObserveB&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> ConcreteObserveB&amp; rhs);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Subject</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">Subject</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  <span class="keyword">virtual</span> ~Subject() &#123;&#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">registerObserver</span><span class="params">(Observer* observer)</span> </span>= <span class="number">0</span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">removeObserver</span><span class="params">(Observer* observer)</span> </span>= <span class="number">0</span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">notifyObserver</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  Subject(<span class="keyword">const</span> Subject&amp; rhs);</span><br><span class="line">  Subject&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Subject&amp; rhs);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteSubjectA</span> :</span> <span class="keyword">public</span> Subject &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">ConcreteSubjectA</span><span class="params">()</span> : <span class="title">Subject</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  ~ConcreteSubjectA() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">registerObserver</span><span class="params">(Observer* observer)</span> </span>&#123;</span><br><span class="line">      observer_list_.push_back(observer);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">removeObserver</span><span class="params">(Observer* observer)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">auto</span> it = observer_list_.begin(); it != observer_list_.end(); it++)&#123;</span><br><span class="line">          <span class="keyword">if</span>(*it == observer)&#123;</span><br><span class="line">              observer_list_.erase(it);</span><br><span class="line">              <span class="keyword">return</span>;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">notifyObserver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">auto</span> it = observer_list_.begin(); it != observer_list_.end(); it++)&#123;</span><br><span class="line">          (*it)-&gt;update();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  ConcreteSubjectA(<span class="keyword">const</span> ConcreteSubjectA&amp; rhs);</span><br><span class="line">  ConcreteSubjectA&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> ConcreteSubjectA&amp; rhs);</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Observer*&gt; observer_list_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ConcreteObserveA obser_a;</span><br><span class="line">    ConcreteObserveB obser_b;</span><br><span class="line">    ConcreteSubjectA suba;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cerr</span>&lt;&lt;<span class="string">"add  two observer and update:\n"</span>;</span><br><span class="line">    suba.registerObserver(&amp;obser_a);</span><br><span class="line">    suba.registerObserver(&amp;obser_b);</span><br><span class="line">    suba.notifyObserver();</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"remove obser_a and update:\n"</span>;</span><br><span class="line"></span><br><span class="line">    suba.removeObserver(&amp;obser_a);</span><br><span class="line">    suba.notifyObserver();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">add  two observer and update:</span><br><span class="line">ConcreteObserveA::update</span><br><span class="line">ConcreteObserveB::update</span><br><span class="line">remove obser_a and update:</span><br><span class="line">ConcreteObserveB::update</span><br></pre></td></tr></table></figure>
+
+<h1 id="Decorator-Pattern"><a href="#Decorator-Pattern" class="headerlink" title="Decorator Pattern"></a>Decorator Pattern</h1><p>Decorator pattern allows a user to add new functionality to an existing object without altering its structure. This type of design pattern comes under structural pattern as this pattern acts as a wrapper to existing class.<br>This pattern creates a decorator class which wraps the original class and privides additional functionality keeping class methods signature inact;</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//By dexter @ 12/10/2020</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Component</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">Component</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  Component(<span class="keyword">const</span> Component&amp; rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  Component&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Component&amp; rhs) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">virtual</span> ~Component() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">methodA</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">methodB</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteComponentA</span> :</span> <span class="keyword">public</span> Component &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  ConcreteComponentA() : Component() &#123;&#125;</span><br><span class="line">  ~ConcreteComponentA() &#123;&#125;</span><br><span class="line">  ConcreteComponentA(<span class="keyword">const</span> ConcreteComponentA&amp; rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  ConcreteComponentA&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> ConcreteComponentA&amp; rhs) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">methodA</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"ConcreteComponentA methodA"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">methodB</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"ConcreteComponentA methodB"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Decorator</span> :</span> <span class="keyword">public</span> Component &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  Decorator(<span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Component&gt; component) : component_(component) &#123;&#125;</span><br><span class="line">  ~Decorator() &#123;&#125;</span><br><span class="line">  Decorator(<span class="keyword">const</span> Decorator&amp; rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  Decorator&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Decorator&amp; rhs) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">methodA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> component_-&gt;methodA();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">methodB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> component_-&gt;methodB();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line"> <span class="keyword">protected</span>:</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Component&gt; component_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteDecoratorA</span> :</span> <span class="keyword">public</span> Decorator &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  ConcreteDecoratorA(<span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Component&gt; component) : Decorator(component) &#123;&#125;</span><br><span class="line">  ~ConcreteDecoratorA() &#123;&#125;</span><br><span class="line">  ConcreteDecoratorA(<span class="keyword">const</span> ConcreteDecoratorA&amp; rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  ConcreteDecoratorA&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> ConcreteDecoratorA&amp; rhs) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">methodA</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> component_-&gt;methodA() + <span class="string">"  ConcreteDecoratorA methodA"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">methodB</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> component_-&gt;methodB() + <span class="string">"  ConcreteDecoratorA methodB"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteDecoratorB</span> :</span> <span class="keyword">public</span> Decorator &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  ConcreteDecoratorB(<span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Component&gt; component) : Decorator(component) &#123;&#125;</span><br><span class="line">  ~ConcreteDecoratorB() &#123;&#125;</span><br><span class="line">  ConcreteDecoratorB(<span class="keyword">const</span> ConcreteDecoratorB&amp; rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  ConcreteDecoratorB&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> ConcreteDecoratorB&amp; rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">methodA</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> component_-&gt;methodA() + <span class="string">"  ConcreteDecoratorB methodA"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">methodB</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> component_-&gt;methodB() + <span class="string">"  ConcreteDecoratorB methodB"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;ConcreteComponentA&gt; ptr_component_a = <span class="built_in">std</span>::make_shared&lt;ConcreteComponentA&gt;();</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; ptr_component_a-&gt;methodA() &lt;&lt; <span class="string">", "</span> &lt;&lt; ptr_component_a-&gt;methodB() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;ConcreteDecoratorA&gt; ptr_decorator_a = <span class="built_in">std</span>::make_shared&lt;ConcreteDecoratorA&gt;(</span><br><span class="line">      ptr_component_a);</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; ptr_decorator_a-&gt;methodA() &lt;&lt; <span class="string">", "</span> &lt;&lt; ptr_decorator_a-&gt;methodB() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;ConcreteDecoratorB&gt; ptr_decorator_b = <span class="built_in">std</span>::make_shared&lt;ConcreteDecoratorB&gt;(</span><br><span class="line">      ptr_component_a);</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; ptr_decorator_b-&gt;methodA() &lt;&lt; <span class="string">", "</span> &lt;&lt; ptr_decorator_b-&gt;methodB() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;ConcreteDecoratorB&gt; ptr_decorator_a_b = <span class="built_in">std</span>::make_shared&lt;ConcreteDecoratorB&gt;(</span><br><span class="line">      ptr_decorator_a);</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; ptr_decorator_a_b-&gt;methodA() &lt;&lt; <span class="string">", "</span> &lt;&lt; ptr_decorator_a_b-&gt;methodB() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ConcreteComponentA methodA, ConcreteComponentA methodB</span><br><span class="line">ConcreteComponentA methodA  ConcreteDecoratorA methodA, ConcreteComponentA methodB  ConcreteDecoratorA methodB</span><br><span class="line">ConcreteComponentA methodA  ConcreteDecoratorB methodA, ConcreteComponentA methodB  ConcreteDecoratorB methodB</span><br><span class="line">ConcreteComponentA methodA  ConcreteDecoratorA methodA  ConcreteDecoratorB methodA, ConcreteComponentA methodB  ConcreteDecoratorA methodB  ConcreteDecoratorB methodB</span><br></pre></td></tr></table></figure>
+<h1 id="Factory-Pattern"><a href="#Factory-Pattern" class="headerlink" title="Factory Pattern"></a>Factory Pattern</h1><p>The factory pattern is a creational pattern that uses factory methods to deal with the problem of creating objects without having to specify the exact calss of the object that will be created. This is done by creating objects by calling a factory method, either specified in an interface and implemented by child classes, or implemented in a base class and optionally overridden by derived classes rather than by calling a constructor.<br>According to the type of problems, there are three kinds of <code>Factory Pattern</code>:</p>
+<ul>
+<li>Simple Factory</li>
+<li>Normal Factory</li>
+<li>Abstract Factory</li>
+</ul>
+<h2 id="Simple-Factory"><a href="#Simple-Factory" class="headerlink" title="Simple Factory"></a>Simple Factory</h2><p>Simple Factory defines a method to create an object. It voilates the <code>Open/close Principle(OCP)</code></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//By dexter @ 13/10/2020</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">Product</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  <span class="keyword">virtual</span> ~Product() &#123;&#125;</span><br><span class="line">  Product(<span class="keyword">const</span> Product &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  Product &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> Product &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteProductA</span> :</span> <span class="keyword">public</span> Product &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">ConcreteProductA</span><span class="params">()</span>  : <span class="title">Product</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  ~ConcreteProductA() &#123;&#125;</span><br><span class="line">  ConcreteProductA(<span class="keyword">const</span> ConcreteProductA &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  ConcreteProductA &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> ConcreteProductA &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="built_in">std</span>::<span class="built_in">cerr</span>&lt;&lt;<span class="string">"ConcreteProductA is called..."</span>&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteProductB</span> :</span> <span class="keyword">public</span> Product &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">ConcreteProductB</span><span class="params">()</span>  : <span class="title">Product</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  ~ConcreteProductB() &#123;&#125;</span><br><span class="line">  ConcreteProductB(<span class="keyword">const</span> ConcreteProductB &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  ConcreteProductB &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> ConcreteProductB &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="built_in">std</span>::<span class="built_in">cerr</span>&lt;&lt;<span class="string">"ConcreteProductB is called..."</span>&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factory</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  Factory() &#123;&#125;</span><br><span class="line">  ~Factory() &#123;&#125;</span><br><span class="line">  Factory(<span class="keyword">const</span> Factory &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  Factory &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> Factory &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Product&gt; <span class="title">createProduct</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;product)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(product == <span class="string">"A"</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="built_in">std</span>::make_shared&lt;ConcreteProductA&gt;();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(product == <span class="string">"B"</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="built_in">std</span>::make_shared&lt;ConcreteProductB&gt;();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Factory factory;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Product&gt; product_a = factory.createProduct(<span class="string">"A"</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Product&gt; product_b = factory.createProduct(<span class="string">"B"</span>);</span><br><span class="line"></span><br><span class="line">    product_a-&gt;operation();</span><br><span class="line">    product_b-&gt;operation();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ConcreteProductA is called...</span><br><span class="line">ConcreteProductB is called...</span><br></pre></td></tr></table></figure>
+
+<h2 id="Normal-Factory"><a href="#Normal-Factory" class="headerlink" title="Normal Factory"></a>Normal Factory</h2><p>Normal Factory not only encapsulates the creation of object but also put the creation of object into derived class. It only provides the method of creating objects, and the realization is in <code>ConcreteFactory</code>.<br>Disadvantage: the addition of factory object will cause the increasing of classes.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//By dexter @ 13/10/2020</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span>&#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">Product</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  <span class="keyword">virtual</span> ~Product() &#123;&#125;</span><br><span class="line">  Product(<span class="keyword">const</span> Product &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  Product &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> Product &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteProductA</span> :</span> <span class="keyword">public</span> Product &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">ConcreteProductA</span><span class="params">()</span> : <span class="title">Product</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  ~ConcreteProductA() &#123;&#125;</span><br><span class="line">  ConcreteProductA(<span class="keyword">const</span> ConcreteProductA &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  ConcreteProductA &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> ConcreteProductA &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="built_in">std</span>::<span class="built_in">cerr</span>&lt;&lt;<span class="string">"ConcreteProductA is called..."</span>&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteProductB</span> :</span> <span class="keyword">public</span> Product &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">ConcreteProductB</span><span class="params">()</span> : <span class="title">Product</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">  ~ConcreteProductB() &#123;&#125;</span><br><span class="line">  ConcreteProductB(<span class="keyword">const</span> ConcreteProductB &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  ConcreteProductB &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> ConcreteProductB &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="built_in">std</span>::<span class="built_in">cerr</span>&lt;&lt;<span class="string">"ConcreteProductB is called..."</span>&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factory</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">Factory</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  <span class="keyword">virtual</span> ~Factory() &#123;&#125;</span><br><span class="line">  Factory(<span class="keyword">const</span> Factory &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  Factory &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> Factory &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Product&gt; <span class="title">createProduct</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteFactoryA</span> :</span> <span class="keyword">public</span> Factory &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">ConcreteFactoryA</span><span class="params">()</span> : <span class="title">Factory</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  ~ConcreteFactoryA() &#123;&#125;</span><br><span class="line">  ConcreteFactoryA(<span class="keyword">const</span> ConcreteFactoryA &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  ConcreteFactoryA &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> ConcreteFactoryA &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Product&gt; <span class="title">createProduct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">std</span>::make_shared&lt;ConcreteProductA&gt;();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteFactoryB</span> :</span> <span class="keyword">public</span> Factory &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">ConcreteFactoryB</span><span class="params">()</span> : <span class="title">Factory</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  ~ConcreteFactoryB() &#123;&#125;</span><br><span class="line">  ConcreteFactoryB(<span class="keyword">const</span> ConcreteFactoryB &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line">  ConcreteFactoryB &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> ConcreteFactoryB &amp;rhs) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Product&gt; <span class="title">createProduct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">std</span>::make_shared&lt;ConcreteProductB&gt;();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> factor_a = <span class="built_in">std</span>::make_shared&lt;ConcreteFactoryA&gt;();</span><br><span class="line">    <span class="keyword">auto</span> product_a = factor_a-&gt;createProduct();</span><br><span class="line">    product_a-&gt;operation();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> factor_b = <span class="built_in">std</span>::make_shared&lt;ConcreteFactoryB&gt;();</span><br><span class="line">    <span class="keyword">auto</span> product_b = factor_b-&gt;createProduct();</span><br><span class="line">    product_b-&gt;operation();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ConcreteProductA is called...</span><br><span class="line">ConcreteProductB is called...</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>coding</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Terminator Shortcuts Usage</title>
+    <url>/2020/10/30/tools-usage-ros/</url>
+    <content><![CDATA[<ul>
+<li><p><strong>compile command</strong><br>compile all modules<br><code>colcon build --cmake-args -DCMAKE_BUILD_TYPE=Debug Release</code><br>compile special module<br><code>colcon build --packages-select ekf_localizer</code></p>
+</li>
+<li><p><strong>open rviz using special rviz config</strong><br><code>rviz -d ./data/ces_mapping.rviz</code></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>tools</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Note after reading paper of loam</title>
+    <url>/2020/11/09/paper-slam-loam/</url>
+    <content><![CDATA[<h3 id="Assume"><a href="#Assume" class="headerlink" title="Assume"></a>Assume</h3><ul>
+<li>lidar is pre-calibrated</li>
+<li>angular and linear velocities of the lidar are smooth and continuous over time without abrupt changes</li>
+</ul>
+<h3 id="Feature-Point-Extraction"><a href="#Feature-Point-Extraction" class="headerlink" title="Feature Point Extraction"></a>Feature Point Extraction</h3><p>we select feature point that are on sharp edges and planar surface patches, Let $i$ be a point in $P_k$, and let $S$ be the set of consecutive points of $i$ returned by the laser scanner in the same scan.</p>
+<ol>
+<li><p>Calculate the smoothness <strong>$c$</strong> of the local surface at point i, where $i \in P_k$<br>$$<br>c = \frac{1}{|S|\cdot|X^L_{(k,i)}|}\cdot|\sum_{j\in S,j\neq i}(X^L_{(k,i)} - X^L_{(k,j)})|\tag{1}<br>$$</p>
+</li>
+<li><p>The points in a scan are sorted based on the $c$ values.<br>To evenly distribute the feature points within the environment,we separate a scan to four identical subregions.Each subregion can provide maximally 2 edge points and 4 planar points<br>$$<br>bool(c)=<br>\begin{cases}<br>c &gt; threshold, &amp;  \text{dege points} \<br>c &lt; threshold, &amp;  \text{planar points}<br>\end{cases}<br>$$</p>
+<ul>
+<li>we try to avoid points whose surrounded points are selected,or points on local planar surfaces that are roughly parallel to the laser beams are usually considered as unreliable.</li>
+<li>we also try to avoid points that are on boundary of occluded regions</li>
+</ul>
+</li>
+</ol>
+<p><strong>Conclusion</strong><br>feature points are selected as edge points starting from the maximum $c$ value, and planar points starting from the minimum $c$ value, and if a point is selected,</p>
+<ul>
+<li><p>The number of selected edge points or planar points cannot exceed the maximum of the subregion</p>
+</li>
+<li><p>None of its surrounding point is already selected</p>
+</li>
+<li><p>It cannot be on a surface patch that is roughly parallel to the laser beam, or on boundary of an occluded region.</p>
+<h3 id="Find-Feature-Point-Correspondence"><a href="#Find-Feature-Point-Correspondence" class="headerlink" title="Find Feature Point Correspondence"></a>Find Feature Point Correspondence</h3><p>The odometry algorithm estimates motion of the lidar within a sweep(frame),Let $t_k$be  the starting  time of a sweep $k$. At the end of each sweep, the point cloud perceived during the sweep,$P_k$, is reprojected to time stamp $t_{k+1}$.we denote the reprojected sweep(frame) as $\bar{P_{k}}$.During the next sweep $k+1$, $\bar{P_{k}}$ is used together with the newly received point cloud $P_{k+1}$, to estimate the motion of the lidar.</p>
+<table>
+<thead>
+<tr>
+<th align="left">raw frame</th>
+<th align="left">corrected frame</th>
+<th align="left">edge pts</th>
+<th align="left">planar pts</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$P_k$<br>during [$t_k,t_{k+1}$]</td>
+<td align="left">$\bar{P}<em>k$<br>by reprojected $P_k$to timesatmp $t</em>{k+1}$</td>
+<td align="left">$\mathcal{E}_k$<br>edge pts from$\bar{P}_k$</td>
+<td align="left">$\mathcal{H}_k$<br>planar pts from$\bar{P}_k$</td>
+</tr>
+<tr>
+<td align="left">$P_{k+1}$<br>during [$t_{k+1},t_{k+2}$]</td>
+<td align="left">$\bar{P}<em>{k+1}$<br>by reprojected $P</em>{k+1}$to timesatmp $t_{k+1}$</td>
+<td align="left">$\mathcal{E}<em>{k+1}$<br>edge pts from$\bar{P}</em>{k+1}$</td>
+<td align="left">$\mathcal{H}<em>{k+1}$<br>planar pts from$\bar{P}</em>{k+1}$</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>Source of Feature Points</p>
+<ul>
+<li>At each iteration,$\mathcal{E}<em>{k+1}$ and $\mathcal{H}</em>{k+1}$ are reprojected point sets at the beginning of the sweep $\bar{P}_{k+1}$by using currently estimated transform.</li>
+<li>For each point in $\mathcal{E}<em>{k+1}$ and $\mathcal{H}</em>{k+1}$,we are going to find the closest neighbor point in $\bar{P}_k$,which is stored in a 3D KD-tree for fast index.</li>
+</ul>
+</li>
+<li><p>Find the closest points in $\mathcal{E}<em>{k}$ and $\mathcal{H}</em>{k}$ for each point of $\mathcal{E}<em>{k+1}$ and $\mathcal{H}</em>{k+1}$</p>
+<ul>
+<li><p>find closest edge points in $\mathcal{E}<em>{k}$ for each point of $\mathcal{E}</em>{k+1}$<br>let $X^L_{(k+1,i)}$denote the point $\mathcal{i} \in \mathcal{E}_{k+1}$,which is in LidarCoordinateSystem{$L$}<br>the edge line is represented by two points,points $j \in \mathcal{E}_k$ and $l \in \mathcal{E}_k$ are closest neighbor of $i$ in consecutive scans.<br><strong>Notice</strong> we particularly require that $j$ and $l$ are from different scans considering that a single scan cannot contain more than one points from the same dege line</p>
+</li>
+<li><p>find closest planar points in $\mathcal{H}<em>{k}$ for each point of $\mathcal{H}</em>{k+1}$<br>the planar patch is represented by three points,similar to last,we find the closest neighbor of $i$ in $\bar{P}_k$,denote as $j$,$l$,$m$<br><strong>Notice</strong> about $j$,$l$,$m$,two of them are on the same scan, another is in consecutive scans,This guarantees that the three points are <strong>non-collinear</strong></p>
+</li>
+<li><p>compute the distance between every feature point of $\bar{P}<em>{k+1}$ to the closest neighbor points of $\bar{P}</em>{k}$<br><strong>Notice</strong> all points in the formula ($\mathcal{2}$) and ($\mathcal{3}$) is the coordinates in {$L$}.<br>$$<br>d\varepsilon = \frac{|(\widetilde{X}^L_{(k+1,i)}- \bar{X}^L_{(k,j)})\times (\widetilde{X}^L_{(k+1,i)}- \bar{X}^L_{(k,l)})|}{|\bar{X}^L_{(k,j)} - \bar{X}^L_{(k,l)}|} .\text{distance of point to line} \tag{2}<br>$$<br>$$<br>d_{\mathcal{H}} = \frac{|(\widetilde{X}^L_{(k+1, i)} - \bar{X}^L_{(k,j)})\cdot((\bar{X}^L_{(k,j)} - \bar{X}^L_{(k,l)})\times(\bar{X}^L_{(k,j)} - \bar{X}^L_{(k,m)}))|}<br>{|(\bar{X}^L_{(k,l)} - \bar{X}^L_{(k,j)})\times(\bar{X}^L_{(k,m)} - \bar{X}^L_{(k,j)})|}.\text{distance of point to planar}\tag{3}<br>$$</p>
+</li>
+<li><p>Motion Estimation TODO</p>
+<ul>
+<li>Corrected every point for a sweep</li>
+<li>Motion estimation between two consecutive sweep</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>paper</category>
+      </categories>
+  </entry>
+</search>
