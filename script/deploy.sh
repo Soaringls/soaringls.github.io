@@ -8,6 +8,7 @@ HEXO_DIR=$(cd $(dirname $0); pwd)/..
 echo "dir: "$HEXO_DIR
 # src filse
 cd ${HEXO_DIR}
+pwd
 git add .
 commit_msg=$(date "+%Y.%m.%d %H:%M:%S")
 git commit -m "update note $commit_msg"
