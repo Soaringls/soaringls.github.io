@@ -264,7 +264,8 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
   <entry>
     <title>Bjarne Strooustrup:The Essence of C++</title>
     <url>/2020/10/25/coding-the-essence-of-c/</url>
-    <content><![CDATA[<h2 id="What-did-do-I-want"><a href="#What-did-do-I-want" class="headerlink" title="What did/do I want?"></a>What did/do I want?</h2><p>Type safety</p>
+    <content><![CDATA[<a id="more"></a>
+<h2 id="What-did-do-I-want"><a href="#What-did-do-I-want" class="headerlink" title="What did/do I want?"></a>What did/do I want?</h2><p>Type safety</p>
 <ul>
 <li>Encapsulate necessary unsafe operations</li>
 </ul>
@@ -518,25 +519,29 @@ output:<figure class="highlight sh"><table><tr><td class="code"><pre><span class
 <th>method</th>
 <th>strength</th>
 <th>weakness</th>
+<th>IMU</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>loam</td>
 <td>–low-drift and real-time<br>–correct the motion distortion of pointcloud<br>–feature-based scan matching: edge with edge and planar with planar to ensure fats computation becase of its less computational resources requirement<br>–good strategy: coarse processing  at high frequency to estimate veocity, fine processing at low frequency to create map</td>
 <td>–saving data in a global voxel map,online optimization process will less efficient when the global voxel map becomes dense in a feature-rich areas<br>–difficult to perform loop closure detection and incorporate other absolute measurements,e.g GPS for pose correction<br>–loam suffers from drift in large-scale test, as it is a scan-matching based method at its core<br>–not very universal to different lidars:the method of extracting features are integrated with the rotating lidar tightly</td>
+<td>–de-skew the lidar scan,that is motion compensator<br>–provide a motion prior for scan-matching<br>–<strong>loosely-coupled</strong>:IMU is not involved in the optimization process of the algorithm</td>
 </tr>
 <tr>
 <td>lego-loam</td>
 <td>–lightweight and ground-optimized lidar odom<br>–two step L-M optimization computes pose transformation separately<br>–add loop closure</td>
 <td></td>
+<td>same as loam</td>
 </tr>
 <tr>
 <td>lio-sam</td>
 <td>–a tightly-coupled lidar inertial odometry framework built atop a factor graph,which is suitable for multi-sensor fusion and global optimization<br>–an efficient,local sliding window-based scan-matching approach that enables real-time performance by registering selectively chosen new keyframes to a fixed-size set of prior sub-keyframes</td>
 <td></td>
+<td></td>
 </tr>
 </tbody></table>
-<h2 id="lidar-motion-compensator"><a href="#lidar-motion-compensator" class="headerlink" title="lidar motion compensator"></a>lidar motion compensator</h2><p>A scan’s point cloud is often skewed because of the rotation mechanism of modern 3D lidar and sensor motion.Solely using lidar for pose estimation is not ideal since registration using skewed pointclouds or features will eventually cause large drift.</p>
+<h2 id="lidar-motion-compensator"><a href="#lidar-motion-compensator" class="headerlink" title="lidar motion compensator"></a>lidar motion compensator</h2><p>A scan’s point cloud is often skewed because of the rotation mechanism of modern 3D lidar and sensor motion.Solely using lidar for pose estimation is not ideal since registration using skewed pointclouds or features will eventually cause large drift.<br>Therefore, lidar is typically  used in conjunction with other sensors, such as GPS and IMU, for state estimation and ampping.</p>
 <h1 id="LOAM"><a href="#LOAM" class="headerlink" title="LOAM"></a>LOAM</h1><h2 id="Assume"><a href="#Assume" class="headerlink" title="Assume"></a>Assume</h2><ul>
 <li>lidar is pre-calibrated</li>
 <li>angular and linear velocities of the lidar are smooth and continuous over time without abrupt changes</li>
@@ -614,5 +619,14 @@ output:<figure class="highlight sh"><table><tr><td class="code"><pre><span class
       <categories>
         <category>paper</category>
       </categories>
+  </entry>
+  <entry>
+    <title>Integration IMU</title>
+    <url>/2020/07/08/autonomous-integration-imu/</url>
+    <content><![CDATA[<p>The measurements of angular volocity and acceleration from an IMU are defined using Eqs below<br>$$<br>\hat{w}<em>t = w_t + b^w_t + n^w_t \tag 1<br>$$<br>$$<br>\hat{a}_t = R^{BW}_t + b^a_t + n^a_t \tag 2<br>$$<br>| state           | 角速度                                                                                                  | 加速度                                                                                                                                                                                                                                                                    |<br>| ————— | ——————————————————————————————————- | ————————————————————————————————————————————————————————————————————————————————————————- |<br>| 原始值          | $\hat{w}_t$                                                                                             | $\hat{a}_t$                                                                                                                                                                                                                                                               |<br>| 偏置            | $bias^w_t$                                                                                              | $bias^a_t$                                                                                                                                                                                                                                                                |<br>| <strong>corrected</strong>   | $w^c_t=\hat{w}_t - bias^w_t$                                                                            | $a^c_t=\hat{a}_t - bias^a_t$                                                                                                                                                                                                                                              |<br>| <strong>update bias</strong> | $bias^w_t = bias^w</em>{t-1}$                                                                               | $bias^a_t = bias^a_{t-1}$                                                                                                                                                                                                                                                 |<br>| <strong>update pose</strong> | $tf_{imu} = \mathcal{R}^{\frac{w^c_t + w^c_{t-1}}{2}\cdot \Delta t}$<br/> $R_t = R_{t-1}\cdot tf_{imu}$ | ENU系下$dv=R \cdot a^c_t + g$<br> as for g,imu-z up g=-9.8,down g=9.8<br> 加速度: $\mathcal{dv}=\frac{R_t \cdot a^c_t + R_{t-1} \cdot a^c_{t-1}}{2} + g$<br> 速度: $v_t = v_{t-1} + dv \cdot \Delta t$<br> 位置: $P_t = P_{t-1} + \frac{v_t + v_{t-1}}{2} \cdot \Delta t$ |</p>
+]]></content>
+      <tags>
+        <tag>autonomous</tag>
+      </tags>
   </entry>
 </search>

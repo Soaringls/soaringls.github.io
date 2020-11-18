@@ -28,7 +28,7 @@
 <meta property="og:description" content="this blog conclud from loam(Ji Zhang),LeGO-LOAM&amp;LIO-SAM(Tixiao Shan)State estimation, localization and mapping are fundamental prerequisites for a successful intelligent mobile robot,required for">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-10-09T02:29:34.000Z">
-<meta property="article:modified_time" content="2020-11-11T07:00:43.315Z">
+<meta property="article:modified_time" content="2020-11-17T08:42:39.813Z">
 <meta property="article:author" content="Dexter">
 <meta property="article:tag" content="blog">
 <meta property="article:tag" content=" notes">
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-11 15:00:43" itemprop="dateModified" datetime="2020-11-11T15:00:43+08:00">2020-11-11</time>
+                <time title="Modified: 2020-11-17 16:42:39" itemprop="dateModified" datetime="2020-11-17T16:42:39+08:00">2020-11-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,25 +274,29 @@
 <th>method</th>
 <th>strength</th>
 <th>weakness</th>
+<th>IMU</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>loam</td>
 <td>–low-drift and real-time<br>–correct the motion distortion of pointcloud<br>–feature-based scan matching: edge with edge and planar with planar to ensure fats computation becase of its less computational resources requirement<br>–good strategy: coarse processing  at high frequency to estimate veocity, fine processing at low frequency to create map</td>
 <td>–saving data in a global voxel map,online optimization process will less efficient when the global voxel map becomes dense in a feature-rich areas<br>–difficult to perform loop closure detection and incorporate other absolute measurements,e.g GPS for pose correction<br>–loam suffers from drift in large-scale test, as it is a scan-matching based method at its core<br>–not very universal to different lidars:the method of extracting features are integrated with the rotating lidar tightly</td>
+<td>–de-skew the lidar scan,that is motion compensator<br>–provide a motion prior for scan-matching<br>–<strong>loosely-coupled</strong>:IMU is not involved in the optimization process of the algorithm</td>
 </tr>
 <tr>
 <td>lego-loam</td>
 <td>–lightweight and ground-optimized lidar odom<br>–two step L-M optimization computes pose transformation separately<br>–add loop closure</td>
 <td></td>
+<td>same as loam</td>
 </tr>
 <tr>
 <td>lio-sam</td>
 <td>–a tightly-coupled lidar inertial odometry framework built atop a factor graph,which is suitable for multi-sensor fusion and global optimization<br>–an efficient,local sliding window-based scan-matching approach that enables real-time performance by registering selectively chosen new keyframes to a fixed-size set of prior sub-keyframes</td>
 <td></td>
+<td></td>
 </tr>
 </tbody></table>
-<h2 id="lidar-motion-compensator"><a href="#lidar-motion-compensator" class="headerlink" title="lidar motion compensator"></a>lidar motion compensator</h2><p>A scan’s point cloud is often skewed because of the rotation mechanism of modern 3D lidar and sensor motion.Solely using lidar for pose estimation is not ideal since registration using skewed pointclouds or features will eventually cause large drift.</p>
+<h2 id="lidar-motion-compensator"><a href="#lidar-motion-compensator" class="headerlink" title="lidar motion compensator"></a>lidar motion compensator</h2><p>A scan’s point cloud is often skewed because of the rotation mechanism of modern 3D lidar and sensor motion.Solely using lidar for pose estimation is not ideal since registration using skewed pointclouds or features will eventually cause large drift.<br>Therefore, lidar is typically  used in conjunction with other sensors, such as GPS and IMU, for state estimation and ampping.</p>
 <h1 id="LOAM"><a href="#LOAM" class="headerlink" title="LOAM"></a>LOAM</h1><h2 id="Assume"><a href="#Assume" class="headerlink" title="Assume"></a>Assume</h2><ul>
 <li>lidar is pre-calibrated</li>
 <li>angular and linear velocities of the lidar are smooth and continuous over time without abrupt changes</li>
@@ -385,8 +389,8 @@
       <i class="fa fa-chevron-left"></i> tools python-matploglib
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/10/10/hello-world/" rel="next" title="Hello World">
-      Hello World <i class="fa fa-chevron-right"></i>
+    <a href="/2020/10/10/tools-devel-environment/" rel="next" title="tools-devel-environment">
+      tools-devel-environment <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -462,7 +466,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -475,7 +479,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
