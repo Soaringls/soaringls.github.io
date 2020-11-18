@@ -5,7 +5,7 @@ mathjax: true
 categories:
   - coding
 ---
-
+<!-- more -->
 ## What did/do I want?
 Type safety
 - Encapsulate necessary unsafe operations
