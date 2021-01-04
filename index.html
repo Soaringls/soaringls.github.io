@@ -188,6 +188,113 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/12/31/autonomous-kalman-filter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sunshine.jpg">
+      <meta itemprop="name" content="Dexter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notebook">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/31/autonomous-kalman-filter/" class="post-title-link" itemprop="url">Introduction of Kalman Filter</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-31 19:22:23" itemprop="dateCreated datePublished" datetime="2020-12-31T19:22:23+08:00">2020-12-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-04 15:43:28" itemprop="dateModified" datetime="2021-01-04T15:43:28+08:00">2021-01-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>The content mainly reference from <a href="https://blog.yongcong.wang/2020/10/29/autonomous/imm-for-prediction/" target="_blank" rel="noopener">yongcongwang’s IMM Prediction</a><br>The Kalman filter which was published by R.E.Kalman in 1960, is a set of mathematical equations that provides an efficient computational (recursive) means to estimate the state of a process, in a way that minimizes the mean of the squared error. The filter is very powerful in several aspects: it supports estimations of past, present, and even future states, and it can do so even when the precise nature of the modeled system is unknown.</p>
+<h2 id="The-process-to-be-estimated"><a href="#The-process-to-be-estimated" class="headerlink" title="The process to be estimated"></a>The process to be estimated</h2><p>The Kalman filter addressed the general problem of trying to estimate the state $x\in \Re^n$ of a discrete-time controlled process that is governed by the linear stochastic difference equation:<br>$$<br>x_k = Ax_{k-1} + Bu_{k-1} + w_{k-1} \qquad p(w) \sim N(0, Q) \tag{1}<br>$$<br>with a measurement $z \in \Re^m$ that is:<br>$$<br>z_k = Hx_k + v_k \qquad p(v) \sim N(0,R) \tag{2}<br>$$</p>
+<ul>
+<li>The $n*n$ matrix $A$ is <code>transition matrix</code> which relates the state at the previous time step $k-1$ to the state at the current step $k$, in the absence of either a driving function or process noise. Note that in practice $A$ might change with each time step, but here we assume it is constant.</li>
+<li>The $n *1$ matrix $B$ is <code>control matrix</code> which relates the optional control input $u \in \Re^l$ to the state $x$.</li>
+<li>The $m *n$ matrix $H$ is <code>measurement matrix</code> which relates the state to the measurement $z_k$. In practice $H$ might change with each time step, but here we also assume it is constant.</li>
+<li>The random variable $w_{k-1}$ and $v_k$ represent the process and measurement noise. They are assumed to be independent(of each other), it belongs to gauss-white noise with normal probability distributions. and $Q$ is <code>process noise covariance</code> and $R$ is <code>measurement noise covariance</code>, they might change with each time step, but we assume they are both constant.</li>
+</ul>
+<h2 id="The-computational-origin-of-the-filter"><a href="#The-computational-origin-of-the-filter" class="headerlink" title="The computational origin of the filter"></a>The computational origin of the filter</h2><p>We define $\hat{x}_k^- \in \Re^n$ to be our <code>priori state</code> estimate at step $k$ given knowledge of the process priori to step $k$ and $\hat{x}_k \in \Re^n$ to be our <code>posteriori state</code>  estimate at step $k$ given measurement $z_k$. we also define $x_k$ is the ground truth, then we can get a <code>priori</code> and a <code>posteriori</code> estimate errors as:<br>$$<br>prio\ estimate\ error: \ e_k^- \equiv x_k - \hat{x}_k^-   \tag{3}<br>$$<br>$$<br>post\ estimate\ error:\ e_k \equiv x_k - \hat{x}_k \tag{4}<br>$$<br>The <code>priori</code> estimate error covariance is:<br>$$<br>P_k^-  = E[e_k^-(e_k^-)^T] \tag{5}<br>$$<br>The <code>posteriori</code> estimate error covariance is:<br>$$<br>P_k = E[e_ke_k^T] \tag{6}<br>$$<br>In deriving the equation for the kalman filter, we begin with the goal of finding an equation that compute an <code>posteriori</code> state estimate $\hat{x}_k$ as a linear combination of the <code>priori</code> estimate $\hat{x}_k^-$ and a weighted difference between an actual measurement $z_k$ and a prediction of the measurement $H\hat{x}_k^-$ as show below:<br>$$<br>\hat{x}_k = \hat{x}_k^- + K(z_k - H\hat{x}_k^-) \tag7<br>$$<br>The difference $(z_k - H\hat{x}_k^-)$ is called the measurement <code>innovation</code> or <code>residual</code>. The residual reflects the discrepency bewteen the predicted measurement $H\hat{x}_k^-$ and the actual measurement $z_k$. A residual of zero means that the two are in complete agreement.<br>The $n*m$ matrix $K$ is chosen to be the <code>gain</code> or <code>blending factor</code> that minimizes the <code>posteriori</code> error covariance in (6).</p>
+<p>This minimization can be accomplished by:</p>
+<ol>
+<li>substituting (7) into the (4) and substituting that into (6);</li>
+<li>performing the indicated expectation;</li>
+<li>taking the derivative of the trace of the result with respect to $K$;</li>
+<li>setting the result equal to $0$ and then solving for $K$.<br>One form of the resulting $K$ that minimized (6) is:</li>
+</ol>
+<p>$$<br>\begin{aligned}<br>   K_k  &amp;= P_k^-H^T(HP_k^-H^T \ +\ R )^{-1} \\<br>        &amp;= \frac{P_k^-H^T}{HP_k^-H^T \ +\ R }<br>\end{aligned} \tag{8}<br>$$ </p>
+<p>Looking at (10) we see that as the measurement error covariance $R \to 0$, the gain $K$ weights the residual more heavily.Specially,<br>$$<br>\lim_{R_k \to 0}K_k = H^{-1} \tag{9}<br>$$<br>On the other hand, as the <code>priori estimate error covariance</code> $P_k^- \to 0$, the gain $K$ weights the residual less heavily.Specially,<br>$$<br>\lim_{P_k^- \to 0}K_k = 0 \tag{10}<br>$$</p>
+<p>Another way of thinking about the weighting by $K$ is that as the measurement error covariance $R \to 0$, the actual measurement $z_k$ is <code>more trusted</code>, while the predicted mesaurement $H\hat{x}_k^-$ is <code>less trusted</code>. On the other hand, as the <code>priori estimate error covariance</code> $P_k^- \to 0$, the actual measurement $z_k$ is <code>less trusted</code>, while the predicted measurement $H\hat{x}_k^-$ is <code>more trusted</code>.</p>
+<h2 id="The-discrete-Kalman-Filter-Algorithm"><a href="#The-discrete-Kalman-Filter-Algorithm" class="headerlink" title="The discrete Kalman Filter Algorithm"></a>The discrete Kalman Filter Algorithm</h2><p>The kalman filter estimate a process by using a form of feedback control: the filter estimates the process state at some time and then obtains feedback in the form of (noisy) measurement. As such, the equations for the Kalman filter falls into two groups:</p>
+<ul>
+<li><code>time update</code>(predict) equations;</li>
+<li><code>measurement update</code>(correct) equations;</li>
+</ul>
+<p>The <code>time update</code> equations are responsible for projecting forwar(in time) the current state and error covariance estimates to obtain the <code>prior</code> estimates for the next time step.</p>
+<p>The <code>measurement update</code> equations are responsible for the feedback, incorporating a new measurement into the <code>priori estimate</code> to obtain an improved <code>posterori</code> estimate.</p>
+<p>The final estimation algorithm resembles that of a <code>predictor-&gt;corrector</code> algorithm for solving numerical problems:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Time Update -----&gt; Measurement Update</span><br><span class="line"> (Predict)             (Correct)</span><br><span class="line">     ^                     |</span><br><span class="line">     |                     |</span><br><span class="line">     -----------------------</span><br></pre></td></tr></table></figure>
+<p>The specific equations for the <code>time update(predictor)</code> are:<br>$$<br>\hat{x}_k^- = A\hat{x}_{k-1} + Bu_{k-1} \tag{11}<br>$$<br>$$<br>P_k^- = AP_{k-1}A^T + Q \tag{12}<br>$$<br>where:</p>
+<ul>
+<li>$\hat{x}_{k-1}$ is the <code>posteriori</code> state from time step $k-1$; </li>
+<li>$u_{k-1}$ is the control from time step $k-1$;</li>
+<li>$\hat{x}_k^-$ is the <code>priori</code> state from time step $k$;</li>
+<li>$P_{k-1}$ is the <code>posterirori</code> estimate error covariance from time step $k-1$;</li>
+<li>$P_k^-$ is the <code>priori</code> estimate error covariance from time step $k$;</li>
+</ul>
+<p>The specific equations for the <code>measurement update(corrector)</code> are:<br>$$<br>K_k = P_k^-H^T \cdot (HP_k^-H^T + R)^{-1} \tag{13}<br>$$<br>$$<br>\hat{x}_k = \hat{x}_k^- + K_k\cdot (z_k - H\hat{x}_k^-) \tag{14}<br>$$<br>$$<br>P_k= (I - K_kH) \cdot P_k^- \tag{15}<br>$$<br>where:</p>
+<ul>
+<li>$K_k$ is the <code>gain</code> from time step $k$;</li>
+<li>$z_k$ is the actual measurement variable from time step $k$;</li>
+<li>$\hat{x}_k$ is the <code>posteriori</code> state from time step $k$;</li>
+<li>$P_k$ is the <code>posteriori</code> estimate error covariance from time step $k$;</li>
+</ul>
+<h2 id="Python-of-Kalman-Filter"><a href="#Python-of-Kalman-Filter" class="headerlink" title="Python of Kalman Filter"></a>Python of Kalman Filter</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">KalmanFilter</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, A, B, H, Q, R)</span>:</span></span><br><span class="line">        self.A = A</span><br><span class="line">        self.B = B</span><br><span class="line">        self.H = H</span><br><span class="line">        self.Q = Q</span><br><span class="line">        self.R = R</span><br><span class="line"></span><br><span class="line">        self.U = np.zeros((B.shape[<span class="number">1</span>], <span class="number">1</span>))</span><br><span class="line">        self.X = np.zeros((A.shape[<span class="number">0</span>], <span class="number">1</span>))</span><br><span class="line">        self.X_pre = self.X</span><br><span class="line">        self.P = np.zeros(A.shape)</span><br><span class="line">        self.P_pre = self.P</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, A, H)</span>:</span></span><br><span class="line">        self.A = A</span><br><span class="line">        self.X = np.zeros((A.shape[<span class="number">0</span>], <span class="number">1</span>))</span><br><span class="line">        self.B = np.eye(A.shape[<span class="number">0</span>])</span><br><span class="line">        self.U = np.zeros((self.B.shape[<span class="number">1</span>], <span class="number">1</span>))</span><br><span class="line">        self.Q = np.eye(A.shape[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">        self.H = H</span><br><span class="line">        self.R = np.eye(H.shape[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">        self.X_pre = self.X</span><br><span class="line">        self.P = np.zeros(A.shape)</span><br><span class="line">        self.P_pre = self.P</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">filt</span><span class="params">(self, Z)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        x = A*x + B*u +Q</span></span><br><span class="line"><span class="string">        y = H*x +     R</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.__predict()</span><br><span class="line">        self.__update(Z)</span><br><span class="line">        <span class="keyword">return</span> self.X</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__predict</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        x_next = A*x + B*u</span></span><br><span class="line"><span class="string">        P_next = A*P*AT + Q</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.X_pre = np.dot(self.A, self.X) + np.dot(self.B, self.U)</span><br><span class="line">        self.P_pre = np.dot(np.dot(self.A, self.P), self.A.T) + self.Q</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__update</span><span class="params">(self, Z)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        K = (P_next*HT) * (H*P_next*HT + R).inverse()</span></span><br><span class="line"><span class="string">        x = x_next + K*(z - H*x_next)</span></span><br><span class="line"><span class="string">        P = P_next - K*H*P_next</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        K = np.dot(np.dot(self.P_pre, self.H.T),</span><br><span class="line">                   np.linalg.inv(np.dot(np.dot(self.H, self.P_pre), self.H.T) +</span><br><span class="line">                                 self.R))</span><br><span class="line">        self.X = self.X_pre + np.dot(K, Z - np.dot(self.H, self.X_pre))</span><br><span class="line">        self.P = self.P_pre - np.dot(np.dot(K, self.H), self.P_pre)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/12/04/dairy-note-no-valience-chatting/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -882,6 +989,64 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/10/tools-devel-environment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sunshine.jpg">
+      <meta itemprop="name" content="Dexter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notebook">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/10/tools-devel-environment/" class="post-title-link" itemprop="url">tools-devel-environment</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-10 14:52:23" itemprop="dateCreated datePublished" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>依赖库下载</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#python</span></span><br><span class="line">wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz</span><br><span class="line"><span class="comment">#google-series</span></span><br><span class="line">wget https://github.com/google/googletest/archive/release-1.8.0.tar.gz</span><br><span class="line">wget https://github.com/gflags/gflags/archive/v2.2.0.tar.gz</span><br><span class="line">wget https://github.com/google/glog/archive/v0.3.5.tar.gz</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/10/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -930,64 +1095,6 @@
             </div>
           <!--/noindex-->
         
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/10/tools-devel-environment/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/10/tools-devel-environment/" class="post-title-link" itemprop="url">tools-devel-environment</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-10-10 14:52:23" itemprop="dateCreated datePublished" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>依赖库下载</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#python</span></span><br><span class="line">wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz</span><br><span class="line"><span class="comment">#google-series</span></span><br><span class="line">wget https://github.com/google/googletest/archive/release-1.8.0.tar.gz</span><br><span class="line">wget https://github.com/gflags/gflags/archive/v2.2.0.tar.gz</span><br><span class="line">wget https://github.com/google/glog/archive/v0.3.5.tar.gz</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -1325,215 +1432,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/tools-markdowon/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/08/tools-markdowon/" class="post-title-link" itemprop="url">usage of mathjax</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-10 15:26:55" itemprop="dateModified" datetime="2020-11-10T15:26:55+08:00">2020-11-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>花体字母$\mathcal{H}$</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/lidar-ethicp-usage/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/08/lidar-ethicp-usage/" class="post-title-link" itemprop="url">icp算法的20年</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-10 14:52:23" itemprop="dateModified" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>使用方法</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/08/lidar-ethicp-usage/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/coding-opencl/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/08/coding-opencl/" class="post-title-link" itemprop="url">OpenCL与CUDA  OpenCL与GPU</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-10 14:52:23" itemprop="dateModified" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>仅以记录工作上遇到的耽误了些许时间的哪些坑…</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/08/coding-opencl/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/math-multiple-of-vector/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1686,6 +1584,150 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/coding-opencl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sunshine.jpg">
+      <meta itemprop="name" content="Dexter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notebook">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/08/coding-opencl/" class="post-title-link" itemprop="url">OpenCL与CUDA  OpenCL与GPU</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-10 14:52:23" itemprop="dateModified" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>仅以记录工作上遇到的耽误了些许时间的哪些坑…</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/08/coding-opencl/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/c-template/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sunshine.jpg">
+      <meta itemprop="name" content="Dexter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notebook">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/08/c-template/" class="post-title-link" itemprop="url">c++-模板的使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-10 14:52:23" itemprop="dateModified" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>仅以记录工作上遇到的耽误了些许时间的哪些坑…</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/08/c-template/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/autonomous-integration-imu/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1786,7 +1828,7 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/c-template/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/tools-markdowon/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sunshine.jpg">
@@ -1800,7 +1842,7 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/08/c-template/" class="post-title-link" itemprop="url">c++-模板的使用</a>
+            <a href="/2020/07/08/tools-markdowon/" class="post-title-link" itemprop="url">usage of mathjax</a>
         </h2>
 
         <div class="post-meta">
@@ -1817,7 +1859,7 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-10 14:52:23" itemprop="dateModified" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
+                <time title="Modified: 2020-11-10 15:26:55" itemprop="dateModified" datetime="2020-11-10T15:26:55+08:00">2020-11-10</time>
               </span>
 
           
@@ -1831,15 +1873,8 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>仅以记录工作上遇到的耽误了些许时间的哪些坑…</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/08/c-template/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <p>花体字母$\mathcal{H}$</p>
+
       
     </div>
 
@@ -1925,7 +1960,7 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1973,7 +2008,7 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
 <div class="copyright">
   
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="user"></i>
   </span>
