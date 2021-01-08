@@ -8,7 +8,8 @@ categories:
 tags:
   - math
 ---
-
+note about operation of vector,such as dot and cross
+<!--more-->
 #### 向量点乘
 <!-- web-front not supprt \bold{a}, but support \mathbf{a} -->
 - 二维向量
