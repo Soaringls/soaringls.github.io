@@ -818,7 +818,9 @@ $$ -->
   <entry>
     <title>usage of vector&#39;s multi</title>
     <url>/2020/07/08/math-multiple-of-vector/</url>
-    <content><![CDATA[<h4 id="向量点乘"><a href="#向量点乘" class="headerlink" title="向量点乘"></a>向量点乘</h4><!-- web-front not supprt \bold{a}, but support \mathbf{a} -->
+    <content><![CDATA[<p>note about operation of vector,such as dot and cross</p>
+<a id="more"></a>
+<h4 id="向量点乘"><a href="#向量点乘" class="headerlink" title="向量点乘"></a>向量点乘</h4><!-- web-front not supprt \bold{a}, but support \mathbf{a} -->
 <ul>
 <li>二维向量<br>$$<br>\begin{aligned}<br>  \mathbf{\overrightarrow{a}} &amp;= a_1\mathbf{i}+a_2\mathbf{j}\\<br>\mathbf{\overrightarrow{b}} &amp;= b_1\mathbf{i}+b_2\mathbf{j} \\<br>\mathbf{\overrightarrow{a}}\cdot\mathbf{\overrightarrow{b}} &amp;= a_1b_1\mathbf{i}+a_2b_2\mathbf{j}<br>\end{aligned} \tag{1}<br>$$</li>
 <li>三维向量<br>$$<br>\begin{aligned}<br>  \mathbf{\overrightarrow{a}} &amp;= a_1\mathbf{i}+a_2\mathbf{j}+a_3\mathbf{k}\\<br>\mathbf{\overrightarrow{b}} &amp;= b_1\mathbf{i}+b_2\mathbf{j}+b_3\mathbf{k}  \\<br>\mathbf{\overrightarrow{a}}\cdot\mathbf{\overrightarrow{b}} &amp;= a_1b_1\mathbf{i}+a_2b_2\mathbf{j}+a_3b_3\mathbf{k}<br>\end{aligned}\tag{2}<br>$$<h4 id="向量叉乘"><a href="#向量叉乘" class="headerlink" title="向量叉乘"></a>向量叉乘</h4></li>
