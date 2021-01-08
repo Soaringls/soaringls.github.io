@@ -2,10 +2,16 @@
 title: Integration IMU 
 date: 2020-07-08 11:07:05
 mathjax: true
-tags:
+categories:
   - autonomous
+  - imu
+tags:
+  - imu
 ---
+
+
 The measurements of angular volocity and acceleration from an IMU are defined using Eqs below
+<!--more-->
 $$
 \hat{w}_t = w_t + b^w_t + n^w_t \tag 1
 $$

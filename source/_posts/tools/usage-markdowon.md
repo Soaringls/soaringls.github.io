@@ -2,6 +2,7 @@
 title: usage of mathjax 
 date: 2020-07-08 11:07:05
 mathjax: true
+categories: tools
 tags:
   - tools
   - math

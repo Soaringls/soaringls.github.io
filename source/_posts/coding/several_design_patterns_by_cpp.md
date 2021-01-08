@@ -3,12 +3,15 @@ title: Several Design Patterns By C++
 data: 2020-10-10 13:23:23
 categories:
   - coding
+  - pattern
 ---
+Introduce some normal design patterns,codes by cpp.
+<!-- more -->
 # Strategy Pattern
 ## Intent
 - Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from the clients that use it.
 - Capture the abstraction in an interface, bury implementation details in derived classes.
-<!-- more -->
+
 ```cpp
 //By dexter @ 11/10/2020
 #include <iostream>

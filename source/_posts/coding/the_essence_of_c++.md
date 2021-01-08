@@ -5,6 +5,7 @@ mathjax: true
 categories:
   - coding
 ---
+This page is the note of Bjarne's speech at Edinburgh from youtobe.
 <!-- more -->
 ## What did/do I want?
 Type safety

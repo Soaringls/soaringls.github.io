@@ -4,6 +4,9 @@ date: 2020-10-09 10:29:34
 mathjax: true
 categories:
   - paper
+  - algorithm
+tag:
+  - slam
 ---
 this blog conclud from **loam(Ji Zhang),LeGO-LOAM&LIO-SAM(Tixiao Shan)**
 State estimation, localization and mapping are fundamental prerequisites for a successful intelligent mobile robot,required for feedback control, obstacle avoidance, and planning, among many other capabilities.Using **vision-based** and **lidar-based** sensing,great efforts have been devoted to achiving high-performance real-time simultaneous localization and mapping(SLAM) that can support a mobile robot's six degree-of-freedom state estimation.

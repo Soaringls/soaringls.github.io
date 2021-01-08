@@ -2,6 +2,9 @@
 title: icp算法的20年
 date: 2020-07-08 11:07:05
 mathjax: true
+categories:
+  - paper
+  - algorithm
 tags: 
   - pointcloud
   - registration

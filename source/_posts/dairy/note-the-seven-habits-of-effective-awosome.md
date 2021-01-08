@@ -1,18 +1,19 @@
 ---
-title: 高效人士的七个习惯
+title: 读书笔记:高效人士的七个习惯
 date: 2020-11-29 10:29:34
 mathjax: true
 categories:
   - dairy
 ---
+阅读《高效人士的七个习惯》摘要.
+<!-- more -->
 1. 积极主动(BE PROACTIVE)
 主动积极即采取行动，为自己的过去、现在、未来的行为负责，并依据原则和价值观而非情绪或外在环境来做决定。
 2. 以终为始(BEGIN WITH THE END IN MIND)
 所有事物都经过两次创造-先经过脑海的酝酿和预演，其次才是实质性的创造。
 3. 要事第一(PUT FIRST THINGS FIRST)
 要事第一即实质的创造，是梦想(你的目标、价值观及要事处理的顺序)的组织和实践。
-<!-- more -->
-4. 双赢思维(THINK WIN/WIN)
+1. 双赢思维(THINK WIN/WIN)
 双赢思维是一种基于互敬互惠的思考框架，目的是更丰盛的机会、财富和资源，而非敌对式的竞争
 5. 知彼解己(SEEK FIRST TO UNDERSTND,THEN TO BE UNDERSTOOD)
 当我们舍弃回答心，改以了解去聆听别人，便能开启真正的沟通，增进彼此关系。

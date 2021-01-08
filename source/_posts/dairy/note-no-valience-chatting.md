@@ -1,12 +1,13 @@
 ---
-title: 非暴力沟通
+title: 读书笔记:非暴力沟通
 date: 2020-12-04 10:29:34
 mathjax: true
 categories:
   - dairy
 ---
-1. 留意
+阅读《非暴力沟通》摘要.
 <!-- more -->
+1. 留意
 4. 双赢思维(THINK WIN/WIN)
 双赢思维是一种基于互敬互惠的思考框架，目的是更丰盛的机会、财富和资源，而非敌对式的竞争
 5. 知彼解己(SEEK FIRST TO UNDERSTND,THEN TO BE UNDERSTOOD)

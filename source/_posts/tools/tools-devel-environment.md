@@ -1,3 +1,12 @@
+---
+title: tools devel-enviroment
+date: 2020-07-22 10:44
+categories: tools
+tags:
+ - programing
+ - python
+description: common usage when visualizer data
+---
 依赖库下载
 ```sh
 #python

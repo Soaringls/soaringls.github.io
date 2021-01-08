@@ -4,9 +4,11 @@ date: 2020-10-30 10:11:12
 mathjax: true
 categories:
   - tools
+  - asdf_test
 ---
 
 Terminator Shortcuts Usage
+<!--more-->
 | shortcuts         | info                                                 |
 | :---------------- | :--------------------------------------------------- |
 | ctrl+shift+o      | split windows horizontal                             |

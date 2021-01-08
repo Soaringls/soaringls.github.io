@@ -1,7 +1,9 @@
 ---
-title: lidar segmentation and filtered by hdmap
+title: cloud segmentation and filtered by hdmap
 date: 2020-07-12 14:19:22
-categories: pointcloud
+categories: 
+  - autonomous
+  - pointcloud
 tags:
   - segmentation
   - pointcloud
@@ -17,12 +19,12 @@ tags:
 2. 右下角为检测的地面点云
 3. 左上角为分割的结果(已根据hdmap滤出位于道路上的动态障碍物)
 4. 右上角为滤出动态障碍物后点云
-![general view of the lidar segmentation](/images/lidar-segmentation-hdmap/general_viewer.gif)
+![general view of the lidar segmentation](/images/autonomous/cloud_segmentation/hdmap_filter/general_viewer.gif)
 #### 地面的分割
 采用极坐标投影网格和平面拟合的方法
-![ground detect,and the objects on road is filtered by hdmap](/images/lidar-segmentation-hdmap/ground_detect.mp4.gif)
-![the detail of ground detection](/images/lidar-segmentation-hdmap/ground_detect.png)
+![ground detect,and the objects on road is filtered by hdmap](/images/autonomous/cloud_segmentation/hdmap_filter/ground_detect.mp4.gif)
+![the detail of ground detection](/images/autonomous/cloud_segmentation/hdmap_filter/ground_detect.png)
 #### 点云聚类
 采用网格投影->膨胀->连通分析->收缩
-![](/images/lidar-segmentation-hdmap/objs_filtered0_byhdmap.mp4.gif)
-![vechicle and pedestrian filtered by hdmap](/images/lidar-segmentation-hdmap/objs_filtered_byhdmap.mp4.gif)
+![](/images/autonomous/cloud_segmentation/hdmap_filter/objs_filtered0_byhdmap.mp4.gif)
+![vechicle and pedestrian filtered by hdmap](/images/autonomous/cloud_segmentation/hdmap_filter/objs_filtered_byhdmap.mp4.gif)

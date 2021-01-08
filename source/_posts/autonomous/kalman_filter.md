@@ -1,14 +1,47 @@
 ---
 title: >-
   Introduction of Kalman Filter
+date: 2020-12-31 19:22:23
 mathjax: true
-categoties:
+categories:
   - autonomous
   - algorithm
-date: 2020-12-31 19:22:23
+tags:
+  - algorithm
 ---
+
 The content mainly reference from [yongcongwang's IMM Prediction](https://blog.yongcong.wang/2020/10/29/autonomous/imm-for-prediction/)
-The Kalman filter which was published by R.E.Kalman in 1960, is a set of mathematical equations that provides an efficient computational (recursive) means to estimate the state of a process, in a way that minimizes the mean of the squared error. The filter is very powerful in several aspects: it supports estimations of past, present, and even future states, and it can do so even when the precise nature of the modeled system is unknown.
+The Kalman filter which was published by R.E.Kalman in 1960, is a set of mathematical equations that provides an efficient computational (recursive) means to estimate the state of a process, in a way that minimizes the mean of the squared error. <!--more-->The filter is very powerful in several aspects: it supports estimations of past, present, and even future states, and it can do so even when the precise nature of the modeled system is unknown.
+## Basic Equations 
+- overview 
+$$
+\begin{aligned}
+    \underset{n \times 1}{X_k} &= \underset{n \times n}{A}\underset{n \times 1}{X_{k-1}} + \underset{n \times b}{B}   \underset{b \times 1}{U_{k-1}} + \underset{n \times 1}{w_{k-1}}\,(Q)\\\\
+    \underset{m \times 1}{Z_k} &= \underset{m \times n}{H}\underset{n \times 1}{X_k} + \underset{m \times 1}{v_{k}}\,(R)  
+\end{aligned}
+$$
+- predict
+$$
+\begin{aligned}
+    \underset{n \times 1}{X_k^{pre}} &= \underset{n \times n}{A} \cdot \underset{n \times 1}{X_{k-1}} + \underset{n \times b}{B} \cdot \underset{b \times 1}{U_{k-1}}\\\\
+    \underset{n \times n}{P_k^{pre}} &= \underset{n \times n}{A} \cdot \underset{n \times n}{P_{k-1}} \cdot \underset{n \times n}{A^T} + \underset{n \times n}{Q}
+\end{aligned}
+$$
+
+<!-- $$
+\begin{aligned}
+    \underset{n \times n}{P^{pre}_k} will be wrong,it should be write as "\underset{n \times n}{P_k^{pre}}"
+\end{aligned}
+$$ -->
+- correct
+$$
+\begin{aligned}
+    \mathcal{K_{n \times m}} &= (P^{pre}_kH^T)  \cdot (HP^{pre}_kH^T + R)^{-1} \\\\
+    X_k &= X^{pre}_k + \mathcal{K}(Z_k- HX^{pre}_k) \\\\
+    P_k &= (I - \mathcal{K}H)P^{pre}_k
+\end{aligned}
+$$
+
 ## The process to be estimated
 The Kalman filter addressed the general problem of trying to estimate the state $x\in \Re^n$ of a discrete-time controlled process that is governed by the linear stochastic difference equation:
 $$
