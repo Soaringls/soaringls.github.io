@@ -20,17 +20,17 @@
     var CONFIG = {"hostname":"blog.dexter.cool","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":2,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="The measurements of angular volocity and acceleration from an IMU are defined using Eqs below$$\hat{w}_t &#x3D; w_t + b^w_t + n^w_t \tag 1$$$$\hat{a}_t &#x3D; R^{BW}_t + b^a_t + n^a_t \tag 2$$    state 角速度 加速度">
+  <meta name="description" content="The measurements of angular volocity and acceleration from an IMU are defined using Eqs below">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Integration IMU">
 <meta property="og:url" content="http://blog.dexter.cool/2020/07/08/autonomous-integration-imu/index.html">
 <meta property="og:site_name" content="Notebook">
-<meta property="og:description" content="The measurements of angular volocity and acceleration from an IMU are defined using Eqs below$$\hat{w}_t &#x3D; w_t + b^w_t + n^w_t \tag 1$$$$\hat{a}_t &#x3D; R^{BW}_t + b^a_t + n^a_t \tag 2$$    state 角速度 加速度">
+<meta property="og:description" content="The measurements of angular volocity and acceleration from an IMU are defined using Eqs below">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-08T03:07:05.000Z">
-<meta property="article:modified_time" content="2020-11-18T06:58:27.278Z">
+<meta property="article:modified_time" content="2021-01-08T06:19:18.787Z">
 <meta property="article:author" content="Dexter">
-<meta property="article:tag" content="autonomous">
+<meta property="article:tag" content="imu">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://blog.dexter.cool/2020/07/08/autonomous-integration-imu/">
@@ -222,8 +222,21 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-18 14:58:27" itemprop="dateModified" datetime="2020-11-18T14:58:27+08:00">2020-11-18</time>
+                <time title="Modified: 2021-01-08 14:19:18" itemprop="dateModified" datetime="2021-01-08T14:19:18+08:00">2021-01-08</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/autonomous/" itemprop="url" rel="index"><span itemprop="name">autonomous</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/autonomous/imu/" itemprop="url" rel="index"><span itemprop="name">imu</span></a>
+                </span>
+            </span>
 
           
 
@@ -236,7 +249,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>The measurements of angular volocity and acceleration from an IMU are defined using Eqs below<br>$$<br>\hat{w}_t = w_t + b^w_t + n^w_t \tag 1<br>$$<br>$$<br>\hat{a}_t = R^{BW}_t + b^a_t + n^a_t \tag 2<br>$$</p>
+        <p>The measurements of angular volocity and acceleration from an IMU are defined using Eqs below</p>
+<a id="more"></a>
+<p>$$<br>\hat{w}_t = w_t + b^w_t + n^w_t \tag 1<br>$$<br>$$<br>\hat{a}_t = R^{BW}_t + b^a_t + n^a_t \tag 2<br>$$</p>
 <table>
 <thead>
 <tr>
@@ -281,7 +296,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/autonomous/" rel="tag"># autonomous</a>
+              <a href="/tags/imu/" rel="tag"># imu</a>
           </div>
 
         
@@ -290,12 +305,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/08/tools-markdowon/" rel="prev" title="usage of mathjax">
-      <i class="fa fa-chevron-left"></i> usage of mathjax
+    <a href="/2020/07/08/math-multiple-of-vector/" rel="prev" title="usage of vector's multi">
+      <i class="fa fa-chevron-left"></i> usage of vector's multi
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/07/08/c-template/" rel="next" title="c++-模板的使用">
-      c++-模板的使用 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/07/12/autonomous-cloud-segmentation-hdmap/" rel="next" title="cloud segmentation and filtered by hdmap">
+      cloud segmentation and filtered by hdmap <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -370,20 +385,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

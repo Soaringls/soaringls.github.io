@@ -188,6 +188,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2021/01/08/coding-several-design-patterns-by-cpp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sunshine.jpg">
+      <meta itemprop="name" content="Dexter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notebook">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/08/coding-several-design-patterns-by-cpp/" class="post-title-link" itemprop="url">Several Design Patterns By C++</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-08 14:15:57" itemprop="dateCreated datePublished" datetime="2021-01-08T14:15:57+08:00">2021-01-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/coding/" itemprop="url" rel="index"><span itemprop="name">coding</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/coding/pattern/" itemprop="url" rel="index"><span itemprop="name">pattern</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Introduce some normal design patterns,codes by cpp.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/01/08/coding-several-design-patterns-by-cpp/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/12/31/autonomous-kalman-filter/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -219,8 +297,21 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-04 15:43:28" itemprop="dateModified" datetime="2021-01-04T15:43:28+08:00">2021-01-04</time>
+                <time title="Modified: 2021-01-08 14:20:19" itemprop="dateModified" datetime="2021-01-08T14:20:19+08:00">2021-01-08</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/autonomous/" itemprop="url" rel="index"><span itemprop="name">autonomous</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/autonomous/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
 
           
 
@@ -233,50 +324,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>The content mainly reference from <a href="https://blog.yongcong.wang/2020/10/29/autonomous/imm-for-prediction/" target="_blank" rel="noopener">yongcongwang’s IMM Prediction</a><br>The Kalman filter which was published by R.E.Kalman in 1960, is a set of mathematical equations that provides an efficient computational (recursive) means to estimate the state of a process, in a way that minimizes the mean of the squared error. The filter is very powerful in several aspects: it supports estimations of past, present, and even future states, and it can do so even when the precise nature of the modeled system is unknown.</p>
-<h2 id="The-process-to-be-estimated"><a href="#The-process-to-be-estimated" class="headerlink" title="The process to be estimated"></a>The process to be estimated</h2><p>The Kalman filter addressed the general problem of trying to estimate the state $x\in \Re^n$ of a discrete-time controlled process that is governed by the linear stochastic difference equation:<br>$$<br>x_k = Ax_{k-1} + Bu_{k-1} + w_{k-1} \qquad p(w) \sim N(0, Q) \tag{1}<br>$$<br>with a measurement $z \in \Re^m$ that is:<br>$$<br>z_k = Hx_k + v_k \qquad p(v) \sim N(0,R) \tag{2}<br>$$</p>
-<ul>
-<li>The $n*n$ matrix $A$ is <code>transition matrix</code> which relates the state at the previous time step $k-1$ to the state at the current step $k$, in the absence of either a driving function or process noise. Note that in practice $A$ might change with each time step, but here we assume it is constant.</li>
-<li>The $n *1$ matrix $B$ is <code>control matrix</code> which relates the optional control input $u \in \Re^l$ to the state $x$.</li>
-<li>The $m *n$ matrix $H$ is <code>measurement matrix</code> which relates the state to the measurement $z_k$. In practice $H$ might change with each time step, but here we also assume it is constant.</li>
-<li>The random variable $w_{k-1}$ and $v_k$ represent the process and measurement noise. They are assumed to be independent(of each other), it belongs to gauss-white noise with normal probability distributions. and $Q$ is <code>process noise covariance</code> and $R$ is <code>measurement noise covariance</code>, they might change with each time step, but we assume they are both constant.</li>
-</ul>
-<h2 id="The-computational-origin-of-the-filter"><a href="#The-computational-origin-of-the-filter" class="headerlink" title="The computational origin of the filter"></a>The computational origin of the filter</h2><p>We define $\hat{x}_k^- \in \Re^n$ to be our <code>priori state</code> estimate at step $k$ given knowledge of the process priori to step $k$ and $\hat{x}_k \in \Re^n$ to be our <code>posteriori state</code>  estimate at step $k$ given measurement $z_k$. we also define $x_k$ is the ground truth, then we can get a <code>priori</code> and a <code>posteriori</code> estimate errors as:<br>$$<br>prio\ estimate\ error: \ e_k^- \equiv x_k - \hat{x}_k^-   \tag{3}<br>$$<br>$$<br>post\ estimate\ error:\ e_k \equiv x_k - \hat{x}_k \tag{4}<br>$$<br>The <code>priori</code> estimate error covariance is:<br>$$<br>P_k^-  = E[e_k^-(e_k^-)^T] \tag{5}<br>$$<br>The <code>posteriori</code> estimate error covariance is:<br>$$<br>P_k = E[e_ke_k^T] \tag{6}<br>$$<br>In deriving the equation for the kalman filter, we begin with the goal of finding an equation that compute an <code>posteriori</code> state estimate $\hat{x}_k$ as a linear combination of the <code>priori</code> estimate $\hat{x}_k^-$ and a weighted difference between an actual measurement $z_k$ and a prediction of the measurement $H\hat{x}_k^-$ as show below:<br>$$<br>\hat{x}_k = \hat{x}_k^- + K(z_k - H\hat{x}_k^-) \tag7<br>$$<br>The difference $(z_k - H\hat{x}_k^-)$ is called the measurement <code>innovation</code> or <code>residual</code>. The residual reflects the discrepency bewteen the predicted measurement $H\hat{x}_k^-$ and the actual measurement $z_k$. A residual of zero means that the two are in complete agreement.<br>The $n*m$ matrix $K$ is chosen to be the <code>gain</code> or <code>blending factor</code> that minimizes the <code>posteriori</code> error covariance in (6).</p>
-<p>This minimization can be accomplished by:</p>
-<ol>
-<li>substituting (7) into the (4) and substituting that into (6);</li>
-<li>performing the indicated expectation;</li>
-<li>taking the derivative of the trace of the result with respect to $K$;</li>
-<li>setting the result equal to $0$ and then solving for $K$.<br>One form of the resulting $K$ that minimized (6) is:</li>
-</ol>
-<p>$$<br>\begin{aligned}<br>   K_k  &amp;= P_k^-H^T(HP_k^-H^T \ +\ R )^{-1} \\<br>        &amp;= \frac{P_k^-H^T}{HP_k^-H^T \ +\ R }<br>\end{aligned} \tag{8}<br>$$ </p>
-<p>Looking at (10) we see that as the measurement error covariance $R \to 0$, the gain $K$ weights the residual more heavily.Specially,<br>$$<br>\lim_{R_k \to 0}K_k = H^{-1} \tag{9}<br>$$<br>On the other hand, as the <code>priori estimate error covariance</code> $P_k^- \to 0$, the gain $K$ weights the residual less heavily.Specially,<br>$$<br>\lim_{P_k^- \to 0}K_k = 0 \tag{10}<br>$$</p>
-<p>Another way of thinking about the weighting by $K$ is that as the measurement error covariance $R \to 0$, the actual measurement $z_k$ is <code>more trusted</code>, while the predicted mesaurement $H\hat{x}_k^-$ is <code>less trusted</code>. On the other hand, as the <code>priori estimate error covariance</code> $P_k^- \to 0$, the actual measurement $z_k$ is <code>less trusted</code>, while the predicted measurement $H\hat{x}_k^-$ is <code>more trusted</code>.</p>
-<h2 id="The-discrete-Kalman-Filter-Algorithm"><a href="#The-discrete-Kalman-Filter-Algorithm" class="headerlink" title="The discrete Kalman Filter Algorithm"></a>The discrete Kalman Filter Algorithm</h2><p>The kalman filter estimate a process by using a form of feedback control: the filter estimates the process state at some time and then obtains feedback in the form of (noisy) measurement. As such, the equations for the Kalman filter falls into two groups:</p>
-<ul>
-<li><code>time update</code>(predict) equations;</li>
-<li><code>measurement update</code>(correct) equations;</li>
-</ul>
-<p>The <code>time update</code> equations are responsible for projecting forwar(in time) the current state and error covariance estimates to obtain the <code>prior</code> estimates for the next time step.</p>
-<p>The <code>measurement update</code> equations are responsible for the feedback, incorporating a new measurement into the <code>priori estimate</code> to obtain an improved <code>posterori</code> estimate.</p>
-<p>The final estimation algorithm resembles that of a <code>predictor-&gt;corrector</code> algorithm for solving numerical problems:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Time Update -----&gt; Measurement Update</span><br><span class="line"> (Predict)             (Correct)</span><br><span class="line">     ^                     |</span><br><span class="line">     |                     |</span><br><span class="line">     -----------------------</span><br></pre></td></tr></table></figure>
-<p>The specific equations for the <code>time update(predictor)</code> are:<br>$$<br>\hat{x}_k^- = A\hat{x}_{k-1} + Bu_{k-1} \tag{11}<br>$$<br>$$<br>P_k^- = AP_{k-1}A^T + Q \tag{12}<br>$$<br>where:</p>
-<ul>
-<li>$\hat{x}_{k-1}$ is the <code>posteriori</code> state from time step $k-1$; </li>
-<li>$u_{k-1}$ is the control from time step $k-1$;</li>
-<li>$\hat{x}_k^-$ is the <code>priori</code> state from time step $k$;</li>
-<li>$P_{k-1}$ is the <code>posterirori</code> estimate error covariance from time step $k-1$;</li>
-<li>$P_k^-$ is the <code>priori</code> estimate error covariance from time step $k$;</li>
-</ul>
-<p>The specific equations for the <code>measurement update(corrector)</code> are:<br>$$<br>K_k = P_k^-H^T \cdot (HP_k^-H^T + R)^{-1} \tag{13}<br>$$<br>$$<br>\hat{x}_k = \hat{x}_k^- + K_k\cdot (z_k - H\hat{x}_k^-) \tag{14}<br>$$<br>$$<br>P_k= (I - K_kH) \cdot P_k^- \tag{15}<br>$$<br>where:</p>
-<ul>
-<li>$K_k$ is the <code>gain</code> from time step $k$;</li>
-<li>$z_k$ is the actual measurement variable from time step $k$;</li>
-<li>$\hat{x}_k$ is the <code>posteriori</code> state from time step $k$;</li>
-<li>$P_k$ is the <code>posteriori</code> estimate error covariance from time step $k$;</li>
-</ul>
-<h2 id="Python-of-Kalman-Filter"><a href="#Python-of-Kalman-Filter" class="headerlink" title="Python of Kalman Filter"></a>Python of Kalman Filter</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">KalmanFilter</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, A, B, H, Q, R)</span>:</span></span><br><span class="line">        self.A = A</span><br><span class="line">        self.B = B</span><br><span class="line">        self.H = H</span><br><span class="line">        self.Q = Q</span><br><span class="line">        self.R = R</span><br><span class="line"></span><br><span class="line">        self.U = np.zeros((B.shape[<span class="number">1</span>], <span class="number">1</span>))</span><br><span class="line">        self.X = np.zeros((A.shape[<span class="number">0</span>], <span class="number">1</span>))</span><br><span class="line">        self.X_pre = self.X</span><br><span class="line">        self.P = np.zeros(A.shape)</span><br><span class="line">        self.P_pre = self.P</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, A, H)</span>:</span></span><br><span class="line">        self.A = A</span><br><span class="line">        self.X = np.zeros((A.shape[<span class="number">0</span>], <span class="number">1</span>))</span><br><span class="line">        self.B = np.eye(A.shape[<span class="number">0</span>])</span><br><span class="line">        self.U = np.zeros((self.B.shape[<span class="number">1</span>], <span class="number">1</span>))</span><br><span class="line">        self.Q = np.eye(A.shape[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">        self.H = H</span><br><span class="line">        self.R = np.eye(H.shape[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">        self.X_pre = self.X</span><br><span class="line">        self.P = np.zeros(A.shape)</span><br><span class="line">        self.P_pre = self.P</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">filt</span><span class="params">(self, Z)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        x = A*x + B*u +Q</span></span><br><span class="line"><span class="string">        y = H*x +     R</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.__predict()</span><br><span class="line">        self.__update(Z)</span><br><span class="line">        <span class="keyword">return</span> self.X</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__predict</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        x_next = A*x + B*u</span></span><br><span class="line"><span class="string">        P_next = A*P*AT + Q</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.X_pre = np.dot(self.A, self.X) + np.dot(self.B, self.U)</span><br><span class="line">        self.P_pre = np.dot(np.dot(self.A, self.P), self.A.T) + self.Q</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__update</span><span class="params">(self, Z)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        K = (P_next*HT) * (H*P_next*HT + R).inverse()</span></span><br><span class="line"><span class="string">        x = x_next + K*(z - H*x_next)</span></span><br><span class="line"><span class="string">        P = P_next - K*H*P_next</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        K = np.dot(np.dot(self.P_pre, self.H.T),</span><br><span class="line">                   np.linalg.inv(np.dot(np.dot(self.H, self.P_pre), self.H.T) +</span><br><span class="line">                                 self.R))</span><br><span class="line">        self.X = self.X_pre + np.dot(K, Z - np.dot(self.H, self.X_pre))</span><br><span class="line">        self.P = self.P_pre - np.dot(np.dot(K, self.H), self.P_pre)</span><br></pre></td></tr></table></figure>
+          <p>The content mainly reference from <a href="https://blog.yongcong.wang/2020/10/29/autonomous/imm-for-prediction/" target="_blank" rel="noopener">yongcongwang’s IMM Prediction</a><br>The Kalman filter which was published by R.E.Kalman in 1960, is a set of mathematical equations that provides an efficient computational (recursive) means to estimate the state of a process, in a way that minimizes the mean of the squared error.
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/12/31/autonomous-kalman-filter/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -309,7 +365,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/12/04/dairy-note-no-valience-chatting/" class="post-title-link" itemprop="url">非暴力沟通</a>
+            <a href="/2020/12/04/dairy-note-no-valience-chatting/" class="post-title-link" itemprop="url">读书笔记:非暴力沟通</a>
         </h2>
 
         <div class="post-meta">
@@ -318,10 +374,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-12-04 10:29:34 / Modified: 18:58:40" itemprop="dateCreated datePublished" datetime="2020-12-04T10:29:34+08:00">2020-12-04</time>
+              <time title="Created: 2020-12-04 10:29:34" itemprop="dateCreated datePublished" datetime="2020-12-04T10:29:34+08:00">2020-12-04</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-05 11:37:13" itemprop="dateModified" datetime="2021-01-05T11:37:13+08:00">2021-01-05</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -343,8 +405,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <ol>
-<li><p>留意</p>
+          <p>阅读《非暴力沟通》摘要.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/12/04/dairy-note-no-valience-chatting/#more" rel="contents">
@@ -385,7 +446,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/29/dairy-note-the-seven-habits-of-effective-awosome/" class="post-title-link" itemprop="url">高效人士的七个习惯</a>
+            <a href="/2020/11/29/dairy-note-the-seven-habits-of-effective-awosome/" class="post-title-link" itemprop="url">读书笔记:高效人士的七个习惯</a>
         </h2>
 
         <div class="post-meta">
@@ -402,7 +463,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-01 19:09:03" itemprop="dateModified" datetime="2020-12-01T19:09:03+08:00">2020-12-01</time>
+                <time title="Modified: 2021-01-05 11:38:05" itemprop="dateModified" datetime="2021-01-05T11:38:05+08:00">2021-01-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -425,12 +486,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <ol>
-<li><p>积极主动(BE PROACTIVE)<br>主动积极即采取行动，为自己的过去、现在、未来的行为负责，并依据原则和价值观而非情绪或外在环境来做决定。</p>
-</li>
-<li><p>以终为始(BEGIN WITH THE END IN MIND)<br>所有事物都经过两次创造-先经过脑海的酝酿和预演，其次才是实质性的创造。</p>
-</li>
-<li><p>要事第一(PUT FIRST THINGS FIRST)<br>要事第一即实质的创造，是梦想(你的目标、价值观及要事处理的顺序)的组织和实践。</p>
+          <p>阅读《高效人士的七个习惯》摘要.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/11/29/dairy-note-the-seven-habits-of-effective-awosome/#more" rel="contents">
@@ -457,7 +513,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/11/04/coding-cpp-useful-funcs/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/30/tools-usage-terminator-shortcuts/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sunshine.jpg">
@@ -471,7 +527,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/04/coding-cpp-useful-funcs/" class="post-title-link" itemprop="url">Some useful functions from Cppreferenct</a>
+            <a href="/2020/10/30/tools-usage-terminator-shortcuts/" class="post-title-link" itemprop="url">Terminator Shortcuts Usage</a>
         </h2>
 
         <div class="post-meta">
@@ -481,85 +537,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-11-04 11:28:57" itemprop="dateCreated datePublished" datetime="2020-11-04T11:28:57+08:00">2020-11-04</time>
+              <time title="Created: 2020-10-30 10:11:12" itemprop="dateCreated datePublished" datetime="2020-10-30T10:11:12+08:00">2020-10-30</time>
             </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/coding/" itemprop="url" rel="index"><span itemprop="name">coding</span></a>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
                 </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Strategy-Pattern"><a href="#Strategy-Pattern" class="headerlink" title="Strategy Pattern"></a>Strategy Pattern</h1><h2 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h2><ul>
-<li>Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from the clients that use it.</li>
-<li>Capture the abstraction in an interface, bury implementation details in derived classes.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/11/04/coding-cpp-useful-funcs/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/30/tools-terminator-shortcuts-usage/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/30/tools-terminator-shortcuts-usage/" class="post-title-link" itemprop="url">Terminator Shortcuts Usage</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-08 14:22:54" itemprop="dateModified" datetime="2021-01-08T14:22:54+08:00">2021-01-08</time>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-10-30 10:11:12 / Modified: 10:43:29" itemprop="dateCreated datePublished" datetime="2020-10-30T10:11:12+08:00">2020-10-30</time>
-            </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -568,6 +554,10 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
                 </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/asdf-test/" itemprop="url" rel="index"><span itemprop="name">asdf_test</span></a>
+                </span>
             </span>
 
           
@@ -581,8 +571,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Terminator Shortcuts Usage<br>| shortcuts         | info                                                 |<br>| :—————- | :————————————————— |<br>| ctrl+shift+o      | split windows horizontal                             |<br>| ctrl+shift+e      | split windows vertical                               |<br>| ctrl+shift+x      | switch between current window and all windows        |<br>| ctrl+shift+arrows | move splitter bars of current working window         |<br>| alt+arrows        | switch between different working windows             |<br>| ctrl+shift+w      | close current window                                 |<br>| ctrl+shift+q      | close all window,that means close current terminator |</p>
-
+          <p>Terminator Shortcuts Usage</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/30/tools-usage-terminator-shortcuts/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -705,7 +702,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-17 16:01:21" itemprop="dateModified" datetime="2020-11-17T16:01:21+08:00">2020-11-17</time>
+                <time title="Modified: 2021-01-05 11:17:08" itemprop="dateModified" datetime="2021-01-05T11:17:08+08:00">2021-01-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -728,368 +725,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <a id="more"></a>
-<h2 id="What-did-do-I-want"><a href="#What-did-do-I-want" class="headerlink" title="What did/do I want?"></a>What did/do I want?</h2><p>Type safety</p>
-<ul>
-<li>Encapsulate necessary unsafe operations</li>
-</ul>
-<p>Resource safety</p>
-<ul>
-<li>it’s not all memory</li>
-</ul>
-<p>Performance</p>
-<ul>
-<li>For some parts of almost all systems,it’s important</li>
-</ul>
-<p>Predictability</p>
-<ul>
-<li>For hard and soft real time</li>
-</ul>
-<p>Teachability</p>
-<ul>
-<li>Complexity of code should be proportional to the complexity of the task</li>
-</ul>
-<p>Readability</p>
-<ul>
-<li>People and machines(“analyzability”)<h2 id="Who-did-do-I-want-it-for"><a href="#Who-did-do-I-want-it-for" class="headerlink" title="Who did/do I want it for?"></a>Who did/do I want it for?</h2>Primary concerns</li>
-<li>Systems propramming</li>
-<li>Embedded systems</li>
-<li>Resource constrained systems</li>
-<li>Large systems</li>
-</ul>
-<p>Experts</p>
-<ul>
-<li>“c++ is expert friendly”</li>
-</ul>
-<p>Novices</p>
-<ul>
-<li>“c++ is not just expert friendly”</li>
-</ul>
-<h2 id="C-in-two-lines"><a href="#C-in-two-lines" class="headerlink" title="C++ in two lines"></a>C++ in two lines</h2><h3 id="What-is-C"><a href="#What-is-C" class="headerlink" title="What is C++?"></a>What is C++?</h3><p>Direct map to hardware</p>
-<ul>
-<li>of instructions and dundamental data types</li>
-<li>Initially from C</li>
-</ul>
-<p>Zero-Overhead abstraction</p>
-<ul>
-<li>Classes with constructors and destructors,inheritance,generic programming,functional programming techniques</li>
-<li>Initially from Simula</li>
-</ul>
-<p>Much of the inspiration came from operating systems<br>What does C++ wants to be when it grows up?</p>
-<ul>
-<li>See above</li>
-<li>And better at it for more modern hardware and techniques</li>
-<li>Compatibility/stability is a feature</li>
-</ul>
-<h2 id="Cpp-is-a-light-weight-abstraction-programming-language"><a href="#Cpp-is-a-light-weight-abstraction-programming-language" class="headerlink" title="Cpp is a light-weight abstraction programming language"></a>Cpp is a light-weight abstraction programming language</h2><p>building and using efficient and elegant abstractions</p>
-<h2 id="Key-strengths"><a href="#Key-strengths" class="headerlink" title="Key strengths:"></a>Key strengths:</h2><ul>
-<li>software infrastructure</li>
-<li>resource-constrained applications<h3 id="Resource-Management"><a href="#Resource-Management" class="headerlink" title="Resource Management"></a>Resource Management</h3><h4 id="A-resource-is-something-that-must-be-acquired-and-latter-released"><a href="#A-resource-is-something-that-must-be-acquired-and-latter-released" class="headerlink" title="A resource is something that must be acquired and latter released"></a>A resource is something that must be acquired and latter released</h4></li>
-<li>Explicitly or implicitly</li>
-<li>Resource management should not be manual<ul>
-<li>we don’t want leaks(泄露)</li>
-</ul>
-</li>
-</ul>
-<h4 id="A-resource-should-have-an-owner"><a href="#A-resource-should-have-an-owner" class="headerlink" title="A resource should have an owner"></a>A resource should have an owner</h4><ul>
-<li>Usually a “handle”</li>
-<li>A “handle” should present a well-defined and useful abstraction</li>
-</ul>
-<h4 id="All-the-standard-library-containers-manage-their-elements"><a href="#All-the-standard-library-containers-manage-their-elements" class="headerlink" title="All the standard-library containers manage their elements"></a>All the standard-library containers manage their elements</h4><ul>
-<li>vector</li>
-<li>list,forward_list(singly-linked list),…</li>
-<li>map,unordered_map(hash table),…</li>
-<li>set,multi_set,…</li>
-<li>string</li>
-</ul>
-<h4 id="Other-standard-library-classes-manage-other-resoures"><a href="#Other-standard-library-classes-manage-other-resoures" class="headerlink" title="Other standard-library classes manage other resoures"></a>Other standard-library classes manage other resoures</h4><ul>
-<li>Not just memory(Garbage collection is not sufficient)</li>
-<li>thread,lock_guard,…</li>
-<li>istream,fstream,…</li>
-<li>unique_ptr,shared_ptr,…</li>
-</ul>
-<h4 id="Use-constructors-and-destructor"><a href="#Use-constructors-and-destructor" class="headerlink" title="Use constructors and destructor"></a>Use constructors and destructor</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  Vector(<span class="built_in">initializer_list</span>&lt;T&gt;);<span class="comment">//vector of elements of type T</span></span><br><span class="line">  ~Vector();</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  T* elem; <span class="comment">//pointer to elements</span></span><br><span class="line">  <span class="keyword">int</span> sz;  <span class="comment">//number of  elements</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fct</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Vector&lt;<span class="keyword">double</span>&gt; vd&#123;<span class="number">1</span>, <span class="number">1.625</span>, <span class="number">3.14</span>, <span class="number">2.998e8</span>&#125;;</span><br><span class="line">    Vector&lt;<span class="built_in">string</span>&gt; vs&#123;<span class="string">"Strachey"</span>, <span class="string">"Richards"</span>&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Pointer-Misuse"><a href="#Pointer-Misuse" class="headerlink" title="Pointer Misuse"></a>Pointer Misuse</h4><blockquote>
-<p>Many(most) uses of pointers in local scope are not exception safe</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    Gadget* p = <span class="keyword">new</span> Gadget(n);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">100</span>) <span class="keyword">throw</span> <span class="built_in">std</span>::runtime_error(<span class="string">"Weird!"</span>);<span class="comment">//leak</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">200</span>) <span class="keyword">return</span>;                            <span class="comment">//leak</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">delete</span> p; <span class="comment">//I want my garbage collector!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">But garbage collection would not release non-memory resources</span><br><span class="line">Why use a &quot;naked&quot; pointer?</span><br></pre></td></tr></table></figure>
-<h4 id="Resource-Handles-and-Pointers"><a href="#Resource-Handles-and-Pointers" class="headerlink" title="Resource Handles and Pointers"></a>Resource Handles and Pointers</h4><blockquote>
-<p>A std::shared_ptr releases its object at when the last shared_ptr to it is destroyed</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> p = make_shared&lt;Gadget&gt;(n); <span class="comment">//manage that pointer!</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">100</span>) <span class="keyword">throw</span> <span class="built_in">std</span>::runtime_error(<span class="string">"Weird!"</span>);<span class="comment">//no leak</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">200</span>) <span class="keyword">return</span>;                            <span class="comment">//no leak</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>shared_ptr</strong> provides a form of garbage collection(But I’m not sharing anything!)</p>
-<blockquote>
-<p>A <strong>std::unique_ptr</strong> releases its object at when it goes out of scope</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> p = make_unique&lt;Gadget&gt;(n); <span class="comment">//manage that pointer!</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">100</span>) <span class="keyword">throw</span> <span class="built_in">std</span>::runtime_error(<span class="string">"Weird!"</span>);<span class="comment">//no leak</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">200</span>) <span class="keyword">return</span>;                            <span class="comment">//no leak</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>This is simple and cheap<br>No more expensive than a “plain old pointer”</p>
-<h4 id="Error-Handling-and-Resources"><a href="#Error-Handling-and-Resources" class="headerlink" title="Error Handling and Resources"></a>Error Handling and Resources</h4><p>“Resource Acquistion Is Intialization”(RAII)</p>
-<ol>
-<li>Acquire during construction</li>
-<li>Release in destructor</li>
-</ol>
-<p>Throw exception in case of failure</p>
-<blockquote>
-<p>In particular, throw is a constructor cannot construct and object</p>
-</blockquote>
-<p>Never throw while holding a resource <strong>not</strong> owned by a handle</p>
-<blockquote>
-<p>Never leak</p>
-</blockquote>
-<p>In general</p>
-<blockquote>
-<p>Leave established invariants intact when leaving a scope</p>
-</blockquote>
-<h2 id="Why-do-we-use-pointers"><a href="#Why-do-we-use-pointers" class="headerlink" title="Why do we use pointers?"></a>Why do we use pointers?</h2><p>And references,iterators,etc.<br>To represent ownership</p>
-<ul>
-<li><strong>Don’t Stop!</strong> Instead, use handles</li>
-</ul>
-<p>To reference resources</p>
-<ul>
-<li>from within a handle</li>
-</ul>
-<p>To represent positions</p>
-<ul>
-<li>Be careful</li>
-</ul>
-<p>To pass large amounts of data(into a function)</p>
-<ul>
-<li>E.g. pass by <strong>const</strong> reference</li>
-</ul>
-<p>To return large amount of data(out of a function)</p>
-<ul>
-<li><p>Don’t! Instead use move operations</p>
-<h2 id="How-to-get-a-lot-of-data-cheaply-out-of-a-function"><a href="#How-to-get-a-lot-of-data-cheaply-out-of-a-function" class="headerlink" title="How to get a lot of data cheaply out of a function?"></a>How to get a lot of data cheaply out of a function?</h2><p>Consider</p>
-</li>
-<li><p>factory functions</p>
-</li>
-<li><p>functions returning lots of objects</p>
-</li>
-</ul>
-<p>Return a pointer to a <strong>new</strong>‘d object?</p>
-<ul>
-<li>M* operator+(const M&amp;, const M&amp;);</li>
-<li>M* pm = m1 + m2;  //ugly: and who does the delete?</li>
-<li>M* q = *pm + m3;  //ugly: and who does the delete?</li>
-</ul>
-<p>Return a reference to a <strong>new</strong>‘d object?</p>
-<ul>
-<li>M&amp; operator+(const M&amp;, const M&amp;);</li>
-<li>M m = m1 + m2; //looks OK; but who does the delete? delete what?</li>
-</ul>
-<p>Pass a target object?</p>
-<ul>
-<li>void operator+(const M&amp;, const M&amp;, M&amp; result);</li>
-<li>M m;</li>
-<li>operator+(m1, m2, m); //ugly: We are regressing(退化,回归) towards assembly code(汇编代码)</li>
-</ul>
-<p><strong>conslusion</strong></p>
-<ul>
-<li><strong>Consider</strong><br>factory functions<br>functions returning lots of objects(in containers)</li>
-<li><strong>Return an object!</strong><br><code>M operator+(const M&amp;, const M&amp;);</code><br>How? Becase copies are expensive<br>Tricks to avoid copying are brittle<br>Tricks to avoid copying are not general</li>
-<li><strong>Return a handle</strong><br>sample and cheap<h3 id="Move-semantics"><a href="#Move-semantics" class="headerlink" title="Move semantics"></a>Move semantics</h3></li>
-<li>Direct support in C++11:Move constructor<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">Matrix</span>&#123;</span></span><br><span class="line">  Representation rep;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  Matrix(Matrix&amp;&amp; a) <span class="comment">//move constructor</span></span><br><span class="line">  &#123;</span><br><span class="line">    rep = a.rep; <span class="comment">//*this gets a's elements</span></span><br><span class="line">    a.rep = &#123;&#125;;  <span class="comment">//a becomes the empty Matrix</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">Matrix res = a + b;</span><br></pre></td></tr></table></figure></li>
-<li>Often, you can avoid writing copy and move operations<br>Easily avoid<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Matrix</span>&#123;</span></span><br><span class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; elem; <span class="comment">//elements here</span></span><br><span class="line">  <span class="comment">//...matrix access...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-<li>Matrix just “inherit” resource management from vector</li>
-<li>Copy and a move operations can often be implicitly generated from members<br>Good copy and move operations, e.g from the standard library</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/13/coding-several-design-patterns-by-cpp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/13/coding-several-design-patterns-by-cpp/" class="post-title-link" itemprop="url">Several Design Patterns By C++</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-10-13 11:33:06" itemprop="dateCreated datePublished" datetime="2020-10-13T11:33:06+08:00">2020-10-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/coding/" itemprop="url" rel="index"><span itemprop="name">coding</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Strategy-Pattern"><a href="#Strategy-Pattern" class="headerlink" title="Strategy Pattern"></a>Strategy Pattern</h1><h2 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h2><ul>
-<li>Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from the clients that use it.</li>
-<li>Capture the abstraction in an interface, bury implementation details in derived classes.
+          <p>This page is the note of Bjarne’s speech at Edinburgh from youtobe.</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/10/13/coding-several-design-patterns-by-cpp/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/10/tools-devel-environment/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/10/tools-devel-environment/" class="post-title-link" itemprop="url">tools-devel-environment</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-10-10 14:52:23" itemprop="dateCreated datePublished" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>依赖库下载</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#python</span></span><br><span class="line">wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz</span><br><span class="line"><span class="comment">#google-series</span></span><br><span class="line">wget https://github.com/google/googletest/archive/release-1.8.0.tar.gz</span><br><span class="line">wget https://github.com/gflags/gflags/archive/v2.2.0.tar.gz</span><br><span class="line">wget https://github.com/google/glog/archive/v0.3.5.tar.gz</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/10/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/10/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-10-10 14:52:23" itemprop="dateCreated datePublished" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick   Start"></a>Quick   Start</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/10/hello-world/#more" rel="contents">
+              <a class="btn" href="/2020/10/25/coding-the-essence-of-c/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1144,7 +783,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-17 16:42:39" itemprop="dateModified" datetime="2020-11-17T16:42:39+08:00">2020-11-17</time>
+                <time title="Modified: 2021-01-08 14:12:59" itemprop="dateModified" datetime="2021-01-08T14:12:59+08:00">2021-01-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1153,6 +792,10 @@
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/paper/" itemprop="url" rel="index"><span itemprop="name">paper</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/paper/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
                 </span>
             </span>
 
@@ -1194,7 +837,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/22/tools-python-matplotlib/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/22/tools-tools-python-matplotlib/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sunshine.jpg">
@@ -1208,7 +851,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/22/tools-python-matplotlib/" class="post-title-link" itemprop="url">tools python-matploglib</a>
+            <a href="/2020/07/22/tools-tools-python-matplotlib/" class="post-title-link" itemprop="url">tools python-matploglib</a>
         </h2>
 
         <div class="post-meta">
@@ -1225,7 +868,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-10 14:52:23" itemprop="dateModified" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
+                <time title="Modified: 2021-01-08 14:09:23" itemprop="dateModified" datetime="2021-01-08T14:09:23+08:00">2021-01-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1251,7 +894,7 @@
           <p>common usage when visualizer data</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/07/22/tools-python-matplotlib/">
+              <a class="btn" href="/2020/07/22/tools-tools-python-matplotlib/">
                 Read more &raquo;
               </a>
             </div>
@@ -1275,7 +918,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/17/slam-eigen/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/22/tools-tools-devel-environment/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sunshine.jpg">
@@ -1289,7 +932,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/17/slam-eigen/" class="post-title-link" itemprop="url">common usage of Eigen</a>
+            <a href="/2020/07/22/tools-tools-devel-environment/" class="post-title-link" itemprop="url">tools devel-enviroment</a>
         </h2>
 
         <div class="post-meta">
@@ -1299,15 +942,24 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-07-17 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-17T11:07:05+08:00">2020-07-17</time>
+              <time title="Created: 2020-07-22 10:44:00" itemprop="dateCreated datePublished" datetime="2020-07-22T10:44:00+08:00">2020-07-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-10 14:52:23" itemprop="dateModified" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
+                <time title="Modified: 2021-01-08 14:11:36" itemprop="dateModified" datetime="2021-01-08T14:11:36+08:00">2021-01-08</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
+                </span>
+            </span>
 
           
 
@@ -1320,10 +972,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>使用方法</p>
+          <p>common usage when visualizer data</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/07/17/slam-eigen/#more" rel="contents">
+              <a class="btn" href="/2020/07/22/tools-tools-devel-environment/">
                 Read more &raquo;
               </a>
             </div>
@@ -1347,7 +999,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/12/lidar-segmentation-hdmap/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/12/autonomous-cloud-segmentation-hdmap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sunshine.jpg">
@@ -1361,7 +1013,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/12/lidar-segmentation-hdmap/" class="post-title-link" itemprop="url">lidar segmentation and filtered by hdmap</a>
+            <a href="/2020/07/12/autonomous-cloud-segmentation-hdmap/" class="post-title-link" itemprop="url">cloud segmentation and filtered by hdmap</a>
         </h2>
 
         <div class="post-meta">
@@ -1378,7 +1030,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-10 14:52:23" itemprop="dateModified" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
+                <time title="Modified: 2021-01-08 14:16:59" itemprop="dateModified" datetime="2021-01-08T14:16:59+08:00">2021-01-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1386,7 +1038,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/pointcloud/" itemprop="url" rel="index"><span itemprop="name">pointcloud</span></a>
+                  <a href="/categories/autonomous/" itemprop="url" rel="index"><span itemprop="name">autonomous</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/autonomous/pointcloud/" itemprop="url" rel="index"><span itemprop="name">pointcloud</span></a>
                 </span>
             </span>
 
@@ -1408,303 +1064,7 @@
 <li>实时加载hdmap将位于道路上的分割结果进去滤出(亦可通过tracking将动态障碍物滤除)
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/07/12/lidar-segmentation-hdmap/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/math-multiple-of-vector/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/08/math-multiple-of-vector/" class="post-title-link" itemprop="url">usage of vector's multi</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-10 16:23:37" itemprop="dateModified" datetime="2020-11-10T16:23:37+08:00">2020-11-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="向量点乘"><a href="#向量点乘" class="headerlink" title="向量点乘"></a>向量点乘</h4><ul>
-<li>二维向量<br>$$<br>\begin{aligned}<br>  \bold{\overrightarrow{a}} &amp;= a_1\bold{i}+a_2\bold{j}\\<br>\bold{\overrightarrow{b}} &amp;= b_1\bold{i}+b_2\bold{j} \\<br>\bold{\overrightarrow{a}}\cdot\bold{\overrightarrow{b}} &amp;= a_1b_1\bold{i}+a_2b_2\bold{j}<br>\end{aligned} \tag{1}<br>$$</li>
-<li>三维向量<br>$$<br>\begin{aligned}<br>  \bold{\overrightarrow{a}} &amp;= a_1\bold{i}+a_2\bold{j}+a_3\bold{k}\\<br>\bold{\overrightarrow{b}} &amp;= b_1\bold{i}+b_2\bold{j}+b_3\bold{k}  \\<br>\bold{\overrightarrow{a}}\cdot\bold{\overrightarrow{b}} &amp;= a_1b_1\bold{i}+a_2b_2\bold{j}+a_3b_3\bold{k}<br>\end{aligned}\tag{2}<br>$$<h4 id="向量叉乘"><a href="#向量叉乘" class="headerlink" title="向量叉乘"></a>向量叉乘</h4></li>
-<li>三维向量<br>$$<br>\begin{aligned}<br>  \bold{\overrightarrow{a}} &amp;= a_1\bold{i}+a_2\bold{j}+a_3\bold{k}\\<br>\bold{\overrightarrow{b}} &amp;= b_1\bold{i}+b_2\bold{j}+b_3\bold{k}  \\<br>\bold{\overrightarrow{a}}\times\bold{\overrightarrow{b}} &amp;=<br>   \begin{bmatrix}<pre><code>\bold{i} &amp; \bold{j}&amp; \bold{k}\\\\
-a_1      &amp; a_2     &amp;a_3\\\\
-b_1      &amp; b_2     &amp;b_3</code></pre>   \end{bmatrix} \\ &amp;= (a_2b_3 - a_3b_2)\bold{i} + (a_3b_1 - a_1b_3)\bold{j} + (a_1b_2 - a_2b_1)\bold{k} \\<br>   &amp;=<br>   \begin{bmatrix}       <pre><code>a_2 &amp; a_3  \\\\        
-b_2 &amp; b_3            </code></pre>   \end{bmatrix}\bold{i} +<br>   \begin{bmatrix}       <pre><code>a_3 &amp; a_1  \\\\        
-b_3 &amp; b_1            </code></pre>   \end{bmatrix}\bold{j}+<br>   \begin{bmatrix}       <pre><code>a_1 &amp; a_2  \\\\        
-b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned}\tag{3}<br>$$</li>
-<li>二维向量<br>$$<br>\begin{aligned}<br>  \bold{\overrightarrow{a}} &amp;= a_1\bold{i}+a_2\bold{j}\\<br>\bold{\overrightarrow{b}} &amp;= b_1\bold{i}+b_2\bold{j}  \\<br>\bold{\overrightarrow{a}}\times\bold{\overrightarrow{b}} &amp;=<br>   \begin{bmatrix}<pre><code>\bold{i} &amp; \bold{j}&amp; \bold{k}\\\\
-a_1      &amp; a_2     &amp;0\\\\
-b_1      &amp; b_2     &amp;0</code></pre>   \end{bmatrix} \\ &amp;=  (a_1b_2 - a_2b_1)\bold{k} \\<br>   &amp;=<br>   \begin{bmatrix}       <pre><code>a_1 &amp; a_2  \\\\        
-b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} \tag{4}<br>$$</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/lidar-ethicp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/08/lidar-ethicp/" class="post-title-link" itemprop="url">icp算法的20年</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-10 14:52:23" itemprop="dateModified" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>$$<br>y = \frac{a}{b}<br>$$</p>
-<h3 id="ETH-libpointmatcher使用"><a href="#ETH-libpointmatcher使用" class="headerlink" title="ETH-libpointmatcher使用"></a>ETH-libpointmatcher使用</h3><p>使用的eigen版本需和pcl的一致，</p>
-<p>科学实验方法的三个原则: 可比较(可评估)、可复现(稳定重复)、可证明(可解释)<br>算法内在：什么参数、不同参数下表现的差异<br>算法外在：准确度、精度</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/08/lidar-ethicp/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/coding-opencl/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/08/coding-opencl/" class="post-title-link" itemprop="url">OpenCL与CUDA  OpenCL与GPU</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-10 14:52:23" itemprop="dateModified" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>仅以记录工作上遇到的耽误了些许时间的哪些坑…</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/08/coding-opencl/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/c-template/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/08/c-template/" class="post-title-link" itemprop="url">c++-模板的使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-10 14:52:23" itemprop="dateModified" datetime="2020-10-10T14:52:23+08:00">2020-10-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>仅以记录工作上遇到的耽误了些许时间的哪些坑…</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/08/c-template/#more" rel="contents">
+              <a class="btn" href="/2020/07/12/autonomous-cloud-segmentation-hdmap/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1759,8 +1119,21 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-18 14:58:27" itemprop="dateModified" datetime="2020-11-18T14:58:27+08:00">2020-11-18</time>
+                <time title="Modified: 2021-01-08 14:19:18" itemprop="dateModified" datetime="2021-01-08T14:19:18+08:00">2021-01-08</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/autonomous/" itemprop="url" rel="index"><span itemprop="name">autonomous</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/autonomous/imu/" itemprop="url" rel="index"><span itemprop="name">imu</span></a>
+                </span>
+            </span>
 
           
 
@@ -1773,43 +1146,15 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>The measurements of angular volocity and acceleration from an IMU are defined using Eqs below<br>$$<br>\hat{w}_t = w_t + b^w_t + n^w_t \tag 1<br>$$<br>$$<br>\hat{a}_t = R^{BW}_t + b^a_t + n^a_t \tag 2<br>$$</p>
-<table>
-<thead>
-<tr>
-<th>state</th>
-<th>角速度</th>
-<th>加速度</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>原始值</td>
-<td>$\hat{w}_t$</td>
-<td>$\hat{a}_t$</td>
-</tr>
-<tr>
-<td>偏置</td>
-<td>$bias^w_t$</td>
-<td>$bias^a_t$</td>
-</tr>
-<tr>
-<td><strong>corrected</strong></td>
-<td>$w^c_t=\hat{w}_t - bias^w_t$</td>
-<td>$a^c_t=\hat{a}_t - bias^a_t$</td>
-</tr>
-<tr>
-<td><strong>update bias</strong></td>
-<td>$bias^w_t = bias^w_{t-1}$</td>
-<td>$bias^a_t = bias^a_{t-1}$</td>
-</tr>
-<tr>
-<td><strong>update pose</strong></td>
-<td>$tf_{imu} = \mathcal{R}^{\frac{w^c_t + w^c_{t-1}}{2}\cdot \Delta t}$<br/> $R_t = R_{t-1}\cdot tf_{imu}$</td>
-<td>ENU系下$dv=R \cdot a^c_t + g$<br> as for g,imu-z up g=-9.8,down g=9.8<br> 加速度: $\mathcal{dv}=\frac{R_t \cdot a^c_t + R_{t-1} \cdot a^c_{t-1}}{2} + g$<br> 速度: $v_t = v_{t-1} + dv \cdot \Delta t$<br> 位置: $P_t = P_{t-1} + \frac{v_t + v_{t-1}}{2} \cdot \Delta t$</td>
-</tr>
-</tbody></table>
-<p>code</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">last_state</span><br><span class="line"><span class="comment">//update biase</span></span><br><span class="line">Eigen::Vector3d acc_bias = last_state-&gt;acc_bias;</span><br><span class="line">Eigen::Vector3d gyro_bias= last_state-&gt;gyro_bias;</span><br><span class="line"></span><br><span class="line">Eigen::Vector3d mean_corrected_angle_vel = (corrected_angle_vel + last_state-&gt;corrected_angle_vel)/<span class="number">2</span>;</span><br><span class="line"><span class="keyword">double</span> rot_angle = mean_corrected_angle_vel.norm() * dt;</span><br><span class="line"><span class="function">Eigen::Vector3d <span class="title">rot_axis</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>)</span></span>;</span><br><span class="line"><span class="keyword">if</span>(rot_angle &gt; <span class="number">1e-9</span>)&#123;</span><br><span class="line">    rot_axis = mean_corrected_angle_vel.normalized();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">Eigen::AngleAxisd <span class="title">tf_rot_vector</span><span class="params">(rot_angle, rot_axis)</span></span>;</span><br><span class="line">attitude = (last_state-&gt;atitude * tf_rot_vector).normalized();<span class="comment">//update pose</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//因为imu的线加速度和角速度数据是在Body坐标系下表示的</span></span><br><span class="line"><span class="comment">//东北天坐标系下线加速度计算公式:"a = R*(acc-acc_biase) + g"</span></span><br><span class="line"><span class="comment">//(acc_biase和gyro_biase不可求，故通常是0，imu-z轴朝下/g=9.8, imu-z轴朝上/g=-9.8),现有车上imu-Z轴朝上</span></span><br><span class="line"><span class="comment">//所以要利用对应时刻的姿态将其转换到世界坐标系下，转换之前要减去bias，转化之后要减去重力加速度</span></span><br><span class="line"><span class="function">Eigen::Vector3d <span class="title">gravity_vector</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>, <span class="number">-9.8</span>)</span></span>;<span class="comment">//imu-z up</span></span><br><span class="line">Eigen::Vector3d dv = (attitude*corrected_acc + last_state-&gt;attitude * last_state-&gt;corrected_acc)/<span class="number">2.0</span> + gravity_vector;<span class="comment">//加速度</span></span><br><span class="line"><span class="comment">//update velocity</span></span><br><span class="line">velocity = last_state-&gt;velocity + dv * dt;</span><br><span class="line"><span class="comment">//update position: vt=vo+at, dv是加速度</span></span><br><span class="line">position = last_state-&gt;position + (velocity + last_state-&gt;velocity) /<span class="number">2.0</span> * dt;</span><br></pre></td></tr></table></figure>
+          <p>The measurements of angular volocity and acceleration from an IMU are defined using Eqs below</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/08/autonomous-integration-imu/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1828,7 +1173,7 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/tools-markdowon/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/math-multiple-of-vector/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sunshine.jpg">
@@ -1842,7 +1187,7 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/08/tools-markdowon/" class="post-title-link" itemprop="url">usage of mathjax</a>
+            <a href="/2020/07/08/math-multiple-of-vector/" class="post-title-link" itemprop="url">usage of vector's multi</a>
         </h2>
 
         <div class="post-meta">
@@ -1859,8 +1204,101 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-10 15:26:55" itemprop="dateModified" datetime="2020-11-10T15:26:55+08:00">2020-11-10</time>
+                <time title="Modified: 2021-01-08 14:58:59" itemprop="dateModified" datetime="2021-01-08T14:58:59+08:00">2021-01-08</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/math/" itemprop="url" rel="index"><span itemprop="name">math</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/math/vector-operation/" itemprop="url" rel="index"><span itemprop="name">vector operation</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="向量点乘"><a href="#向量点乘" class="headerlink" title="向量点乘"></a>向量点乘</h4><!-- web-front not supprt \bold{a}, but support \mathbf{a} -->
+<ul>
+<li>二维向量<br>$$<br>\begin{aligned}<br>  \mathbf{\overrightarrow{a}} &amp;= a_1\mathbf{i}+a_2\mathbf{j}\\<br>\mathbf{\overrightarrow{b}} &amp;= b_1\mathbf{i}+b_2\mathbf{j} \\<br>\mathbf{\overrightarrow{a}}\cdot\mathbf{\overrightarrow{b}} &amp;= a_1b_1\mathbf{i}+a_2b_2\mathbf{j}<br>\end{aligned} \tag{1}<br>$$</li>
+<li>三维向量<br>$$<br>\begin{aligned}<br>  \mathbf{\overrightarrow{a}} &amp;= a_1\mathbf{i}+a_2\mathbf{j}+a_3\mathbf{k}\\<br>\mathbf{\overrightarrow{b}} &amp;= b_1\mathbf{i}+b_2\mathbf{j}+b_3\mathbf{k}  \\<br>\mathbf{\overrightarrow{a}}\cdot\mathbf{\overrightarrow{b}} &amp;= a_1b_1\mathbf{i}+a_2b_2\mathbf{j}+a_3b_3\mathbf{k}<br>\end{aligned}\tag{2}<br>$$<h4 id="向量叉乘"><a href="#向量叉乘" class="headerlink" title="向量叉乘"></a>向量叉乘</h4></li>
+<li>三维向量<br>$$<br>\begin{aligned}<br>  \mathbf{\overrightarrow{a}} &amp;= a_1\mathbf{i}+a_2\mathbf{j}+a_3\mathbf{k}\\<br>\mathbf{\overrightarrow{b}} &amp;= b_1\mathbf{i}+b_2\mathbf{j}+b_3\mathbf{k}  \\<br>\mathbf{\overrightarrow{a}}\times\mathbf{\overrightarrow{b}} &amp;=<br>   \begin{bmatrix}<br>   \mathbf{i} &amp; \mathbf{j}&amp; \mathbf{k}\\<br>   a_1      &amp; a_2     &amp;a_3\\<br>   b_1      &amp; b_2     &amp;b_3<br>   \end{bmatrix} \\ &amp;= (a_2b_3 - a_3b_2)\mathbf{i} + (a_3b_1 - a_1b_3)\mathbf{j} + (a_1b_2 - a_2b_1)\mathbf{k} \\<br>   &amp;=<br>   \begin{bmatrix}<br>   a_2 &amp; a_3  \\<br>   b_2 &amp; b_3<br>   \end{bmatrix}\mathbf{i} +<br>   \begin{bmatrix}<br>   a_3 &amp; a_1  \\<br>   b_3 &amp; b_1<br>   \end{bmatrix}\mathbf{j}+<br>   \begin{bmatrix}<br>   a_1 &amp; a_2  \\<br>   b_1 &amp; b_2<br>   \end{bmatrix}\mathbf{k}<br>\end{aligned}\tag{3}<br>$$</li>
+<li>二维向量<br>$$<br>\begin{aligned}<br>  \mathbf{\overrightarrow{a}} &amp;= a_1\mathbf{i}+a_2\mathbf{j}\\<br>\mathbf{\overrightarrow{b}} &amp;= b_1\mathbf{i}+b_2\mathbf{j}  \\<br>\mathbf{\overrightarrow{a}}\times\mathbf{\overrightarrow{b}} &amp;=<br>   \begin{bmatrix}<br>   \mathbf{i} &amp; \mathbf{j}&amp; \mathbf{k}\\<br>   a_1      &amp; a_2     &amp;0\\<br>   b_1      &amp; b_2     &amp;0<br>   \end{bmatrix} \\ &amp;=  (a_1b_2 - a_2b_1)\mathbf{k} \\<br>   &amp;=<br>   \begin{bmatrix}<br>   a_1 &amp; a_2  \\<br>   b_1 &amp; b_2<br>   \end{bmatrix}\mathbf{k}<br>\end{aligned} \tag{4}<br>$$</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/tools-usage-markdowon/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sunshine.jpg">
+      <meta itemprop="name" content="Dexter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notebook">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/08/tools-usage-markdowon/" class="post-title-link" itemprop="url">usage of mathjax</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-08 14:09:44" itemprop="dateModified" datetime="2021-01-08T14:09:44+08:00">2021-01-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
+                </span>
+            </span>
 
           
 
@@ -1889,11 +1327,180 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/paper-lidar-ethicp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sunshine.jpg">
+      <meta itemprop="name" content="Dexter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notebook">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/08/paper-lidar-ethicp/" class="post-title-link" itemprop="url">icp算法的20年</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-08 14:12:44" itemprop="dateModified" datetime="2021-01-08T14:12:44+08:00">2021-01-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/paper/" itemprop="url" rel="index"><span itemprop="name">paper</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/paper/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>$$<br>y = \frac{a}{b}<br>$$</p>
+<h3 id="ETH-libpointmatcher使用"><a href="#ETH-libpointmatcher使用" class="headerlink" title="ETH-libpointmatcher使用"></a>ETH-libpointmatcher使用</h3><p>使用的eigen版本需和pcl的一致，</p>
+<p>科学实验方法的三个原则: 可比较(可评估)、可复现(稳定重复)、可证明(可解释)<br>算法内在：什么参数、不同参数下表现的差异<br>算法外在：准确度、精度</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/08/paper-lidar-ethicp/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/01/12/autonomous-cloud-segmentation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sunshine.jpg">
+      <meta itemprop="name" content="Dexter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notebook">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/12/autonomous-cloud-segmentation/" class="post-title-link" itemprop="url">点云分割的基本调研</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-12 14:19:22" itemprop="dateCreated datePublished" datetime="2020-01-12T14:19:22+08:00">2020-01-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-08 14:21:16" itemprop="dateModified" datetime="2021-01-08T14:21:16+08:00">2021-01-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/autonomous/" itemprop="url" rel="index"><span itemprop="name">autonomous</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/autonomous/segmentation/" itemprop="url" rel="index"><span itemprop="name">segmentation</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>找到较早期整理的文档, 保存一下到blog.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/12/autonomous-cloud-segmentation/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -1960,20 +1567,20 @@ b_1 &amp; b_2            </code></pre>   \end{bmatrix}\bold{k}<br>\end{aligned} 
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

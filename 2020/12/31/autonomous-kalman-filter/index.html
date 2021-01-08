@@ -28,10 +28,9 @@
 <meta property="og:description" content="The content mainly reference from yongcongwang’s IMM PredictionThe Kalman filter which was published by R.E.Kalman in 1960, is a set of mathematical equations that provides an efficient computational">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-12-31T11:22:23.000Z">
-<meta property="article:modified_time" content="2021-01-04T07:43:28.114Z">
+<meta property="article:modified_time" content="2021-01-08T06:20:19.801Z">
 <meta property="article:author" content="Dexter">
-<meta property="article:tag" content="blog">
-<meta property="article:tag" content=" notes">
+<meta property="article:tag" content="algorithm">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://blog.dexter.cool/2020/12/31/autonomous-kalman-filter/">
@@ -223,8 +222,21 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-04 15:43:28" itemprop="dateModified" datetime="2021-01-04T15:43:28+08:00">2021-01-04</time>
+                <time title="Modified: 2021-01-08 14:20:19" itemprop="dateModified" datetime="2021-01-08T14:20:19+08:00">2021-01-08</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/autonomous/" itemprop="url" rel="index"><span itemprop="name">autonomous</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/autonomous/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
 
           
 
@@ -237,7 +249,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>The content mainly reference from <a href="https://blog.yongcong.wang/2020/10/29/autonomous/imm-for-prediction/" target="_blank" rel="noopener">yongcongwang’s IMM Prediction</a><br>The Kalman filter which was published by R.E.Kalman in 1960, is a set of mathematical equations that provides an efficient computational (recursive) means to estimate the state of a process, in a way that minimizes the mean of the squared error. The filter is very powerful in several aspects: it supports estimations of past, present, and even future states, and it can do so even when the precise nature of the modeled system is unknown.</p>
+        <p>The content mainly reference from <a href="https://blog.yongcong.wang/2020/10/29/autonomous/imm-for-prediction/" target="_blank" rel="noopener">yongcongwang’s IMM Prediction</a><br>The Kalman filter which was published by R.E.Kalman in 1960, is a set of mathematical equations that provides an efficient computational (recursive) means to estimate the state of a process, in a way that minimizes the mean of the squared error. <a id="more"></a>The filter is very powerful in several aspects: it supports estimations of past, present, and even future states, and it can do so even when the precise nature of the modeled system is unknown.</p>
+<h2 id="Basic-Equations"><a href="#Basic-Equations" class="headerlink" title="Basic Equations"></a>Basic Equations</h2><ul>
+<li>overview<br>$$<br>\begin{aligned}<br>  \underset{n \times 1}{X_k} &amp;= \underset{n \times n}{A}\underset{n \times 1}{X_{k-1}} + \underset{n \times b}{B}   \underset{b \times 1}{U_{k-1}} + \underset{n \times 1}{w_{k-1}},(Q)\\<br>  \underset{m \times 1}{Z_k} &amp;= \underset{m \times n}{H}\underset{n \times 1}{X_k} + \underset{m \times 1}{v_{k}},(R)<br>\end{aligned}<br>$$</li>
+<li>predict<br>$$<br>\begin{aligned}<br>  \underset{n \times 1}{X_k^{pre}} &amp;= \underset{n \times n}{A} \cdot \underset{n \times 1}{X_{k-1}} + \underset{n \times b}{B} \cdot \underset{b \times 1}{U_{k-1}}\\<br>  \underset{n \times n}{P_k^{pre}} &amp;= \underset{n \times n}{A} \cdot \underset{n \times n}{P_{k-1}} \cdot \underset{n \times n}{A^T} + \underset{n \times n}{Q}<br>\end{aligned}<br>$$</li>
+</ul>
+<!-- $$
+\begin{aligned}
+    \underset{n \times n}{P^{pre}_k} will be wrong,it should be write as "\underset{n \times n}{P_k^{pre}}"
+\end{aligned}
+$$ -->
+<ul>
+<li>correct<br>$$<br>\begin{aligned}<br>  \mathcal{K_{n \times m}} &amp;= (P^{pre}_kH^T)  \cdot (HP^{pre}_kH^T + R)^{-1} \\<br>  X_k &amp;= X^{pre}_k + \mathcal{K}(Z_k- HX^{pre}_k) \\<br>  P_k &amp;= (I - \mathcal{K}H)P^{pre}_k<br>\end{aligned}<br>$$</li>
+</ul>
 <h2 id="The-process-to-be-estimated"><a href="#The-process-to-be-estimated" class="headerlink" title="The process to be estimated"></a>The process to be estimated</h2><p>The Kalman filter addressed the general problem of trying to estimate the state $x\in \Re^n$ of a discrete-time controlled process that is governed by the linear stochastic difference equation:<br>$$<br>x_k = Ax_{k-1} + Bu_{k-1} + w_{k-1} \qquad p(w) \sim N(0, Q) \tag{1}<br>$$<br>with a measurement $z \in \Re^m$ that is:<br>$$<br>z_k = Hx_k + v_k \qquad p(v) \sim N(0,R) \tag{2}<br>$$</p>
 <ul>
 <li>The $n*n$ matrix $A$ is <code>transition matrix</code> which relates the state at the previous time step $k-1$ to the state at the current step $k$, in the absence of either a driving function or process noise. Note that in practice $A$ might change with each time step, but here we assume it is constant.</li>
@@ -288,6 +312,9 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/algorithm/" rel="tag"># algorithm</a>
+          </div>
 
         
 
@@ -295,10 +322,13 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/12/04/dairy-note-no-valience-chatting/" rel="prev" title="非暴力沟通">
-      <i class="fa fa-chevron-left"></i> 非暴力沟通
+    <a href="/2020/12/04/dairy-note-no-valience-chatting/" rel="prev" title="读书笔记:非暴力沟通">
+      <i class="fa fa-chevron-left"></i> 读书笔记:非暴力沟通
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/08/coding-several-design-patterns-by-cpp/" rel="next" title="Several Design Patterns By C++">
+      Several Design Patterns By C++ <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -357,7 +387,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-process-to-be-estimated"><span class="nav-number">1.</span> <span class="nav-text">The process to be estimated</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-computational-origin-of-the-filter"><span class="nav-number">2.</span> <span class="nav-text">The computational origin of the filter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-discrete-Kalman-Filter-Algorithm"><span class="nav-number">3.</span> <span class="nav-text">The discrete Kalman Filter Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-of-Kalman-Filter"><span class="nav-number">4.</span> <span class="nav-text">Python of Kalman Filter</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Equations"><span class="nav-number">1.</span> <span class="nav-text">Basic Equations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-process-to-be-estimated"><span class="nav-number">2.</span> <span class="nav-text">The process to be estimated</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-computational-origin-of-the-filter"><span class="nav-number">3.</span> <span class="nav-text">The computational origin of the filter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-discrete-Kalman-Filter-Algorithm"><span class="nav-number">4.</span> <span class="nav-text">The discrete Kalman Filter Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-of-Kalman-Filter"><span class="nav-number">5.</span> <span class="nav-text">Python of Kalman Filter</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -373,20 +403,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
