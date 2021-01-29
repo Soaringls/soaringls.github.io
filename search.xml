@@ -655,6 +655,20 @@ $$ -->
     <title>usage of mathjax</title>
     <url>/2020/07/08/tools-usage-markdowon/</url>
     <content><![CDATA[<p>花体字母$\mathcal{H}$</p>
+<ol>
+<li>$\mathclap{R}$</li>
+<li>$\mathcal{R}$</li>
+<li>$\mathbin{R}$</li>
+<li>$\mathbf{R}$</li>
+<li>$\mathbb{R}$</li>
+<li>$\mathclose{R}$</li>
+<li>$\mathellipsis{R}$</li>
+<li>$\mathfrak{R}$</li>
+<li>$\mathinner{R}$</li>
+<li>$\mathit{R}$</li>
+<li>$\mathllap{R}$</li>
+<li>$\mathnormal{R}$</li>
+</ol>
 ]]></content>
       <categories>
         <category>tools</category>
@@ -835,5 +849,59 @@ $$ -->
       <tags>
         <tag>math</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Note after reading paper of loam</title>
+    <url>/2020/10/09/paper-slam-lio-mapping/</url>
+    <content><![CDATA[<p>shortcomnigs</p>
+<ul>
+<li>make featuring tracking an intractable problem</li>
+<li>lidar mounted on moving robots suffer from motion distortion</li>
+<li>there are some lidar-degraded cases in which the lidar receives few or missing points<br>such as narrow corridor environments lead to ill-constrained pose estimation</li>
+</ul>
+<p>the paper’s contributions as follows:</p>
+<ul>
+<li>to achieve real-time and more consistent estimation,fixed-lag smoothing and marginalization of old poses are applied,followed by a rotation constrained refinement.</li>
+<li>pre-integrate and use raw IMU measurements with lidar measurements to optimize the states within the whole system,which can work in laser degraded cases or when the motions are rapid.</li>
+</ul>
+<p>Notations</p>
+<ul>
+<li>denote the transformation matrix as $\mathbf{T}<em>b^a \in  SE(3),[b \to a]$, which transforms the point $\mathbf{x}^b \in \mathbb{R}^3$ in the frame $\mathcal{F}_b$ into the frame $\mathcal{F}_a$,just as [$\mathbf{T}_L^I$ -&gt; lidar / imu, transform point $P$ from lidar frame $\mathcal{F}</em>{lidar}$ to imu frame $\mathcal{F}_{imu}$].</li>
+<li>denote the raw measurements of the IMU at timestamp $\mathcal{k}$ as $\hat{a}_k$ and $\hat{w}_k$.</li>
+<li>denote the extracted features as $\mathbf{F}<em>a$ in original $\mathcal{F}</em>{lidar}$,which can be transformed into the frame $\mathcal{F}_b$ as $\mathbf{F}_a^b$.</li>
+<li>robot body frame $\mathcal{F}_B \to imu$, and lidar body frame$\mathcal{F}_L \to lidar$</li>
+</ul>
+]]></content>
+      <categories>
+        <category>paper</category>
+        <category>algorithm</category>
+      </categories>
+      <tags>
+        <tag>slam</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Introduction of Gtsam</title>
+    <url>/2020/12/31/autonomous-back-end-gtsam/</url>
+    <content><![CDATA[<h2 id="Theory"><a href="#Theory" class="headerlink" title="Theory"></a>Theory</h2><h3 id="SLAM-as-a-Bayes-Net"><a href="#SLAM-as-a-Bayes-Net" class="headerlink" title="SLAM as a Bayes Net"></a>SLAM as a Bayes Net</h3><p>$$<br>\begin{aligned}<br>&amp;\mathbf{P}(\mathbf{X,L,Z}) = P(x_0)\prod_{i=1}^MP(x_i|x_{i-1},u_i)\prod_{k=1}^KP(z_k|x_{ik},l_{jk}) \\\\<br>&amp; x_i = f_i(x_{i-1},u_i)+w_i \Leftrightarrow \\<br>&amp; P(x_i|x_{i-1},u_i)\propto exp-\frac{1}{2}||f_i(x_{i-1},u_i)-x_i||^2\Lambda_i  \\<br>&amp;z_k=h_k(x_{ik},l_{jk})+v_k \Leftrightarrow \\<br>&amp;P(z_k|x_{ik},l_{jk})\propto exp-\frac{1}{2}||h_k(x_{ik},l_{jk})-z_k||^2_{\sum_k}<br>\end{aligned}<br>$$ </p>
+<h3 id="SLAM-as-a-Factor-Graph"><a href="#SLAM-as-a-Factor-Graph" class="headerlink" title="SLAM as a Factor Graph"></a>SLAM as a Factor Graph</h3><h3 id="SLAM-as-a-Non-linear-Least-Squares"><a href="#SLAM-as-a-Non-linear-Least-Squares" class="headerlink" title="SLAM as a Non-linear Least Squares"></a>SLAM as a Non-linear Least Squares</h3><h3 id="Optimization-on-Manifold-Lie-Groups"><a href="#Optimization-on-Manifold-Lie-Groups" class="headerlink" title="Optimization on Manifold/Lie Groups"></a>Optimization on Manifold/Lie Groups</h3><h3 id="iSAM2-and-Bayes-Tree"><a href="#iSAM2-and-Bayes-Tree" class="headerlink" title="iSAM2 and Bayes Tree"></a>iSAM2 and Bayes Tree</h3><h2 id="Programming"><a href="#Programming" class="headerlink" title="Programming"></a>Programming</h2><h3 id="First-Cpp-example"><a href="#First-Cpp-example" class="headerlink" title="First Cpp example"></a>First Cpp example</h3><h3 id="Use-Gtsam-in-Matlab"><a href="#Use-Gtsam-in-Matlab" class="headerlink" title="Use Gtsam in Matlab"></a>Use Gtsam in Matlab</h3><h3 id="Write-your-own-factor"><a href="#Write-your-own-factor" class="headerlink" title="Write your own factor"></a>Write your own factor</h3><h3 id="Expression-Automatic-Differentiation-New-in-4-0"><a href="#Expression-Automatic-Differentiation-New-in-4-0" class="headerlink" title="Expression Automatic Differentiation(New in 4.0)"></a>Expression Automatic Differentiation(New in 4.0)</h3><h3 id="Traits-Optimize-any-type-in-GTSAM-New-in-4-0"><a href="#Traits-Optimize-any-type-in-GTSAM-New-in-4-0" class="headerlink" title="Traits Optimize any type in GTSAM(New in 4.0)"></a>Traits Optimize any type in GTSAM(New in 4.0)</h3><h3 id="Use-GTSAM-in-Python"><a href="#Use-GTSAM-in-Python" class="headerlink" title="Use GTSAM in Python"></a>Use GTSAM in Python</h3><h2 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h2><h3 id="Visual-lnertial-Odometry"><a href="#Visual-lnertial-Odometry" class="headerlink" title="Visual-lnertial Odometry"></a>Visual-lnertial Odometry</h3><h3 id="Structure-from-Motion-SFM"><a href="#Structure-from-Motion-SFM" class="headerlink" title="Structure from Motion(SFM)"></a>Structure from Motion(SFM)</h3><h3 id="Multi-Robot-SLAM-Coordinate-Frame-and-Distrubuted-Optimization"><a href="#Multi-Robot-SLAM-Coordinate-Frame-and-Distrubuted-Optimization" class="headerlink" title="Multi-Robot SLAM Coordinate Frame and Distrubuted Optimization"></a>Multi-Robot SLAM Coordinate Frame and Distrubuted Optimization</h3><h3 id="Multi-View-Stereo-and-Optical-Flow"><a href="#Multi-View-Stereo-and-Optical-Flow" class="headerlink" title="Multi-View Stereo and Optical Flow"></a>Multi-View Stereo and Optical Flow</h3><h3 id="Motion-Planning"><a href="#Motion-Planning" class="headerlink" title="Motion Planning"></a>Motion Planning</h3>]]></content>
+      <categories>
+        <category>autonomous</category>
+        <category>algorithm</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UML Graphic</title>
+    <url>/2020/10/25/coding-uml-graph/</url>
+    <content><![CDATA[<p>This page is the note of Bjarne’s speech at Edinburgh from youtobe.</p>
+<a id="more"></a>
+<p><img data-src="/images/tools/uml.svg" alt="general view of the lidar segmentation"></p>
+]]></content>
+      <categories>
+        <category>coding</category>
+      </categories>
   </entry>
 </search>

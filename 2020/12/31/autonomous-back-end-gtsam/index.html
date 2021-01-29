@@ -20,21 +20,20 @@
     var CONFIG = {"hostname":"blog.dexter.cool","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":2,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="compile commandcompile all modulescolcon build --cmake-args -DCMAKE_BUILD_TYPE&#x3D;Debug Releasecompile special modulecolcon build --packages-select ekf_localizer  open rviz using special rviz configrviz">
+  <meta name="description" content="TheorySLAM as a Bayes Net$$\begin{aligned}&amp;\mathbf{P}(\mathbf{X,L,Z}) &#x3D; P(x_0)\prod_{i&#x3D;1}^MP(x_i|x_{i-1},u_i)\prod_{k&#x3D;1}^KP(z_k|x_{ik},l_{jk}) \\\\&amp; x_i &#x3D; f_i(x_{i-1},u_i)+w_i \Leftrightarrow">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Terminator Shortcuts Usage">
-<meta property="og:url" content="http://blog.dexter.cool/2020/10/30/tools-usage-ros/index.html">
+<meta property="og:title" content="Introduction of Gtsam">
+<meta property="og:url" content="http://blog.dexter.cool/2020/12/31/autonomous-back-end-gtsam/index.html">
 <meta property="og:site_name" content="Notebook">
-<meta property="og:description" content="compile commandcompile all modulescolcon build --cmake-args -DCMAKE_BUILD_TYPE&#x3D;Debug Releasecompile special modulecolcon build --packages-select ekf_localizer  open rviz using special rviz configrviz">
+<meta property="og:description" content="TheorySLAM as a Bayes Net$$\begin{aligned}&amp;\mathbf{P}(\mathbf{X,L,Z}) &#x3D; P(x_0)\prod_{i&#x3D;1}^MP(x_i|x_{i-1},u_i)\prod_{k&#x3D;1}^KP(z_k|x_{ik},l_{jk}) \\\\&amp; x_i &#x3D; f_i(x_{i-1},u_i)+w_i \Leftrightarrow">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-10-30T02:11:12.000Z">
-<meta property="article:modified_time" content="2020-10-30T02:52:56.059Z">
+<meta property="article:published_time" content="2020-12-31T11:22:23.000Z">
+<meta property="article:modified_time" content="2021-01-26T03:30:19.766Z">
 <meta property="article:author" content="Dexter">
-<meta property="article:tag" content="blog">
-<meta property="article:tag" content=" notes">
+<meta property="article:tag" content="algorithm">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://blog.dexter.cool/2020/10/30/tools-usage-ros/">
+<link rel="canonical" href="http://blog.dexter.cool/2020/12/31/autonomous-back-end-gtsam/">
 
 
 <script id="page-configurations">
@@ -47,7 +46,7 @@
   };
 </script>
 
-  <title>Terminator Shortcuts Usage | Notebook</title>
+  <title>Introduction of Gtsam | Notebook</title>
   
 
 
@@ -193,7 +192,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/30/tools-usage-ros/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/12/31/autonomous-back-end-gtsam/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sunshine.jpg">
@@ -206,7 +205,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Terminator Shortcuts Usage<a href="https://github.com/Soaringls/blog/tree/note/source/_posts/tools/usage_ros.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+          Introduction of Gtsam<a href="https://github.com/Soaringls/blog/tree/note/source/_posts/autonomous/back-end-gtsam.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
         </h1>
 
         <div class="post-meta">
@@ -215,17 +214,27 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-10-30 10:11:12 / Modified: 10:52:56" itemprop="dateCreated datePublished" datetime="2020-10-30T10:11:12+08:00">2020-10-30</time>
+              <time title="Created: 2020-12-31 19:22:23" itemprop="dateCreated datePublished" datetime="2020-12-31T19:22:23+08:00">2020-12-31</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-26 11:30:19" itemprop="dateModified" datetime="2021-01-26T11:30:19+08:00">2021-01-26</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
+                  <a href="/categories/autonomous/" itemprop="url" rel="index"><span itemprop="name">autonomous</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/autonomous/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
                 </span>
             </span>
 
@@ -240,13 +249,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <ul>
-<li><p><strong>compile command</strong><br>compile all modules<br><code>colcon build --cmake-args -DCMAKE_BUILD_TYPE=Debug Release</code><br>compile special module<br><code>colcon build --packages-select ekf_localizer</code></p>
-</li>
-<li><p><strong>open rviz using special rviz config</strong><br><code>rviz -d ./data/ces_mapping.rviz</code></p>
-</li>
-</ul>
-
+        <h2 id="Theory"><a href="#Theory" class="headerlink" title="Theory"></a>Theory</h2><h3 id="SLAM-as-a-Bayes-Net"><a href="#SLAM-as-a-Bayes-Net" class="headerlink" title="SLAM as a Bayes Net"></a>SLAM as a Bayes Net</h3><p>$$<br>\begin{aligned}<br>&amp;\mathbf{P}(\mathbf{X,L,Z}) = P(x_0)\prod_{i=1}^MP(x_i|x_{i-1},u_i)\prod_{k=1}^KP(z_k|x_{ik},l_{jk}) \\\\<br>&amp; x_i = f_i(x_{i-1},u_i)+w_i \Leftrightarrow \\<br>&amp; P(x_i|x_{i-1},u_i)\propto exp-\frac{1}{2}||f_i(x_{i-1},u_i)-x_i||^2\Lambda_i  \\<br>&amp;z_k=h_k(x_{ik},l_{jk})+v_k \Leftrightarrow \\<br>&amp;P(z_k|x_{ik},l_{jk})\propto exp-\frac{1}{2}||h_k(x_{ik},l_{jk})-z_k||^2_{\sum_k}<br>\end{aligned}<br>$$ </p>
+<h3 id="SLAM-as-a-Factor-Graph"><a href="#SLAM-as-a-Factor-Graph" class="headerlink" title="SLAM as a Factor Graph"></a>SLAM as a Factor Graph</h3><h3 id="SLAM-as-a-Non-linear-Least-Squares"><a href="#SLAM-as-a-Non-linear-Least-Squares" class="headerlink" title="SLAM as a Non-linear Least Squares"></a>SLAM as a Non-linear Least Squares</h3><h3 id="Optimization-on-Manifold-Lie-Groups"><a href="#Optimization-on-Manifold-Lie-Groups" class="headerlink" title="Optimization on Manifold/Lie Groups"></a>Optimization on Manifold/Lie Groups</h3><h3 id="iSAM2-and-Bayes-Tree"><a href="#iSAM2-and-Bayes-Tree" class="headerlink" title="iSAM2 and Bayes Tree"></a>iSAM2 and Bayes Tree</h3><h2 id="Programming"><a href="#Programming" class="headerlink" title="Programming"></a>Programming</h2><h3 id="First-Cpp-example"><a href="#First-Cpp-example" class="headerlink" title="First Cpp example"></a>First Cpp example</h3><h3 id="Use-Gtsam-in-Matlab"><a href="#Use-Gtsam-in-Matlab" class="headerlink" title="Use Gtsam in Matlab"></a>Use Gtsam in Matlab</h3><h3 id="Write-your-own-factor"><a href="#Write-your-own-factor" class="headerlink" title="Write your own factor"></a>Write your own factor</h3><h3 id="Expression-Automatic-Differentiation-New-in-4-0"><a href="#Expression-Automatic-Differentiation-New-in-4-0" class="headerlink" title="Expression Automatic Differentiation(New in 4.0)"></a>Expression Automatic Differentiation(New in 4.0)</h3><h3 id="Traits-Optimize-any-type-in-GTSAM-New-in-4-0"><a href="#Traits-Optimize-any-type-in-GTSAM-New-in-4-0" class="headerlink" title="Traits Optimize any type in GTSAM(New in 4.0)"></a>Traits Optimize any type in GTSAM(New in 4.0)</h3><h3 id="Use-GTSAM-in-Python"><a href="#Use-GTSAM-in-Python" class="headerlink" title="Use GTSAM in Python"></a>Use GTSAM in Python</h3><h2 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h2><h3 id="Visual-lnertial-Odometry"><a href="#Visual-lnertial-Odometry" class="headerlink" title="Visual-lnertial Odometry"></a>Visual-lnertial Odometry</h3><h3 id="Structure-from-Motion-SFM"><a href="#Structure-from-Motion-SFM" class="headerlink" title="Structure from Motion(SFM)"></a>Structure from Motion(SFM)</h3><h3 id="Multi-Robot-SLAM-Coordinate-Frame-and-Distrubuted-Optimization"><a href="#Multi-Robot-SLAM-Coordinate-Frame-and-Distrubuted-Optimization" class="headerlink" title="Multi-Robot SLAM Coordinate Frame and Distrubuted Optimization"></a>Multi-Robot SLAM Coordinate Frame and Distrubuted Optimization</h3><h3 id="Multi-View-Stereo-and-Optical-Flow"><a href="#Multi-View-Stereo-and-Optical-Flow" class="headerlink" title="Multi-View Stereo and Optical Flow"></a>Multi-View Stereo and Optical Flow</h3><h3 id="Motion-Planning"><a href="#Motion-Planning" class="headerlink" title="Motion Planning"></a>Motion Planning</h3>
     </div>
 
     
@@ -254,6 +258,9 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/algorithm/" rel="tag"># algorithm</a>
+          </div>
 
         
 
@@ -261,12 +268,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/10/30/tools-usage-terminator-shortcuts/" rel="prev" title="Terminator Shortcuts Usage">
-      <i class="fa fa-chevron-left"></i> Terminator Shortcuts Usage
+    <a href="/2020/12/31/autonomous-kalman-filter/" rel="prev" title="Introduction of Kalman Filter">
+      <i class="fa fa-chevron-left"></i> Introduction of Kalman Filter
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/11/29/dairy-note-the-seven-habits-of-effective-awosome/" rel="next" title="读书笔记:高效人士的七个习惯">
-      读书笔记:高效人士的七个习惯 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/01/08/coding-several-design-patterns-by-cpp/" rel="next" title="Several Design Patterns By C++">
+      Several Design Patterns By C++ <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -326,6 +333,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Theory"><span class="nav-number">1.</span> <span class="nav-text">Theory</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SLAM-as-a-Bayes-Net"><span class="nav-number">1.1.</span> <span class="nav-text">SLAM as a Bayes Net</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SLAM-as-a-Factor-Graph"><span class="nav-number">1.2.</span> <span class="nav-text">SLAM as a Factor Graph</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SLAM-as-a-Non-linear-Least-Squares"><span class="nav-number">1.3.</span> <span class="nav-text">SLAM as a Non-linear Least Squares</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Optimization-on-Manifold-Lie-Groups"><span class="nav-number">1.4.</span> <span class="nav-text">Optimization on Manifold&#x2F;Lie Groups</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iSAM2-and-Bayes-Tree"><span class="nav-number">1.5.</span> <span class="nav-text">iSAM2 and Bayes Tree</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Programming"><span class="nav-number">2.</span> <span class="nav-text">Programming</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#First-Cpp-example"><span class="nav-number">2.1.</span> <span class="nav-text">First Cpp example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-Gtsam-in-Matlab"><span class="nav-number">2.2.</span> <span class="nav-text">Use Gtsam in Matlab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Write-your-own-factor"><span class="nav-number">2.3.</span> <span class="nav-text">Write your own factor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Expression-Automatic-Differentiation-New-in-4-0"><span class="nav-number">2.4.</span> <span class="nav-text">Expression Automatic Differentiation(New in 4.0)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Traits-Optimize-any-type-in-GTSAM-New-in-4-0"><span class="nav-number">2.5.</span> <span class="nav-text">Traits Optimize any type in GTSAM(New in 4.0)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-GTSAM-in-Python"><span class="nav-number">2.6.</span> <span class="nav-text">Use GTSAM in Python</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Applications"><span class="nav-number">3.</span> <span class="nav-text">Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Visual-lnertial-Odometry"><span class="nav-number">3.1.</span> <span class="nav-text">Visual-lnertial Odometry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Structure-from-Motion-SFM"><span class="nav-number">3.2.</span> <span class="nav-text">Structure from Motion(SFM)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-Robot-SLAM-Coordinate-Frame-and-Distrubuted-Optimization"><span class="nav-number">3.3.</span> <span class="nav-text">Multi-Robot SLAM Coordinate Frame and Distrubuted Optimization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-View-Stereo-and-Optical-Flow"><span class="nav-number">3.4.</span> <span class="nav-text">Multi-View Stereo and Optical Flow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Motion-Planning"><span class="nav-number">3.5.</span> <span class="nav-text">Motion Planning</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
