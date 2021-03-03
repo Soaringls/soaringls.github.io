@@ -1,5 +1,5 @@
 ---
-title: Note after reading paper of loam
+title: Note after reading paper of lio-mapping
 date: 2020-10-09 10:29:34
 mathjax: true
 categories:
