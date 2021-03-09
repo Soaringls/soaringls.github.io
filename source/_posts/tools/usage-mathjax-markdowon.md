@@ -21,3 +21,6 @@ tags:
 10. $\mathit{R}$
 11. $\mathllap{R}$
 12. $\mathnormal{R}$
+
+数学符号
+1. $A^\prime$
