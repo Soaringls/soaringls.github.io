@@ -93,7 +93,7 @@ $$
 \end{aligned} \tag{8}
 $$ 
 
-Looking at (10) we see that as the measurement error covariance $R \to 0$, the gain $K$ weights the residual more heavily.Specially,
+Looking at (10) we see that as the `measurement error covariance` $R \to 0$, the gain $K$ weights the residual more heavily.Specially,
 $$
 \lim_{R_k \to 0}K_k = H^{-1} \tag{9}
 $$
