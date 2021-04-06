@@ -20,17 +20,21 @@
     var CONFIG = {"hostname":"blog.dexter.cool","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":2,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Notebook">
-<meta property="og:url" content="http://blog.dexter.cool/categories/paper/index.html">
+  <meta name="description" content="ESKF error-state最小轻量化,参数和自由度一样，但是避免了参数化冗余(即强约束计算时可能随之而来的协方差奇异性的问题) error-state总是保持误差处在0值附近，避免潜在的参数奇异性、万向锁问题&#x2F; 能保证任何时刻有效线性化 error-state足够小,意味着其二阶导基本可忽略，Jacobian计算会很容易很快或者Jacobian是恒定的 todo    ESKF基本介绍状态">
+<meta property="og:type" content="article">
+<meta property="og:title" content="paper-kf-eskf-joan-sola">
+<meta property="og:url" content="http://blog.dexter.cool/2021/03/29/paper-kf-eskf-joan-sola/index.html">
 <meta property="og:site_name" content="Notebook">
+<meta property="og:description" content="ESKF error-state最小轻量化,参数和自由度一样，但是避免了参数化冗余(即强约束计算时可能随之而来的协方差奇异性的问题) error-state总是保持误差处在0值附近，避免潜在的参数奇异性、万向锁问题&#x2F; 能保证任何时刻有效线性化 error-state足够小,意味着其二阶导基本可忽略，Jacobian计算会很容易很快或者Jacobian是恒定的 todo    ESKF基本介绍状态">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-29T07:03:16.471Z">
+<meta property="article:modified_time" content="2021-03-29T07:03:16.471Z">
 <meta property="article:author" content="Dexter">
 <meta property="article:tag" content="blog">
 <meta property="article:tag" content=" notes">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://blog.dexter.cool/categories/paper/">
+<link rel="canonical" href="http://blog.dexter.cool/2021/03/29/paper-kf-eskf-joan-sola/">
 
 
 <script id="page-configurations">
@@ -38,12 +42,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Category: paper | Notebook</title>
+  <title>paper-kf-eskf-joan-sola | Notebook</title>
   
 
 
@@ -182,91 +186,94 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">paper
-          <small>Category</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2021/03/29/paper-kf-eskf-joan-sola/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sunshine.jpg">
+      <meta itemprop="name" content="Dexter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notebook">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          paper-kf-eskf-joan-sola<a href="https://github.com/Soaringls/blog/tree/note/source/_posts/paper/kf_eskf_joan_sola.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pencil-alt"></i></a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-29 15:03:16" itemprop="dateCreated datePublished" datetime="2021-03-29T15:03:16+08:00">2021-03-29</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-10-09T10:29:34+08:00"
-              content="2020-10-09">
-          10-09
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/10/09/paper-slam-loam/" itemprop="url">
-            <span itemprop="name">Note after reading paper of loam</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-10-09T10:29:34+08:00"
-              content="2020-10-09">
-          10-09
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/10/09/paper-slam-lio-mapping/" itemprop="url">
-            <span itemprop="name">Note after reading paper of lio-mapping</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-08T11:07:05+08:00"
-              content="2020-07-08">
-          07-08
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/08/paper-lidar-ethicp/" itemprop="url">
-            <span itemprop="name">icp算法的20年</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        <ul>
+<li>ESKF<ul>
+<li>error-state最小轻量化,参数和自由度一样，但是避免了参数化冗余(即强约束计算时可能随之而来的协方差奇异性的问题)</li>
+<li>error-state总是保持误差处在0值附近，避免潜在的参数奇异性、万向锁问题/ 能保证任何时刻有效线性化</li>
+<li>error-state足够小,意味着其二阶导基本可忽略，Jacobian计算会很容易很快或者Jacobian是恒定的</li>
+<li>todo</li>
+</ul>
+</li>
+</ul>
+<h3 id="ESKF基本介绍"><a href="#ESKF基本介绍" class="headerlink" title="ESKF基本介绍"></a>ESKF基本介绍</h3><p>状态量包括<code>true-state / nominal-state / error-state</code></p>
+<ol>
+<li>高频IMU数据 $u_m$ 集成到<code>nominal-state</code> $x$, 不考虑噪声项目 $w$ 和其他扰动</li>
+<li>实时累计的误差集成到 <code>error-state</code>(由小的信号状态量构成,有时序的动态线性系统进行<code>correct</code>,用到的控制及测量矩阵由<code>nominal-state</code>计算) $\delta x$ 并用ESKF评估(包含了所有的噪声项和扰动)</li>
+<li><code>nominal-state</code>集成的同时,ESKF会<code>prdict</code>一个<code>error-state</code>的高斯估计</li>
+<li>精度高于IMU的<code>anchor-msg</code>(rtk/lidar/vision)到达时对<code>error—state</code>进行<code>correct</code>,从而计算出一个后验的<code>error-state</code>的高斯估计,最后将<code>error-state</code>的均值注入到<code>nominal-state</code>后重置为0,<code>error-state</code>的协方差…..</li>
+</ol>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/08/coding-several-design-patterns-by-cpp/" rel="prev" title="Several Design Patterns By C++">
+      <i class="fa fa-chevron-left"></i> Several Design Patterns By C++
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/31/paper-vins-qt/" rel="next" title="paper-vins-qt">
+      paper-vins-qt <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -319,6 +326,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ESKF基本介绍"><span class="nav-number">1.</span> <span class="nav-text">ESKF基本介绍</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -174,7 +174,7 @@
     <span>0%</span>
   </div>
 
-  <a href="https://github.com/Soaringls" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+  <a href="https://github.com/" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 
     <main class="main">
@@ -184,6 +184,145 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2021/03/31/paper-vins-qt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sunshine.jpg">
+      <meta itemprop="name" content="Dexter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notebook">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/31/paper-vins-qt/" class="post-title-link" itemprop="url">paper-vins-qt</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-31 16:20:34" itemprop="dateCreated datePublished" datetime="2021-03-31T16:20:34+08:00">2021-03-31</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h3><p>通过滑窗优化视觉和惯导实现精确的状态估计,视觉结构由滑动窗口内的关键帧维护,惯性的metrix测量值由关键帧之间的预积分维护。系统在位置状态下也可鲁棒的初始化,并能实时实现camera-imu的标定,统一定义在球面上的重投影误差、回环检测、以及4自由度的位姿优化</p>
+<h3 id="overview"><a href="#overview" class="headerlink" title="overview"></a>overview</h3><ol>
+<li>提取、追踪每个image frame的特征点,并在相邻两帧key-image之间预积分imu数据</li>
+<li>初始化过程(提供pose/velocity/gravityVector/gyroscopeBias/3DfeaturePoints来引导非线性系统)</li>
+<li>实现非线性图优化通过优化所有的视觉、惯导数据来优化滑窗内状态</li>
+<li>单独的线程负责闭环检测和位姿优化<h3 id="测量值预处理"><a href="#测量值预处理" class="headerlink" title="测量值预处理"></a>测量值预处理</h3></li>
+<li>image,连续帧之间检测特征并在上一帧检测新的特征</li>
+<li>imu: 在连续两帧image之间预积分。注:imu数据同时被noise和bias所影响,所以在预积分和优化过程中都特别考虑了bias,这在低成本的imu数据处理中很重要<h4 id="A-前端视觉处理"><a href="#A-前端视觉处理" class="headerlink" title="A.前端视觉处理"></a>A.前端视觉处理</h4>针对每一张图像,采用KLT稀疏光流算法追踪特征,同时检测角点来保持每张image的最小特征数目,detector强制统一的特征分布通过在相邻image设置最小的像素差个数。 检测到的特征在通过RANSAC抑制离群点后被映射到单位球体。<br>key frame也在这一步根据2个标准选取:(1)通过追踪的平均parallax视差选取,视差超过一定阈值则为key frame,<strong>平移和旋转都会引起视差,但只旋转不能完成三角化</strong>,为了避免这个问题，在计算视差parallax的时候使用imu积分补偿旋转 (2)另一个标准是追踪的质量,如果追踪的特征数量低于设定的阈值,我们也把这一这帧视为keyframe<h4 id="B-IMU-Preintegration"><a href="#B-IMU-Preintegration" class="headerlink" title="B.IMU-Preintegration"></a>B.IMU-Preintegration</h4>相比之前的工作,此次集成了IMU的bias校正,连续时序下动态传播噪声,同时IMU预积分结果会应用到初始化模块来校准初始化状态</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2021/03/29/paper-kf-eskf-joan-sola/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sunshine.jpg">
+      <meta itemprop="name" content="Dexter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notebook">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/29/paper-kf-eskf-joan-sola/" class="post-title-link" itemprop="url">paper-kf-eskf-joan-sola</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-29 15:03:16" itemprop="dateCreated datePublished" datetime="2021-03-29T15:03:16+08:00">2021-03-29</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>ESKF<ul>
+<li>error-state最小轻量化,参数和自由度一样，但是避免了参数化冗余(即强约束计算时可能随之而来的协方差奇异性的问题)</li>
+<li>error-state总是保持误差处在0值附近，避免潜在的参数奇异性、万向锁问题/ 能保证任何时刻有效线性化</li>
+<li>error-state足够小,意味着其二阶导基本可忽略，Jacobian计算会很容易很快或者Jacobian是恒定的</li>
+<li>todo</li>
+</ul>
+</li>
+</ul>
+<h3 id="ESKF基本介绍"><a href="#ESKF基本介绍" class="headerlink" title="ESKF基本介绍"></a>ESKF基本介绍</h3><p>状态量包括<code>true-state / nominal-state / error-state</code></p>
+<ol>
+<li>高频IMU数据 $u_m$ 集成到<code>nominal-state</code> $x$, 不考虑噪声项目 $w$ 和其他扰动</li>
+<li>实时累计的误差集成到 <code>error-state</code>(由小的信号状态量构成,有时序的动态线性系统进行<code>correct</code>,用到的控制及测量矩阵由<code>nominal-state</code>计算) $\delta x$ 并用ESKF评估(包含了所有的噪声项和扰动)</li>
+<li><code>nominal-state</code>集成的同时,ESKF会<code>prdict</code>一个<code>error-state</code>的高斯估计</li>
+<li>精度高于IMU的<code>anchor-msg</code>(rtk/lidar/vision)到达时对<code>error—state</code>进行<code>correct</code>,从而计算出一个后验的<code>error-state</code>的高斯估计,最后将<code>error-state</code>的均值注入到<code>nominal-state</code>后重置为0,<code>error-state</code>的协方差…..</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -375,7 +514,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-08 14:20:19" itemprop="dateModified" datetime="2021-01-08T14:20:19+08:00">2021-01-08</time>
+                <time title="Modified: 2021-03-29 16:36:21" itemprop="dateModified" datetime="2021-03-29T16:36:21+08:00">2021-03-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -591,79 +730,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/30/tools-usage-ros/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/30/tools-usage-ros/" class="post-title-link" itemprop="url">Terminator Shortcuts Usage</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-10-30 10:11:12 / Modified: 10:52:56" itemprop="dateCreated datePublished" datetime="2020-10-30T10:11:12+08:00">2020-10-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><p><strong>compile command</strong><br>compile all modules<br><code>colcon build --cmake-args -DCMAKE_BUILD_TYPE=Debug Release</code><br>compile special module<br><code>colcon build --packages-select ekf_localizer</code></p>
-</li>
-<li><p><strong>open rviz using special rviz config</strong><br><code>rviz -d ./data/ces_mapping.rviz</code></p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/30/tools-usage-terminator-shortcuts/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -731,6 +797,79 @@
             </div>
           <!--/noindex-->
         
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/30/tools-usage-ros/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sunshine.jpg">
+      <meta itemprop="name" content="Dexter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notebook">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/30/tools-usage-ros/" class="post-title-link" itemprop="url">Terminator Shortcuts Usage</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-10-30 10:11:12 / Modified: 10:52:56" itemprop="dateCreated datePublished" datetime="2020-10-30T10:11:12+08:00">2020-10-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><p><strong>compile command</strong><br>compile all modules<br><code>colcon build --cmake-args -DCMAKE_BUILD_TYPE=Debug Release</code><br>compile special module<br><code>colcon build --packages-select ekf_localizer</code></p>
+</li>
+<li><p><strong>open rviz using special rviz config</strong><br><code>rviz -d ./data/ces_mapping.rviz</code></p>
+</li>
+</ul>
+
       
     </div>
 
@@ -911,7 +1050,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/09/paper-slam-lio-mapping/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/09/paper-slam-loam/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sunshine.jpg">
@@ -925,7 +1064,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/09/paper-slam-lio-mapping/" class="post-title-link" itemprop="url">Note after reading paper of loam</a>
+            <a href="/2020/10/09/paper-slam-loam/" class="post-title-link" itemprop="url">Note after reading paper of loam</a>
         </h2>
 
         <div class="post-meta">
@@ -942,7 +1081,92 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-20 14:43:21" itemprop="dateModified" datetime="2021-01-20T14:43:21+08:00">2021-01-20</time>
+                <time title="Modified: 2021-01-08 14:12:59" itemprop="dateModified" datetime="2021-01-08T14:12:59+08:00">2021-01-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/paper/" itemprop="url" rel="index"><span itemprop="name">paper</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/paper/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>this blog conclud from <strong>loam(Ji Zhang),LeGO-LOAM&amp;LIO-SAM(Tixiao Shan)</strong><br>State estimation, localization and mapping are fundamental prerequisites for a successful intelligent mobile robot,required for feedback control, obstacle avoidance, and planning, among many other capabilities.Using <strong>vision-based</strong> and <strong>lidar-based</strong> sensing,great efforts have been devoted to achiving high-performance real-time simultaneous localization and mapping(SLAM) that can support a mobile robot’s six degree-of-freedom state estimation.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/09/paper-slam-loam/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/09/paper-slam-lio-mapping/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sunshine.jpg">
+      <meta itemprop="name" content="Dexter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notebook">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/09/paper-slam-lio-mapping/" class="post-title-link" itemprop="url">Note after reading paper of lio-mapping</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-09 10:29:34" itemprop="dateCreated datePublished" datetime="2020-10-09T10:29:34+08:00">2020-10-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-25 15:47:09" itemprop="dateModified" datetime="2021-02-25T15:47:09+08:00">2021-02-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1006,7 +1230,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/10/09/paper-slam-loam/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/22/tools-tools-devel-environment/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sunshine.jpg">
@@ -1020,7 +1244,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/09/paper-slam-loam/" class="post-title-link" itemprop="url">Note after reading paper of loam</a>
+            <a href="/2020/07/22/tools-tools-devel-environment/" class="post-title-link" itemprop="url">tools devel-enviroment</a>
         </h2>
 
         <div class="post-meta">
@@ -1030,14 +1254,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-10-09 10:29:34" itemprop="dateCreated datePublished" datetime="2020-10-09T10:29:34+08:00">2020-10-09</time>
+              <time title="Created: 2020-07-22 10:44:00" itemprop="dateCreated datePublished" datetime="2020-07-22T10:44:00+08:00">2020-07-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-08 14:12:59" itemprop="dateModified" datetime="2021-01-08T14:12:59+08:00">2021-01-08</time>
+                <time title="Modified: 2021-01-08 14:11:36" itemprop="dateModified" datetime="2021-01-08T14:11:36+08:00">2021-01-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1045,11 +1269,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/paper/" itemprop="url" rel="index"><span itemprop="name">paper</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/paper/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
                 </span>
             </span>
 
@@ -1064,10 +1284,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>this blog conclud from <strong>loam(Ji Zhang),LeGO-LOAM&amp;LIO-SAM(Tixiao Shan)</strong><br>State estimation, localization and mapping are fundamental prerequisites for a successful intelligent mobile robot,required for feedback control, obstacle avoidance, and planning, among many other capabilities.Using <strong>vision-based</strong> and <strong>lidar-based</strong> sensing,great efforts have been devoted to achiving high-performance real-time simultaneous localization and mapping(SLAM) that can support a mobile robot’s six degree-of-freedom state estimation.</p>
+          <p>common usage when visualizer data</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/10/09/paper-slam-loam/#more" rel="contents">
+              <a class="btn" href="/2020/07/22/tools-tools-devel-environment/">
                 Read more &raquo;
               </a>
             </div>
@@ -1172,87 +1392,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/22/tools-tools-devel-environment/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/22/tools-tools-devel-environment/" class="post-title-link" itemprop="url">tools devel-enviroment</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-22 10:44:00" itemprop="dateCreated datePublished" datetime="2020-07-22T10:44:00+08:00">2020-07-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-08 14:11:36" itemprop="dateModified" datetime="2021-01-08T14:11:36+08:00">2021-01-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>common usage when visualizer data</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/22/tools-tools-devel-environment/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/12/autonomous-cloud-segmentation-hdmap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1319,179 +1458,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/12/autonomous-cloud-segmentation-hdmap/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/tools-usage-markdowon/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/08/tools-usage-markdowon/" class="post-title-link" itemprop="url">usage of mathjax</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-20 14:31:41" itemprop="dateModified" datetime="2021-01-20T14:31:41+08:00">2021-01-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>花体字母$\mathcal{H}$</p>
-<ol>
-<li>$\mathclap{R}$</li>
-<li>$\mathcal{R}$</li>
-<li>$\mathbin{R}$</li>
-<li>$\mathbf{R}$</li>
-<li>$\mathbb{R}$</li>
-<li>$\mathclose{R}$</li>
-<li>$\mathellipsis{R}$</li>
-<li>$\mathfrak{R}$</li>
-<li>$\mathinner{R}$</li>
-<li>$\mathit{R}$</li>
-<li>$\mathllap{R}$</li>
-<li>$\mathnormal{R}$</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/autonomous-integration-imu/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sunshine.jpg">
-      <meta itemprop="name" content="Dexter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notebook">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/08/autonomous-integration-imu/" class="post-title-link" itemprop="url">Integration IMU</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-08 14:19:18" itemprop="dateModified" datetime="2021-01-08T14:19:18+08:00">2021-01-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/autonomous/" itemprop="url" rel="index"><span itemprop="name">autonomous</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/autonomous/imu/" itemprop="url" rel="index"><span itemprop="name">imu</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>The measurements of angular volocity and acceleration from an IMU are defined using Eqs below</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/08/autonomous-integration-imu/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1687,7 +1653,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/01/12/autonomous-cloud-segmentation/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/autonomous-integration-imu/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sunshine.jpg">
@@ -1701,7 +1667,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/01/12/autonomous-cloud-segmentation/" class="post-title-link" itemprop="url">点云分割的基本调研</a>
+            <a href="/2020/07/08/autonomous-integration-imu/" class="post-title-link" itemprop="url">Integration IMU</a>
         </h2>
 
         <div class="post-meta">
@@ -1711,14 +1677,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-01-12 14:19:22" itemprop="dateCreated datePublished" datetime="2020-01-12T14:19:22+08:00">2020-01-12</time>
+              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-08 14:21:16" itemprop="dateModified" datetime="2021-01-08T14:21:16+08:00">2021-01-08</time>
+                <time title="Modified: 2021-04-06 18:45:23" itemprop="dateModified" datetime="2021-04-06T18:45:23+08:00">2021-04-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1730,7 +1696,7 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/autonomous/segmentation/" itemprop="url" rel="index"><span itemprop="name">segmentation</span></a>
+                  <a href="/categories/autonomous/imu/" itemprop="url" rel="index"><span itemprop="name">imu</span></a>
                 </span>
             </span>
 
@@ -1745,10 +1711,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>找到较早期整理的文档, 保存一下到blog.</p>
+          <p>The measurements of angular volocity and acceleration from an IMU are defined using Eqs below</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/01/12/autonomous-cloud-segmentation/#more" rel="contents">
+              <a class="btn" href="/2020/07/08/autonomous-integration-imu/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1768,8 +1734,103 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.dexter.cool/2020/07/08/tools-usage-mathjax-markdowon/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sunshine.jpg">
+      <meta itemprop="name" content="Dexter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notebook">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/08/tools-usage-mathjax-markdowon/" class="post-title-link" itemprop="url">usage of mathjax</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-08 11:07:05" itemprop="dateCreated datePublished" datetime="2020-07-08T11:07:05+08:00">2020-07-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-09 14:38:13" itemprop="dateModified" datetime="2021-03-09T14:38:13+08:00">2021-03-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>花体字母$\mathcal{H}$</p>
+<ol>
+<li>$\mathclap{R}$</li>
+<li>$\mathcal{R}$</li>
+<li>$\mathbin{R}$</li>
+<li>$\mathbf{R}$</li>
+<li>$\mathbb{R}$</li>
+<li>$\mathclose{R}$</li>
+<li>$\mathellipsis{R}$</li>
+<li>$\mathfrak{R}$</li>
+<li>$\mathinner{R}$</li>
+<li>$\mathit{R}$</li>
+<li>$\mathllap{R}$</li>
+<li>$\mathnormal{R}$</li>
+</ol>
+<p>数学符号</p>
+<ol>
+<li>$A^\prime$</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
@@ -1836,7 +1897,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1856,7 +1917,7 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/Soaringls" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Soaringls" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/" title="GitHub → https:&#x2F;&#x2F;github.com" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:sxls1992@gmail.com" title="E-Mail → mailto:sxls1992@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
