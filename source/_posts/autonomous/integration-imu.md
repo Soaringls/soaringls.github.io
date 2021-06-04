@@ -42,7 +42,7 @@ if(rot_angle > 1e-9){
     rot_axis = mean_corrected_angle_vel.normalized();
 }
 Eigen::AngleAxisd tf_rot_vector(rot_angle, rot_axis);
-attitude = (last_state->atitude * tf_rot_vector).normalized();//update pose
+attitude = (last_state->atitude * tf_rot_vector).normalized();//update pose attitude类型为Eigen::Quaterniond
 
 
 //因为imu的线加速度和角速度数据是在Body坐标系下表示的

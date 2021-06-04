@@ -8,6 +8,9 @@ categories:
 tag:
   - slam
 ---
+
+note of lio-mapping
+<!-- more -->
 shortcomnigs
 - make featuring tracking an intractable problem
 - lidar mounted on moving robots suffer from motion distortion

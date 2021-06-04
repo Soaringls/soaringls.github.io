@@ -1,3 +1,16 @@
+---
+title: Note after reading paper of VINS
+date: 2020-10-09 10:29:34
+mathjax: true
+categories:
+  - paper
+  - algorithm
+tag:
+  - slam
+---
+
+note of VINS
+<!-- more -->
 ### abstract
 通过滑窗优化视觉和惯导实现精确的状态估计,视觉结构由滑动窗口内的关键帧维护,惯性的metrix测量值由关键帧之间的预积分维护。系统在位置状态下也可鲁棒的初始化,并能实时实现camera-imu的标定,统一定义在球面上的重投影误差、回环检测、以及4自由度的位姿优化
 ### overview

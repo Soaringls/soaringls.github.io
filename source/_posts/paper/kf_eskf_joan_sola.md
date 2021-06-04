@@ -1,3 +1,16 @@
+---
+title: Note after reading paper of ESKF
+date: 2020-10-09 10:29:34
+mathjax: true
+categories:
+  - paper
+  - algorithm
+tag:
+  - slam
+---
+
+note of eskf
+<!-- more -->
 - ESKF
   - error-state最小轻量化,参数和自由度一样，但是避免了参数化冗余(即强约束计算时可能随之而来的协方差奇异性的问题)
   - error-state总是保持误差处在0值附近，避免潜在的参数奇异性、万向锁问题/ 能保证任何时刻有效线性化

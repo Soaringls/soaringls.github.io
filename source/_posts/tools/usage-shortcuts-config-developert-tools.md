@@ -1,0 +1,47 @@
+---
+title: Shortcuts and Config Usage of linux and vscode
+date: 2020-10-30 10:11:12
+mathjax: true
+categories:
+  - tools
+---
+usage of linux and vscode、other common develop tools
+<!--more-->
+
+# linux system
+## vim
+|info|cmd|
+|:-|:-|
+|||
+## Terminator Shortcuts Usage
+
+| shortcuts         | info                                                 |
+| :---------------- | :--------------------------------------------------- |
+| ctrl+shift+o      | split windows horizontal                             |
+| ctrl+shift+e      | split windows vertical                               |
+| ctrl+shift+x      | switch between current window and all windows        |
+| ctrl+shift+arrows | move splitter bars of current working window         |
+| alt+arrows        | switch between different working windows             |
+| ctrl+shift+w      | close current window                                 |
+| ctrl+shift+q      | close all window,that means close current terminator |
+
+# VsCode
+## 插件使用及配置
+| 日常插件      | 功能                 | 配置及使用                                                                                                                                                                                                              |
+| :------------ | :------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Settings Sync | 备份vscode配置及插件 | Sync Gist配置<br>1. GitHub GIST ID:vscode内插件setting (github gist repo的url数字部分)<br>2. GitHub Token:`/home/lyu/.config/Code/User/syncLocalSettings.json`里面token<br>Upload: shift+alt+u<br> Download:shift+alt+d |
+## Shortcuts Usage
+>设置位置: File->Preferences->Keyboard Shortcuts
+
+常用设置
+
+| info                                       | shortcuts     |
+| :----------------------------------------- | :------------ |
+| 活动窗口切换:view focus above editor group | alt+i         |
+| 活动窗口切换:view focus below editor group | alt+k         |
+| 活动窗口切换:view focus left editor group  | alt+j         |
+| 活动窗口切换:view focus right editor group | alt+l         |
+| 窗口内文件切换:左侧文件                    | ctrl+pageUp   |
+| 窗口内文件切换:右侧文件                    | ctrl+pageDown |
+| 关闭: 当前文件                             | ctrl+w        |
+| 关闭: vscode                               | ctrl+shift+w  |

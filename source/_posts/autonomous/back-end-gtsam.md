@@ -10,6 +10,8 @@ tags:
   - algorithm
 ---
 
+note of gtsam by DongJing
+<!-- more -->
 ## Theory
 ### SLAM as a Bayes Net
 

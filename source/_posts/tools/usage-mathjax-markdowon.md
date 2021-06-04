@@ -8,6 +8,9 @@ tags:
   - math
 ---
 
+usage of mathjac
+<!-- more -->
+## 字体
 花体字母$\mathcal{H}$
 1. $\mathclap{R}$
 2. $\mathcal{R}$
@@ -24,3 +27,20 @@ tags:
 
 数学符号
 1. $A^\prime$
+
+$$
+\theta_j = \theta_j - \alpha \frac{\partial}{\partial\theta_j}J(\theta_0, \theta_0)
+$$
+
+### 空格
+| info           | code        |
+| :------------- | :---------- |
+| 1cm宽度        | $a\qquad b$ |
+| 0.5cm          | $a\quad b$  |
+| 1/3cm          | $a\ b$      |
+| 2/7cm          | $a\;b$      |
+| 1/6cm          | $a\,b$      |
+| 0cm 正常无空格 | $ab$        |
+| 缩进1/6cm      | $a\!b$      |
+
+
