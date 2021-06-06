@@ -1,3 +1,8 @@
+### blog mkdocs
+```sh
+conda install -c conda-forge mkdocs
+mkdocs serve
+```
 ### blog的hexo常见faq
 - `
 console.js:35
@@ -17,6 +22,4 @@ Error: watch /home/lyu/dexter/test/blog_ls/source/ ENOSPC`
    npm dedupe
    #solution2:increase the limit for the number of files you can watch by using the command
    echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-   ```
-
-   
+   ```   
