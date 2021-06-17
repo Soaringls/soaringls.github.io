@@ -1,3 +1,86 @@
+### 三维刚体运动
+`四元数的共轭conjugate 即为其自身的逆`
+$$
+T = 
+\begin{bmatrix}
+  R & t \\\\
+  0^T & 1  
+\end{bmatrix} \quad R^T = R^{-1} \qquad \rightarrow \qquad
+
+ T^{-1} =    
+\begin{bmatrix}       
+   R^T & -R^Tt \\\\       
+   0^T & 1    
+\end{bmatrix}
+$$
+ 
+
+### 反对称矩阵
+$$
+  \begin{aligned}
+  \mathbf{\overrightarrow{a}}\times\mathbf{\overrightarrow{b}} &= 
+     \begin{bmatrix}
+     \mathbf{i} & \mathbf{j}& \mathbf{k}\\\\
+     a_1      & a_2     &a_3\\\\
+     b_1      & b_2     &b_3
+     \end{bmatrix} \\\\ 
+     &=\begin{bmatrix}
+         a_2b_3 - a_3b_2 \\\\
+         a_3b_1 - a_1b_3 \\\\
+         a_1b_2 - a_2b_1
+     \end{bmatrix}\\\\
+     &=
+     \begin{bmatrix}       
+     0 & -a_3 & a_2  \\\\        
+     a_3 & 0 & -a_1 \\\\
+     -a_2 & a_1 & 0       
+     \end{bmatrix} .\text{即为a的反对称矩阵} \\\\ &=\hat{\mathbf{a}}\mathbf{k}
+  \end{aligned} \tag{4}
+  $$
+
+### Camera
+- 像素坐标`(u, v)`和相机坐标`(X, Y, Z)`的转换推导
+  $$
+  \begin{bmatrix}
+      u \\\\
+      v \\\\
+      1
+  \end{bmatrix} = \frac{1}{Z}
+  \begin{bmatrix}
+      f_x & 0 & cx \\\\
+      0 & f_y & cy \\\\
+      0 & 0 & 1
+  \end{bmatrix}
+  \begin{bmatrix}
+      X \\\\ Y \\\\ 1
+  \end{bmatrix} = \frac{1}{Z} \cdot KP_c 
+  = \frac{1}{Z} \cdot KT  P_w 
+  $$
+  K为相机内参矩阵， $T$为路标点$P_w$对应的外参(用于先将路标点由世界系转到**相机系**,即$P_c = RP_w +t$),
+  归一化相机坐标: $P_c = (\frac{X}{Z}, \frac{Y}{Z},1)$, 像素坐标:$P_{uv} = KP_c$
+
+ 
+$$
+\begin{cases} 
+  u = \alpha X^\prime +cx \\\\ 
+  v = \beta Y^\prime + cy \quad cx和cy的基本单位:pixel
+\end{cases}  \rightarrow
+
+\begin{cases}
+  u = \alpha \cdot f \cdot \frac{X}{Z} + cx \\\\
+  v = \beta \cdot f \cdot \frac{Y}{Z} + cy \quad \alpha和\beta的基本单位:pixels/m
+\end{cases}  \rightarrow 
+
+\begin{cases}
+  u = f_x \cdot \frac{X}{Z} +cx \\\\
+  v = f_y \cdot \frac{Y}{Z} +cy
+\end{cases}
+$$
+- 双目
+  $$
+  Z = \frac{fb}{d} \qquad 视差d越小 \to Z越大,即测距越远，同理基线b越大也是如此
+  $$
+
 ### 非线性最小二乘(from slambook chapter 6.2)
 #### 状态估计
 机器人状态估计中已知输入数据 $\mathcal{u}$ 和观测数据 $\mathcal{x}$ 的条件下, 未知状态 $x$ 的条件概率分布为: $P(x|z,u)$, 当没有测量运动的传感器时相当于估计$P(x|z)$ 的条件概率分布(若忽略时序关系则可理解为一个SFM问题)

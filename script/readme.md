@@ -1,7 +1,11 @@
 ### blog mkdocs
 ```sh
-conda install -c conda-forge mkdocs
+#conda install -c conda-forge mkdocs
 mkdocs serve
+
+#to confirm
+# pip3  install  mkdocs
+# pip3 install mkdocs-cinder
 ```
 ### blog的hexo常见faq
 - `

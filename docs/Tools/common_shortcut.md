@@ -9,10 +9,16 @@ usage of linux and vscode、other common develop tools
 <!--more-->
 
 # linux system
-## vim
-|info|cmd|
-|:-|:-|
-|||
+## vim(TODO,Need to test)
+Nowdays we spend a lot of time in bash shell, typing long and complex commands. You can use the arrow keys `up/down/left/right` to move the cursor and select commands, but that's not so efficient.
+| info                        | cmd                                               |
+| :-------------------------- | :------------------------------------------------ |
+| Move in Charactor:`back`    | `C+b`: Move back one charactor(`C` is for `Ctrl`) |
+| Move in Charactor:`forward` | `C+f`: Move forward                               |
+| Move in Word:`forward`      | `Alt+f`                                           |
+| Move in Word:`backward`     | `Alt+b`                                           |
+| Move in Line:               |                                                   |
+
 ## Terminator Shortcuts Usage
 
 | shortcuts         | info                                                 |
@@ -45,3 +51,5 @@ usage of linux and vscode、other common develop tools
 | 窗口内文件切换:右侧文件                    | ctrl+pageDown |
 | 关闭: 当前文件                             | ctrl+w        |
 | 关闭: vscode                               | ctrl+shift+w  |
+| go back                                    | alt+a         |
+| go Forward                                 | alt+q         |
