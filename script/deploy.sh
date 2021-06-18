@@ -11,7 +11,8 @@ cd ${HEXO_DIR}
 pwd
 #git add .
 #git add ./source/ ./script/ ./source_sample 
-git add -u docs script
+git add -u
+git add docs script
 
 commit_msg=$(date "+%Y.%m.%d %H:%M:%S")
 git commit -m "update note $commit_msg"
