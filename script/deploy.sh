@@ -9,12 +9,13 @@ echo "dir: "$HEXO_DIR
 # src filse
 cd ${HEXO_DIR}
 pwd
-git add .
-git add ./source/ ./script/ ./source_sample 
+#git add .
+#git add ./source/ ./script/ ./source_sample 
+git add -u docs script
 
 commit_msg=$(date "+%Y.%m.%d %H:%M:%S")
 git commit -m "update note $commit_msg"
-git push origin note
+git push origin new-note
 
 # publish: hexo s启动本地服务
-hexo g -d
+#hexo g -d
