@@ -41,15 +41,25 @@ Nowdays we spend a lot of time in bash shell, typing long and complex commands. 
 
 常用设置
 
-| info                                       | shortcuts     |
-| :----------------------------------------- | :------------ |
-| 活动窗口切换:view focus above editor group | alt+i         |
-| 活动窗口切换:view focus below editor group | alt+k         |
-| 活动窗口切换:view focus left editor group  | alt+j         |
-| 活动窗口切换:view focus right editor group | alt+l         |
-| 窗口内文件切换:左侧文件                    | ctrl+pageUp   |
-| 窗口内文件切换:右侧文件                    | ctrl+pageDown |
-| 关闭: 当前文件                             | ctrl+w        |
-| 关闭: vscode                               | ctrl+shift+w  |
-| go back                                    | alt+a         |
-| go Forward                                 | alt+q         |
+| info                                       | shortcuts            |
+| :----------------------------------------- | :------------------- |
+| 活动窗口切换:view focus above editor group | alt+i                |
+| 活动窗口切换:view focus below editor group | alt+k                |
+| 活动窗口切换:view focus left editor group  | alt+j                |
+| 活动窗口切换:view focus right editor group | alt+l                |
+| 窗口内文件切换:左侧文件                    | ctrl+pageUp          |
+| 窗口内文件切换:右侧文件                    | ctrl+pageDown        |
+| 关闭: 当前文件                             | ctrl+w               |
+| 关闭: vscode                               | ctrl+shift+w         |
+| go back                                    | alt+a                |
+| go Forward                                 | alt+q                |
+| page up                                    | alt+w                |
+| page down                                  | alt+s                |
+| cursor left                                | ctrl+shift+j-useless |
+| cursor right                               | ctrl+shift+l-useless |
+| cursor up                                  | ctrl+shift+i-useless |
+| cursor down                                | ctrl+shift+k-useless |
+| cursorColumnSelectLeft                     | alt+shift+j-useless  |
+| cursorColumnSelectRight                    | alt+shift+l-useless  |
+| cursorColumnSelectUp                       | alt+shift+i-useless  |
+| cursorColumnSelectDown                     | alt+shift+k-useless  |
