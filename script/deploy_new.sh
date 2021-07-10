@@ -7,7 +7,8 @@ echo "DIR:${DIR}"
 
 pwd
 
-git add script docs script
+git add -u
+git add script docs 
 
 DATE=$(date "+%Y.%m.%d %H:%M:%S")
 MSG="update note ${DATE}"
