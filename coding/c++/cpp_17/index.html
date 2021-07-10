@@ -1,0 +1,1828 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../../logo.jpg">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.8">
+    
+    
+      
+        <title>C++17 新特性 - notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ca7ac06f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#c17" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="notebook" class="md-header__button md-logo" aria-label="notebook" data-md-component="logo">
+      
+  <img src="../../../logo.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            notebook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              C++17 新特性
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        Coding
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../dairy/note-no-valience-chatting/" class="md-tabs__link">
+        Dairy
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../m%26l/filter_eskf_tmp/" class="md-tabs__link">
+        M&l
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../math/vector_operation/" class="md-tabs__link">
+        Math
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../tools/mathjax/" class="md-tabs__link">
+        Tools
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="notebook" class="md-nav__button md-logo" aria-label="notebook" data-md-component="logo">
+      
+  <img src="../../../logo.jpg" alt="logo">
+
+    </a>
+    notebook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        Coding
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Coding" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Coding
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      <label class="md-nav__link" for="__nav_2_1">
+        C++
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="C++" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          C++
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          C++17 新特性
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        C++17 新特性
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    构造函数模板推导
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#declaring-non-type-template-parameters-with-auto" class="md-nav__link">
+    Declaring non-type template parameters with auto
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#folding-expressions" class="md-nav__link">
+    Folding expressions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#new-rules-for-auto-deduction-from-braced-init-list" class="md-nav__link">
+    New rules for auto deduction from braced-init-list
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constexpr-lambda" class="md-nav__link">
+    constexpr lambda
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lambda-capture-this-by-value" class="md-nav__link">
+    Lambda capture this by value
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inline-variables" class="md-nav__link">
+    Inline variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nested-namespaces" class="md-nav__link">
+    Nested namespaces
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structured-bindings" class="md-nav__link">
+    Structured bindings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selection-statements-with-initializer" class="md-nav__link">
+    Selection statements with initializer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constexpr-if" class="md-nav__link">
+    constexpr if
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utf-8-character-literals" class="md-nav__link">
+    UTF-8 character literals
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#direct-list-initialization-of-enums" class="md-nav__link">
+    Direct list initialization of enums
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fallthrough-nodiscard-maybe_unused-attributes" class="md-nav__link">
+    fallthrough, nodiscard, maybe_unused attributes
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the_essence_of_c%2B%2B/" class="md-nav__link">
+        Bjarne Strooustrup:The Essence of C++
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        System structure
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System structure" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          System structure
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system_structure/several_design_patterns_by_cpp/" class="md-nav__link">
+        Several Design Patterns By C++
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system_structure/uml_graph/" class="md-nav__link">
+        UML Graphic
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Dairy
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Dairy" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Dairy
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dairy/note-no-valience-chatting/" class="md-nav__link">
+        读书笔记:非暴力沟通
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dairy/note-the-seven-habits-of-effective-awosome/" class="md-nav__link">
+        读书笔记:高效人士的七个习惯
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        M&l
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="M&l" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          M&l
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m%26l/filter_eskf_tmp/" class="md-nav__link">
+        Note after reading paper of ESKF
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m%26l/filter_kalman/" class="md-nav__link">
+        Introduction of Kalman Filter
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m%26l/imu_preintegration/" class="md-nav__link">
+        Integration IMU
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m%26l/lidar-ethicp/" class="md-nav__link">
+        icp算法的20年
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m%26l/optimizer_gtsam/" class="md-nav__link">
+        Introduction of Gtsam
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m%26l/point_matcher/" class="md-nav__link">
+        note of pointmatcher
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m%26l/slam_basic/" class="md-nav__link">
+        Slam basic
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m%26l/slam_imupre_liomapping/" class="md-nav__link">
+        Note after reading paper of lio-mapping
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m%26l/slam_imupre_vins/" class="md-nav__link">
+        Note after reading paper of VINS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m%26l/slam_loam_series/" class="md-nav__link">
+        Note after reading paper of loam
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_11" type="checkbox" id="__nav_4_11" >
+      
+      <label class="md-nav__link" for="__nav_4_11">
+        Segmentation
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Segmentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_11">
+          <span class="md-nav__icon md-icon"></span>
+          Segmentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m%26l/segmentation/cloud-segmentation-hdmap/" class="md-nav__link">
+        cloud segmentation and filtered by hdmap
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m%26l/segmentation/cloud-segmentation/" class="md-nav__link">
+        点云分割的基本调研
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Math
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Math" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Math
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/vector_operation/" class="md-nav__link">
+        usage of vector's multi
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        Tools
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/mathjax/" class="md-nav__link">
+        usage of mathjax
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/python_matplotlib/" class="md-nav__link">
+        tools python-matploglib
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/tools-devel-environment/" class="md-nav__link">
+        tools devel-enviroment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/usage_bazel/" class="md-nav__link">
+        Usage Bazel
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/usage_shortcut/" class="md-nav__link">
+        Shortcuts and Config Usage of linux and vscode
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/workspace_setup_ubuntu/" class="md-nav__link">
+        Setup worksapce in ubuntu
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    构造函数模板推导
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#declaring-non-type-template-parameters-with-auto" class="md-nav__link">
+    Declaring non-type template parameters with auto
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#folding-expressions" class="md-nav__link">
+    Folding expressions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#new-rules-for-auto-deduction-from-braced-init-list" class="md-nav__link">
+    New rules for auto deduction from braced-init-list
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constexpr-lambda" class="md-nav__link">
+    constexpr lambda
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lambda-capture-this-by-value" class="md-nav__link">
+    Lambda capture this by value
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inline-variables" class="md-nav__link">
+    Inline variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nested-namespaces" class="md-nav__link">
+    Nested namespaces
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structured-bindings" class="md-nav__link">
+    Structured bindings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selection-statements-with-initializer" class="md-nav__link">
+    Selection statements with initializer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constexpr-if" class="md-nav__link">
+    constexpr if
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utf-8-character-literals" class="md-nav__link">
+    UTF-8 character literals
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#direct-list-initialization-of-enums" class="md-nav__link">
+    Direct list initialization of enums
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fallthrough-nodiscard-maybe_unused-attributes" class="md-nav__link">
+    fallthrough, nodiscard, maybe_unused attributes
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="c17">C++17 新特性<a class="headerlink" href="#c17" title="Permanent link">&para;</a></h1>
+<h2 id="_1">构造函数模板推导<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Automatic template argument deduction much like how it's done for functions, but now including class constructors.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">//eg.1</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span> <span class="o">=</span> <span class="kt">float</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">MyContainer</span><span class="p">{</span>
+    <span class="n">T</span> <span class="n">val_</span><span class="p">;</span>
+    <span class="n">MyContainer</span><span class="p">()</span><span class="o">:</span><span class="n">val_</span><span class="p">{}{}</span>
+    <span class="n">MyContainer</span><span class="p">(</span><span class="n">T</span> <span class="n">val</span><span class="p">)</span><span class="o">:</span><span class="n">val_</span><span class="p">(</span><span class="n">val</span><span class="p">){}</span>
+    <span class="c1">//...</span>
+<span class="p">};</span>
+<span class="n">MyContainer</span> <span class="n">c1</span><span class="p">{</span><span class="mi">1</span><span class="p">};</span><span class="c1">// type-&gt;int</span>
+<span class="n">MyContainer</span> <span class="n">c2</span><span class="p">;</span>   <span class="c1">// type-&gt;float,default</span>
+
+<span class="c1">//eg.2</span>
+<span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span> <span class="n">p</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">);</span> <span class="c1">//before 17</span>
+<span class="n">std</span><span class="o">::</span><span class="n">pair</span> <span class="n">p</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">);</span> <span class="c1">//now, 自动推导</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span><span class="c1">//now</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="declaring-non-type-template-parameters-with-auto">Declaring non-type template parameters with auto<a class="headerlink" href="#declaring-non-type-template-parameters-with-auto" title="Permanent link">&para;</a></h2>
+<p>Following the deduction rules of <code>auto</code>, while respecting the non-type template parameter list of allowable types[*], template arguments can be deduced from the type ot its arguments:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span><span class="p">...</span> <span class="n">seq</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">my_integer_sequence</span> <span class="p">{</span>
+  <span class="c1">// Implementation here ...</span>
+<span class="p">};</span>
+
+<span class="c1">// Explicitly pass type `int` as template argument.</span>
+<span class="k">auto</span> <span class="n">seq</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integer_sequence</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="c1">// Type is deduced to be `int`.</span>
+<span class="k">auto</span> <span class="n">seq2</span> <span class="o">=</span> <span class="n">my_integer_sequence</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span><span class="p">();</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="folding-expressions">Folding expressions<a class="headerlink" href="#folding-expressions" title="Permanent link">&para;</a></h2>
+<p>A fold expression performs a fold of a template parameter pack over a binary operator.</p>
+<ul>
+<li>An expression of the form <code>(... op e)</code> or <code>(e op ...)</code>, where <code>op</code> is a fold-operator and <code>e</code> is an unexpanded parameter pack, are called unary folds.</li>
+<li>An expression of the form <code>(e1 op ... op e2)</code>, where <code>op</code> are fold-operators, is called a binary fold. Either <code>e1</code> or <code>e2</code> is an unexpanded parameter pack, but not both.</li>
+</ul>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">bool</span> <span class="n">logicalAnd</span><span class="p">(</span><span class="n">Args</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Binary folding.</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nb">true</span> <span class="o">&amp;&amp;</span> <span class="p">...</span> <span class="o">&amp;&amp;</span> <span class="n">args</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">bool</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="kt">bool</span><span class="o">&amp;</span> <span class="n">b2</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+<span class="n">logicalAnd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span> <span class="c1">// == true</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="k">auto</span> <span class="n">sum</span><span class="p">(</span><span class="n">Args</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Unary folding.</span>
+    <span class="k">return</span> <span class="p">(...</span> <span class="o">+</span> <span class="n">args</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">sum</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> <span class="c1">// == 6.0</span>
+</code></pre></div>
+</td></tr></table>
+<h2 id="new-rules-for-auto-deduction-from-braced-init-list">New rules for auto deduction from braced-init-list<a class="headerlink" href="#new-rules-for-auto-deduction-from-braced-init-list" title="Permanent link">&para;</a></h2>
+<p>Changes to <code>auto</code> deduction when used with the uniform initialization syntax. Previously, <code>auto x {3}</code> deduced a <code>std::initializer_list&lt;int&gt;</code>, which now deduces to <code>int</code>.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">auto</span> <span class="n">x1</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>  <span class="c1">// error: not a single element.</span>
+<span class="k">auto</span> <span class="n">x2</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>  <span class="c1">// x2 is std::initializer_list&lt;int&gt;</span>
+<span class="k">auto</span> <span class="n">x3</span> <span class="p">{</span><span class="mi">3</span><span class="p">};</span>  <span class="c1">// x3 is int</span>
+<span class="k">auto</span> <span class="n">x4</span> <span class="p">{</span><span class="mf">3.0</span><span class="p">};</span>  <span class="c1">// x4 is double</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="constexpr-lambda">constexpr lambda<a class="headerlink" href="#constexpr-lambda" title="Permanent link">&para;</a></h2>
+<p>Compile-time lambda using <code>constexpr</code>.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">auto</span> <span class="n">identity</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="k">constexpr</span> <span class="p">{</span> <span class="k">return</span> <span class="n">n</span><span class="p">;</span> <span class="p">};</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">identity</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span> <span class="o">==</span> <span class="mi">123</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">add</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">auto</span> <span class="n">L</span> <span class="o">=</span> <span class="p">[</span><span class="o">=</span><span class="p">]</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
+  <span class="k">auto</span> <span class="n">R</span> <span class="o">=</span> <span class="p">[</span><span class="o">=</span><span class="p">]</span> <span class="p">{</span> <span class="k">return</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+  <span class="k">return</span> <span class="p">[</span><span class="o">=</span><span class="p">]</span> <span class="p">{</span> <span class="k">return</span> <span class="nf">L</span><span class="p">()</span> <span class="o">+</span> <span class="n">R</span><span class="p">();</span> <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="k">static_assert</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)()</span> <span class="o">==</span> <span class="mi">3</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="kt">int</span> <span class="n">addOne</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="p">{</span> <span class="k">return</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}();</span>
+<span class="p">}</span>
+
+<span class="k">static_assert</span><span class="p">(</span><span class="n">addOne</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="lambda-capture-this-by-value">Lambda capture <code>this</code> by value<a class="headerlink" href="#lambda-capture-this-by-value" title="Permanent link">&para;</a></h2>
+<p>Capturing <code>this</code> in a lambda's environment was previously reference-only. An example of where <code>this</code> is problematic is asynchronous code using callbacks that require an object to be available, potentially past its lifetime. <code>*this</code> (C++17) will now make a copy of the current object, while <code>this</code> (C++11) continues to capture by reference.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="nc">MyObj</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">value</span> <span class="p">{</span><span class="mi">123</span><span class="p">};</span>
+  <span class="k">auto</span> <span class="nf">getValueCopy</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="o">*</span><span class="k">this</span><span class="p">]</span> <span class="p">{</span> <span class="k">return</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
+  <span class="p">}</span>
+  <span class="k">auto</span> <span class="nf">getValueRef</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="k">this</span><span class="p">]</span> <span class="p">{</span> <span class="k">return</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="n">MyObj</span> <span class="n">mo</span><span class="p">;</span>
+<span class="k">auto</span> <span class="n">valueCopy</span> <span class="o">=</span> <span class="n">mo</span><span class="p">.</span><span class="n">getValueCopy</span><span class="p">();</span>
+<span class="k">auto</span> <span class="n">valueRef</span> <span class="o">=</span> <span class="n">mo</span><span class="p">.</span><span class="n">getValueRef</span><span class="p">();</span>
+<span class="n">mo</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">321</span><span class="p">;</span>
+<span class="n">valueCopy</span><span class="p">();</span> <span class="c1">// 123</span>
+<span class="n">valueRef</span><span class="p">();</span> <span class="c1">// 321</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="inline-variables">Inline variables<a class="headerlink" href="#inline-variables" title="Permanent link">&para;</a></h2>
+<p>The inline specifier can be applied to variables as well as to functions. A variable declared inline has the same semantics as a function declared inline.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">// Disassembly example using compiler explorer.</span>
+<span class="k">struct</span> <span class="nc">S</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
+<span class="kr">inline</span> <span class="n">S</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">S</span><span class="p">{</span><span class="mi">321</span><span class="p">};</span> <span class="c1">// mov esi, dword ptr [x1]</span>
+                      <span class="c1">// x1: .long 321</span>
+
+<span class="n">S</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">S</span><span class="p">{</span><span class="mi">123</span><span class="p">};</span>        <span class="c1">// mov eax, dword ptr [.L_ZZ4mainE2x2]</span>
+                      <span class="c1">// mov dword ptr [rbp - 8], eax</span>
+                      <span class="c1">// .L_ZZ4mainE2x2: .long 123</span>
+</code></pre></div>
+</td></tr></table>
+It can also be used to declare and define a static member variable, such that it does not need to be initialized in the source file.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="nc">S</span> <span class="p">{</span>
+  <span class="n">S</span><span class="p">()</span> <span class="o">:</span> <span class="n">id</span><span class="p">{</span><span class="n">count</span><span class="o">++</span><span class="p">}</span> <span class="p">{}</span>
+  <span class="o">~</span><span class="n">S</span><span class="p">()</span> <span class="p">{</span> <span class="n">count</span><span class="o">--</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+  <span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="n">count</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span> <span class="c1">// declare and initialize count to 0 within the class</span>
+<span class="p">};</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="nested-namespaces">Nested namespaces<a class="headerlink" href="#nested-namespaces" title="Permanent link">&para;</a></h2>
+<p>Using the namespace resolution operator to create nested namespace definitions.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">namespace</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="k">namespace</span> <span class="n">B</span> <span class="p">{</span>
+    <span class="k">namespace</span> <span class="n">C</span> <span class="p">{</span>
+      <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// vs.</span>
+<span class="k">namespace</span> <span class="n">A</span><span class="o">::</span><span class="n">B</span><span class="o">::</span><span class="n">C</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="structured-bindings">Structured bindings<a class="headerlink" href="#structured-bindings" title="Permanent link">&para;</a></h2>
+<p>A proposal for de-structuring initialization, that would allow writting <code>auto [ x, y, z] = expr;</code> where the type of <code>expr</code> was a tuple-like object, whose elements would be bound to the variables <code>x</code>, <code>y</code> and <code>z</code>(which is construc declares). <strong>tuple-like</strong> objects include <code>std::tuple</code>, <code>std::pair</code>, <code>std::array</code>, and aggregate structures.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">using</span> <span class="n">Coordinate</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="n">Coordinate</span> <span class="nf">origin</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">Coordinate</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">const</span> <span class="k">auto</span> <span class="p">[</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="p">]</span> <span class="o">=</span> <span class="n">origin</span><span class="p">();</span>
+<span class="n">x</span><span class="p">;</span> <span class="c1">// == 0</span>
+<span class="n">y</span><span class="p">;</span> <span class="c1">// == 0</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">mapping</span> <span class="p">{</span>
+  <span class="p">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span>
+  <span class="p">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span>
+  <span class="p">{</span><span class="s">&quot;c&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// Destructure by reference.</span>
+<span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="p">[</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">]</span> <span class="o">:</span> <span class="n">mapping</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Do something with key and value</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="selection-statements-with-initializer">Selection statements with initializer<a class="headerlink" href="#selection-statements-with-initializer" title="Permanent link">&para;</a></h2>
+<p>New version of <code>if</code> and <code>switch</code> statements which simplify code patterns and help users keep scopes tight.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span> <span class="n">lk</span><span class="p">(</span><span class="n">mx</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// vs.</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span> <span class="n">lk</span><span class="p">(</span><span class="n">mx</span><span class="p">);</span> <span class="n">v</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+  <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">Foo</span> <span class="n">gadget</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+<span class="k">switch</span> <span class="p">(</span><span class="k">auto</span> <span class="n">s</span> <span class="o">=</span> <span class="n">gadget</span><span class="p">.</span><span class="n">status</span><span class="p">())</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="nl">OK</span><span class="p">:</span> <span class="n">gadget</span><span class="p">.</span><span class="n">zip</span><span class="p">();</span> <span class="k">break</span><span class="p">;</span>
+  <span class="k">case</span> <span class="nl">Bad</span><span class="p">:</span> <span class="k">throw</span> <span class="n">BadFoo</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">message</span><span class="p">());</span>
+<span class="p">}</span>
+<span class="c1">// vs.</span>
+<span class="k">switch</span> <span class="p">(</span><span class="n">Foo</span> <span class="n">gadget</span><span class="p">(</span><span class="n">args</span><span class="p">);</span> <span class="k">auto</span> <span class="n">s</span> <span class="o">=</span> <span class="n">gadget</span><span class="p">.</span><span class="n">status</span><span class="p">())</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="nl">OK</span><span class="p">:</span> <span class="n">gadget</span><span class="p">.</span><span class="n">zip</span><span class="p">();</span> <span class="k">break</span><span class="p">;</span>
+  <span class="k">case</span> <span class="nl">Bad</span><span class="p">:</span> <span class="k">throw</span> <span class="n">BadFoo</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">message</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="constexpr-if">constexpr if<a class="headerlink" href="#constexpr-if" title="Permanent link">&para;</a></h2>
+<p>Write code that is instantiated depending on a compile=time condition.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">isIntegral</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">isIntegral</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="nb">true</span><span class="p">);</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">isIntegral</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="nb">true</span><span class="p">);</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">isIntegral</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="nb">false</span><span class="p">);</span>
+<span class="k">struct</span> <span class="nc">S</span> <span class="p">{};</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">isIntegral</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="nb">false</span><span class="p">);</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="utf-8-character-literals">UTF-8 character literals<a class="headerlink" href="#utf-8-character-literals" title="Permanent link">&para;</a></h2>
+<p>A character literal that begins with <code>u8</code> is a character literal of type <code>char</code>. The value of a UTF-8 character literal is equal to its ISO 10646 code point value.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">char</span> <span class="n">x</span> <span class="o">=</span> <span class="sa">u8</span><span class="sc">&#39;x&#39;</span><span class="p">;</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="direct-list-initialization-of-enums">Direct list initialization of enums<a class="headerlink" href="#direct-list-initialization-of-enums" title="Permanent link">&para;</a></h2>
+<p>Enums can now be initialized using braced syntax.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">enum</span> <span class="nc">byte</span> <span class="o">:</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="p">{};</span>
+<span class="n">byte</span> <span class="n">b</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span> <span class="c1">// OK</span>
+<span class="n">byte</span> <span class="n">c</span> <span class="p">{</span><span class="mi">-1</span><span class="p">};</span> <span class="c1">// ERROR</span>
+<span class="n">byte</span> <span class="n">d</span> <span class="o">=</span> <span class="n">byte</span><span class="p">{</span><span class="mi">1</span><span class="p">};</span> <span class="c1">// OK</span>
+<span class="n">byte</span> <span class="n">e</span> <span class="o">=</span> <span class="n">byte</span><span class="p">{</span><span class="mi">256</span><span class="p">};</span> <span class="c1">// ERROR</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="fallthrough-nodiscard-maybe_unused-attributes">fallthrough, nodiscard, maybe_unused attributes<a class="headerlink" href="#fallthrough-nodiscard-maybe_unused-attributes" title="Permanent link">&para;</a></h2>
+<p>C++17 introduces threee new attributes:</p>
+<ul>
+<li>
+<p><code>[[fallthrough]]</code>: indicates to the compiler that falling through in a switch statement is intended behavior.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">switch</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="p">[[</span><span class="n">fallthrough</span><span class="p">]]</span>
+    <span class="c1">// ...</span>
+  <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+    <span class="c1">// ...</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table></p>
+</li>
+<li>
+<p><code>[[nodiscard]]</code>: issues a warning when either a function or class has this attribute and its return value is discarded.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span> <span class="kt">bool</span> <span class="n">do_something</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">is_success</span><span class="p">;</span> <span class="c1">// true for success, false for failure</span>
+<span class="p">}</span>
+
+<span class="n">do_something</span><span class="p">();</span> <span class="c1">// warning: ignoring return value of &#39;bool do_something()&#39;,</span>
+                <span class="c1">// declared with attribute &#39;nodiscard&#39;</span>
+
+<span class="c1">// Only issues a warning when `error_info` is returned by value.</span>
+<span class="k">struct</span> <span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span> <span class="n">error_info</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="n">error_info</span> <span class="nf">do_something</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">error_info</span> <span class="n">ei</span><span class="p">;</span>
+  <span class="c1">// ...</span>
+  <span class="k">return</span> <span class="n">ei</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">do_something</span><span class="p">();</span> <span class="c1">// warning: ignoring returned value of type &#39;error_info&#39;,</span>
+                <span class="c1">// declared with attribute &#39;nodiscard&#39;</span>
+</code></pre></div>
+</td></tr></table></p>
+</li>
+<li>
+<p><code>[[maybe_unused]]</code>: indicates to be compiler that a variable or parameter might be unused an is intended.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">void</span> <span class="nf">my_callback</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">msg</span><span class="p">,</span> <span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span> <span class="kt">bool</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Don&#39;t care if `msg` is an error message, just log it.</span>
+  <span class="n">log</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table></p>
+</li>
+</ul>
+<h1 id="c17-new-libraries">C++17 New Libraries<a class="headerlink" href="#c17-new-libraries" title="Permanent link">&para;</a></h1>
+<h2 id="stdvariant">std::variant<a class="headerlink" href="#stdvariant" title="Permanent link">&para;</a></h2>
+<p>The class template <code>std::variant</code> represents a type-safe <code>union</code>. An instance of <code>std::variant</code> at any given time holds a value of one of its alternativqe types(it's possible for it to be valueless).
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">variant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span> <span class="mi">12</span> <span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v</span><span class="p">);</span> <span class="c1">// == 12</span>
+<span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v</span><span class="p">);</span> <span class="c1">// == 12</span>
+<span class="n">v</span> <span class="o">=</span> <span class="mf">12.0</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v</span><span class="p">);</span> <span class="c1">// == 12.0</span>
+<span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v</span><span class="p">);</span> <span class="c1">// == 12.0</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="stdoptional">std::optional<a class="headerlink" href="#stdoptional" title="Permanent link">&para;</a></h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">create</span><span class="p">(</span><span class="kt">bool</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">&quot;Godzilla&quot;</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{};</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">create</span><span class="p">(</span><span class="nb">false</span><span class="p">).</span><span class="n">value_or</span><span class="p">(</span><span class="s">&quot;empty&quot;</span><span class="p">);</span> <span class="c1">// == &quot;empty&quot;</span>
+<span class="n">create</span><span class="p">(</span><span class="nb">true</span><span class="p">).</span><span class="n">value</span><span class="p">();</span> <span class="c1">// == &quot;Godzilla&quot;</span>
+<span class="c1">// optional-returning factory functions are usable as conditions of while and if</span>
+<span class="k">if</span> <span class="p">(</span><span class="k">auto</span> <span class="n">str</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="nb">true</span><span class="p">))</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+<h2 id="stdany">std::any<a class="headerlink" href="#stdany" title="Permanent link">&para;</a></h2>
+<p>A type-safe container for single values of any type.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">any</span> <span class="n">x</span> <span class="p">{</span><span class="mi">5</span><span class="p">};</span>
+<span class="n">x</span><span class="p">.</span><span class="n">has_value</span><span class="p">()</span> <span class="c1">// == true</span>
+<span class="n">std</span><span class="o">::</span><span class="n">any_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1">// == 5</span>
+<span class="n">std</span><span class="o">::</span><span class="n">any_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">any_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1">// == 10</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="stdstring_view">std::string_view<a class="headerlink" href="#stdstring_view" title="Permanent link">&para;</a></h2>
+<p>A non-owning reference to a string. Useful for providing an abstraction on top of strings (e.g. for parsing).
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">// Regular strings.</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">cppstr</span> <span class="p">{</span><span class="s">&quot;foo&quot;</span><span class="p">};</span>
+<span class="c1">// Wide strings.</span>
+<span class="n">std</span><span class="o">::</span><span class="n">wstring_view</span> <span class="n">wcstr_v</span> <span class="p">{</span><span class="sa">L</span><span class="s">&quot;baz&quot;</span><span class="p">};</span>
+<span class="c1">// Character arrays.</span>
+<span class="kt">char</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;b&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;r&#39;</span><span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">array_v</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size</span><span class="p">(</span><span class="n">array</span><span class="p">));</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span> <span class="p">{</span><span class="s">&quot;   trim me&quot;</span><span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">v</span> <span class="p">{</span><span class="n">str</span><span class="p">};</span>
+<span class="n">v</span><span class="p">.</span><span class="n">remove_prefix</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">find_first_not_of</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">),</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()));</span>
+<span class="n">str</span><span class="p">;</span> <span class="c1">//  == &quot;   trim me&quot;</span>
+<span class="n">v</span><span class="p">;</span> <span class="c1">// == &quot;trim me&quot;</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="stdinvoke">std::invoke<a class="headerlink" href="#stdinvoke" title="Permanent link">&para;</a></h2>
+<p>Invoke a <code>Callable</code> object with parameters. Examples of <code>Callable</code> objects are <code>std::function</code> or <code>std::bind</code> where an object can be called similarly to a regular function.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">Callable</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Proxy</span> <span class="p">{</span>
+  <span class="n">Callable</span> <span class="n">c</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">Proxy</span><span class="p">(</span><span class="n">Callable</span> <span class="n">c</span><span class="p">)</span><span class="o">:</span> <span class="n">c</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+  <span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="k">operator</span><span class="p">()(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">invoke</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">auto</span> <span class="n">add</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="n">Proxy</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">add</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">p</span> <span class="p">{</span><span class="n">add</span><span class="p">};</span>
+<span class="n">p</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// == 3</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="stdapply">std::apply<a class="headerlink" href="#stdapply" title="Permanent link">&para;</a></h2>
+<p>Invoke a <code>Callable</code> object with a tuple of arguments
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">auto</span> <span class="n">add</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">apply</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">make_tuple</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span> <span class="c1">// == 3</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="stdfilesystem">std::filesystem<a class="headerlink" href="#stdfilesystem" title="Permanent link">&para;</a></h2>
+<p>The new <code>std::filesystem</code> library provides a standard way to manipulate files, directories, and paths in a filesystem.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">const</span> <span class="k">auto</span> <span class="n">bigFilePath</span> <span class="p">{</span><span class="s">&quot;bigFileToCopy&quot;</span><span class="p">};</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">filesystem</span><span class="o">::</span><span class="n">exists</span><span class="p">(</span><span class="n">bigFilePath</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="k">auto</span> <span class="n">bigFileSize</span> <span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">filesystem</span><span class="o">::</span><span class="n">file_size</span><span class="p">(</span><span class="n">bigFilePath</span><span class="p">)};</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">filesystem</span><span class="o">::</span><span class="n">path</span> <span class="n">tmpPath</span> <span class="p">{</span><span class="s">&quot;/tmp&quot;</span><span class="p">};</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">filesystem</span><span class="o">::</span><span class="n">space</span><span class="p">(</span><span class="n">tmpPath</span><span class="p">).</span><span class="n">available</span> <span class="o">&gt;</span> <span class="n">bigFileSize</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">filesystem</span><span class="o">::</span><span class="n">create_directory</span><span class="p">(</span><span class="n">tmpPath</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;example&quot;</span><span class="p">));</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">filesystem</span><span class="o">::</span><span class="n">copy_file</span><span class="p">(</span><span class="n">bigFilePath</span><span class="p">,</span> <span class="n">tmpPath</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;newFile&quot;</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="stdbyte">std::byte<a class="headerlink" href="#stdbyte" title="Permanent link">&para;</a></h2>
+<p>The new <code>std::byte</code> type provides a standard way of representing data as byte. Benefits of using <code>std::byte</code> over <code>char</code> or <code>unsigned char</code> is that it is not a character type, and is also not an arithmetic type; while the only operator overloads available are bitwise operator.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">byte</span> <span class="n">a</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">byte</span> <span class="n">b</span> <span class="p">{</span><span class="mh">0xFF</span><span class="p">};</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">to_integer</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">);</span> <span class="c1">// 0xFF</span>
+<span class="n">std</span><span class="o">::</span><span class="n">byte</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">to_integer</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">c</span><span class="p">);</span> <span class="c1">// 0</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="splicing-for-maps-and-sets">Splicing for maps and sets<a class="headerlink" href="#splicing-for-maps-and-sets" title="Permanent link">&para;</a></h2>
+<p>Moving nodes and merging containers whithout the overhead of expensive copies, moves, or heap allocations/deallocations.
+Moving elements from one map to another:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">src</span> <span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;one&quot;</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="s">&quot;two&quot;</span><span class="p">},</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="s">&quot;buckle my shoe&quot;</span><span class="p">}};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">dst</span> <span class="p">{{</span><span class="mi">3</span><span class="p">,</span> <span class="s">&quot;three&quot;</span><span class="p">}};</span>
+<span class="n">dst</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">src</span><span class="p">.</span><span class="n">extract</span><span class="p">(</span><span class="n">src</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)));</span> <span class="c1">// Cheap remove and insert of { 1, &quot;one&quot; } from `src` to `dst`.</span>
+<span class="n">dst</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">src</span><span class="p">.</span><span class="n">extract</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span> <span class="c1">// Cheap remove and insert of { 2, &quot;two&quot; } from `src` to `dst`.</span>
+<span class="c1">// dst == { { 1, &quot;one&quot; }, { 2, &quot;two&quot; }, { 3, &quot;three&quot; } };</span>
+</code></pre></div>
+</td></tr></table>
+Inserting elements which outlive the container:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">auto</span> <span class="nf">elementFactory</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="p">...</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span>
+  <span class="n">s</span><span class="p">.</span><span class="n">emplace</span><span class="p">(...);</span>
+  <span class="k">return</span> <span class="n">s</span><span class="p">.</span><span class="n">extract</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>
+<span class="p">}</span>
+<span class="n">s2</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">elementFactory</span><span class="p">());</span>
+</code></pre></div>
+</td></tr></table>
+Changing the key of a map element:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">m</span> <span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;one&quot;</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="s">&quot;two&quot;</span><span class="p">},</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="s">&quot;three&quot;</span><span class="p">}};</span>
+<span class="k">auto</span> <span class="n">e</span> <span class="o">=</span> <span class="n">m</span><span class="p">.</span><span class="n">extract</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">e</span><span class="p">.</span><span class="n">key</span><span class="p">()</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="n">m</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">e</span><span class="p">));</span>
+<span class="c1">// m == { { 1, &quot;one&quot; }, { 3, &quot;three&quot; }, { 4, &quot;two&quot; } }</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="parallel-algorithms">parallel algorithms<a class="headerlink" href="#parallel-algorithms" title="Permanent link">&para;</a></h2>
+<p>Many of the STL algorithms, such as the <code>copy</code>, <code>find</code> and <code>sort</code> methods, started to support the parallel execution policies: <code>seq</code>, <code>par</code> and <code>par_unseq</code> which translate to "sequentially", "parallel" and "parallel unsequenced".
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">longVector</span><span class="p">;</span>
+<span class="c1">// Find element using parallel execution policy</span>
+<span class="k">auto</span> <span class="n">result1</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">execution</span><span class="o">::</span><span class="n">par</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">longVector</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">longVector</span><span class="p">),</span> <span class="mi">2</span><span class="p">);</span>
+<span class="c1">// Sort elements using sequential execution policy</span>
+<span class="k">auto</span> <span class="n">result2</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">execution</span><span class="o">::</span><span class="n">seq</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">longVector</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">longVector</span><span class="p">));</span>
+</code></pre></div>
+</td></tr></table></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../the_essence_of_c%2B%2B/" class="md-footer__link md-footer__link--next" aria-label="Next: Bjarne Strooustrup:The Essence of C++" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Bjarne Strooustrup:The Essence of C++
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.b0710199.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.76f349be.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
