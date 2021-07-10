@@ -15,3 +15,6 @@ echo "commit msg:${MSG}"
 git commit -m"$MSG"
 
 git push origin new-note
+
+# publish
+mkdocs gh-deploy --force
