@@ -82,6 +82,7 @@ The odometry algorithm estimates motion of the lidar within a sweep(frame),Let $
     **Notice** about $j$,$l$,$m$,two of them are on the same scan, another is in consecutive scans,This guarantees that the three points are **non-collinear**
   - compute the distance between every feature point of $\bar{P}\_{k+1}$ to the closest neighbor points of $\bar{P}\_{k}$<br>
     **Notice** all points in the formula ($\mathcal{2}$) and ($\mathcal{3}$) is the coordinates in {$L$}.
+   
    $$
    d\varepsilon = \frac{|(\widetilde{X}^L_{(k+1,i)}- \bar{X}^L_{(k,j)})\times (\widetilde{X}^L_{(k+1,i)}- \bar{X}^L_{(k,l)})|}{|\bar{X}^L_{(k,j)} - \bar{X}^L_{(k,l)}|} .\text{distance of point to line} \tag{2} 
    $$
