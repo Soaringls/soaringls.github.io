@@ -163,18 +163,11 @@
   
   
   
-    
-
-  
-  
-  
     <li class="md-tabs__item">
-      <a href="./" class="md-tabs__link md-tabs__link--active">
+      <a href="../../coding_work_style/" class="md-tabs__link md-tabs__link--active">
         Coding
       </a>
     </li>
-  
-
   
 
       
@@ -316,6 +309,18 @@
             
   
   
+  
+    <li class="md-nav__item">
+      <a href="../../coding_work_style/" class="md-nav__link">
+        Coding work style
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
     
   
   
@@ -323,14 +328,14 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" checked>
       
-      <label class="md-nav__link" for="__nav_2_1">
+      <label class="md-nav__link" for="__nav_2_2">
         C++
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="C++" data-md-level="2">
-        <label class="md-nav__title" for="__nav_2_1">
+        <label class="md-nav__title" for="__nav_2_2">
           <span class="md-nav__icon md-icon"></span>
           C++
         </label>
@@ -505,16 +510,16 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
       
-      <label class="md-nav__link" for="__nav_2_2">
-        System structure
+      <label class="md-nav__link" for="__nav_2_3">
+        System&structure
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="System structure" data-md-level="2">
-        <label class="md-nav__title" for="__nav_2_2">
+      <nav class="md-nav" aria-label="System&structure" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
           <span class="md-nav__icon md-icon"></span>
-          System structure
+          System&structure
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -523,7 +528,19 @@
   
   
     <li class="md-nav__item">
-      <a href="../../system_structure/several_design_patterns_by_cpp/" class="md-nav__link">
+      <a href="../../system%26structure/operation_system/" class="md-nav__link">
+        Operation system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system%26structure/several_design_patterns_by_cpp/" class="md-nav__link">
         Several Design Patterns By C++
       </a>
     </li>
@@ -535,7 +552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../system_structure/uml_graph/" class="md-nav__link">
+      <a href="../../system%26structure/uml_graph/" class="md-nav__link">
         UML Graphic
       </a>
     </li>
@@ -1694,7 +1711,7 @@ Moving elements from one map to another:
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">src</span> <span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;one&quot;</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="s">&quot;two&quot;</span><span class="p">},</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="s">&quot;buckle my shoe&quot;</span><span class="p">}};</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">// std::map&lt;int, string&gt; src {{1, &quot;one&quot;}, {2, &quot;two&quot;}, {3, &quot;buckle my shoe&quot;}};</span>
 <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">dst</span> <span class="p">{{</span><span class="mi">3</span><span class="p">,</span> <span class="s">&quot;three&quot;</span><span class="p">}};</span>
 <span class="n">dst</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">src</span><span class="p">.</span><span class="n">extract</span><span class="p">(</span><span class="n">src</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)));</span> <span class="c1">// Cheap remove and insert of { 1, &quot;one&quot; } from `src` to `dst`.</span>
 <span class="n">dst</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">src</span><span class="p">.</span><span class="n">extract</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span> <span class="c1">// Cheap remove and insert of { 2, &quot;two&quot; } from `src` to `dst`.</span>
@@ -1763,7 +1780,7 @@ Changing the key of a map element:
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+        <a href="../../coding_work_style/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Coding work style" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1772,7 +1789,7 @@ Changing the key of a map element:
               <span class="md-footer__direction">
                 Previous
               </span>
-              Home
+              Coding work style
             </div>
           </div>
         </a>
