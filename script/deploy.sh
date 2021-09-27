@@ -15,7 +15,9 @@ MSG="update note ${DATE}"
 echo "commit msg:${MSG}"
 git commit -m"$MSG"
 
-git push origin new-note
+# git push origin new-note
+git push origin mkdocs
 
 # publish
-mkdocs gh-deploy --force
+# mkdocs gh-deploy --force
+mkdocs mkdocs --force
