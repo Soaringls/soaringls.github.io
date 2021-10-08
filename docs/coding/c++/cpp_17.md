@@ -385,7 +385,7 @@ int j = std::to_integer<int>(c); // 0
 Moving nodes and merging containers whithout the overhead of expensive copies, moves, or heap allocations/deallocations.
 Moving elements from one map to another:
 ```C++
-// std::map<int, string> src {{1, "one"}, {2, "two"}, {3, "buckle my shoe"}};
+std::map<int, string> src {{1, "one"}, {2, "two"}, {3, "buckle my shoe"}};
 std::map<int, string> dst {{3, "three"}};
 dst.insert(src.extract(src.find(1))); // Cheap remove and insert of { 1, "one" } from `src` to `dst`.
 dst.insert(src.extract(2)); // Cheap remove and insert of { 2, "two" } from `src` to `dst`.

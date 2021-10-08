@@ -17,8 +17,8 @@ git commit -m"$MSG"
 
 # git push origin new-note
 # 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
-git push origin mkdocs
+git push origin lyu/mkdocs-note
 
 # publish 
-mkdocs gh-deploy --force
-# mkdocs mkdocs --force
+# mkdocs gh-deploy --force
+mkdocs lyu/mkdocs-note --force
