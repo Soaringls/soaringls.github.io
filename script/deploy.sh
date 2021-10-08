@@ -15,11 +15,10 @@ MSG="update note ${DATE}"
 echo "commit msg:${MSG}"
 git commit -m"$MSG"
 
-# git push origin new-note
-# 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
+# git push origin new-note 
 # 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
-git push origin lyu/mkdocs-note
+git push origin notebook
 
 # publish 
 # mkdocs gh-deploy --force
-mkdocs lyu/mkdocs-note --force
+mkdocs notebook-pub --force
