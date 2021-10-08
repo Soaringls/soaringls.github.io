@@ -20,7 +20,7 @@ std::vector v = {1, 2, 3};//now
 ```
 ## Declaring non-type template parameters with auto
 Following the deduction rules of `auto`, while respecting the non-type template parameter list of allowable types[\*], template arguments can be deduced from the type ot its arguments:
-```C++
+```cpp
 template <auto... seq>
 struct my_integer_sequence {
   // Implementation here ...
@@ -38,7 +38,7 @@ A fold expression performs a fold of a template parameter pack over a binary ope
 - An expression of the form `(... op e)` or `(e op ...)`, where `op` is a fold-operator and `e` is an unexpanded parameter pack, are called unary folds.
 - An expression of the form `(e1 op ... op e2)`, where `op` are fold-operators, is called a binary fold. Either `e1` or `e2` is an unexpanded parameter pack, but not both.
 
-```C++
+```cpp
 template <typename... Args>
 bool logicalAnd(Args... args) {
     // Binary folding.
@@ -58,7 +58,7 @@ sum(1.0, 2.0f, 3); // == 6.0
 
 ## New rules for auto deduction from braced-init-list
 Changes to `auto` deduction when used with the uniform initialization syntax. Previously, `auto x {3}` deduced a `std::initializer_list<int>`, which now deduces to `int`.
-```C++
+```cpp
 auto x1 {1, 2, 3};  // error: not a single element.
 auto x2 = {1, 2, 3};  // x2 is std::initializer_list<int>
 auto x3 {3};  // x3 is int
@@ -67,7 +67,7 @@ auto x4 {3.0};  // x4 is double
 
 ## constexpr lambda
 Compile-time lambda using `constexpr`.
-```C++
+```cpp
 auto identity = [](int n) constexpr { return n; };
 static_assert(identity(123) == 123);
 constexpr auto add = [](int x, int y) {
@@ -86,7 +86,7 @@ static_assert(addOne(1) == 2);
 
 ## Lambda capture `this` by value
 Capturing `this` in a lambda's environment was previously reference-only. An example of where `this` is problematic is asynchronous code using callbacks that require an object to be available, potentially past its lifetime. `*this` (C++17) will now make a copy of the current object, while `this` (C++11) continues to capture by reference.
-```C++
+```cpp
 struct MyObj {
   int value {123};
   auto getValueCopy() {
@@ -106,7 +106,7 @@ valueRef(); // 321
 
 ## Inline variables
 The inline specifier can be applied to variables as well as to functions. A variable declared inline has the same semantics as a function declared inline.
-```C++
+```cpp
 // Disassembly example using compiler explorer.
 struct S { int x; };
 inline S x1 = S{321}; // mov esi, dword ptr [x1]
@@ -117,7 +117,7 @@ S x2 = S{123};        // mov eax, dword ptr [.L_ZZ4mainE2x2]
                       // .L_ZZ4mainE2x2: .long 123
 ```
 It can also be used to declare and define a static member variable, such that it does not need to be initialized in the source file.
-```C++
+```cpp
 struct S {
   S() : id{count++} {}
   ~S() { count--; }
@@ -128,7 +128,7 @@ struct S {
 
 ## Nested namespaces
 Using the namespace resolution operator to create nested namespace definitions.
-```C++
+```cpp
 namespace A {
   namespace B {
     namespace C {
@@ -144,7 +144,7 @@ namespace A::B::C {
 
 ## Structured bindings
 A proposal for de-structuring initialization, that would allow writting `auto [ x, y, z] = expr;` where the type of `expr` was a tuple-like object, whose elements would be bound to the variables `x`, `y` and `z`(which is construc declares). **tuple-like** objects include `std::tuple`, `std::pair`, `std::array`, and aggregate structures.
-```C++
+```cpp
 using Coordinate = std::pair<int, int>;
 Coordinate origin() {
   return Coordinate{0, 0};
@@ -167,7 +167,7 @@ for (const auto& [key, value] : mapping) {
 
 ## Selection statements with initializer
 New version of `if` and `switch` statements which simplify code patterns and help users keep scopes tight.
-```C++
+```cpp
 {
   std::lock_guard<std::mutex> lk(mx);
   if (v.empty()) v.push_back(val);
@@ -191,7 +191,7 @@ switch (Foo gadget(args); auto s = gadget.status()) {
 
 ## constexpr if
 Write code that is instantiated depending on a compile=time condition.
-```C++
+```cpp
 template <typename T>
 constexpr bool isIntegral() {
   if constexpr (std::is_integral<T>::value) {
@@ -209,13 +209,13 @@ static_assert(isIntegral<S>() == false);
 
 ## UTF-8 character literals
 A character literal that begins with `u8` is a character literal of type `char`. The value of a UTF-8 character literal is equal to its ISO 10646 code point value.
-```C++
+```cpp
 char x = u8'x';
 ```
 
 ## Direct list initialization of enums
 Enums can now be initialized using braced syntax.
-```C++
+```cpp
 enum byte : unsigned char {};
 byte b {0}; // OK
 byte c {-1}; // ERROR
@@ -227,7 +227,7 @@ byte e = byte{256}; // ERROR
 C++17 introduces threee new attributes:
 
 - `[[fallthrough]]`: indicates to the compiler that falling through in a switch statement is intended behavior.
-```C++
+```cpp
 switch (n) {
   case 1: [[fallthrough]]
     // ...
@@ -238,7 +238,7 @@ switch (n) {
 ```
 
 - `[[nodiscard]]`: issues a warning when either a function or class has this attribute and its return value is discarded.
-```C++
+```cpp
 [[nodiscard]] bool do_something() {
   return is_success; // true for success, false for failure
 }
@@ -262,7 +262,7 @@ do_something(); // warning: ignoring returned value of type 'error_info',
 ```
 
 - `[[maybe_unused]]`: indicates to be compiler that a variable or parameter might be unused an is intended.
-```C++
+```cpp
 void my_callback(std::string msg, [[maybe_unused]] bool error) {
   // Don't care if `msg` is an error message, just log it.
   log(msg);
@@ -272,7 +272,7 @@ void my_callback(std::string msg, [[maybe_unused]] bool error) {
 # C++17 New Libraries
 ## std::variant
 The class template `std::variant` represents a type-safe `union`. An instance of `std::variant` at any given time holds a value of one of its alternativqe types(it's possible for it to be valueless).
-```C++
+```cpp
 std::variant<int, double> v{ 12 };
 std::get<int>(v); // == 12
 std::get<0>(v); // == 12
@@ -282,7 +282,7 @@ std::get<1>(v); // == 12.0
 ```
 
 ## std::optional
-```C++
+```cpp
 std::optional<std::string> create(bool b) {
   if (b) {
     return "Godzilla";
@@ -301,7 +301,7 @@ if (auto str = create(true)) {
 
 ## std::any
 A type-safe container for single values of any type.
-```C++
+```cpp
 std::any x {5};
 x.has_value() // == true
 std::any_cast<int>(x) // == 5
@@ -311,7 +311,7 @@ std::any_cast<int>(x) // == 10
 
 ## std::string_view
 A non-owning reference to a string. Useful for providing an abstraction on top of strings (e.g. for parsing).
-```C++
+```cpp
 // Regular strings.
 std::string_view cppstr {"foo"};
 // Wide strings.
@@ -329,7 +329,7 @@ v; // == "trim me"
 
 ## std::invoke
 Invoke a `Callable` object with parameters. Examples of `Callable` objects are `std::function` or `std::bind` where an object can be called similarly to a regular function.
-```C++
+```cpp
 template <typename Callable>
 class Proxy {
   Callable c;
@@ -350,7 +350,7 @@ p(1, 2); // == 3
 
 ## std::apply
 Invoke a `Callable` object with a tuple of arguments
-```C++
+```cpp
 auto add = [](int x, int y) {
   return x + y;
 };
@@ -359,7 +359,7 @@ std::apply(add, std::make_tuple(1, 2)); // == 3
 
 ## std::filesystem
 The new `std::filesystem` library provides a standard way to manipulate files, directories, and paths in a filesystem.
-```C++
+```cpp
 const auto bigFilePath {"bigFileToCopy"};
 if (std::filesystem::exists(bigFilePath)) {
   const auto bigFileSize {std::filesystem::file_size(bigFilePath)};
@@ -373,7 +373,7 @@ if (std::filesystem::exists(bigFilePath)) {
 
 ## std::byte
 The new `std::byte` type provides a standard way of representing data as byte. Benefits of using `std::byte` over `char` or `unsigned char` is that it is not a character type, and is also not an arithmetic type; while the only operator overloads available are bitwise operator.
-```C++
+```cpp
 std::byte a {0};
 std::byte b {0xFF};
 int i = std::to_integer<int>(b); // 0xFF
@@ -384,7 +384,7 @@ int j = std::to_integer<int>(c); // 0
 ## Splicing for maps and sets
 Moving nodes and merging containers whithout the overhead of expensive copies, moves, or heap allocations/deallocations.
 Moving elements from one map to another:
-```C++
+```cpp
 std::map<int, string> src {{1, "one"}, {2, "two"}, {3, "buckle my shoe"}};
 std::map<int, string> dst {{3, "three"}};
 dst.insert(src.extract(src.find(1))); // Cheap remove and insert of { 1, "one" } from `src` to `dst`.
@@ -392,7 +392,7 @@ dst.insert(src.extract(2)); // Cheap remove and insert of { 2, "two" } from `src
 // dst == { { 1, "one" }, { 2, "two" }, { 3, "three" } };
 ```
 Inserting elements which outlive the container:
-```C++
+```cpp
 auto elementFactory() {
   std::set<...> s;
   s.emplace(...);
@@ -401,7 +401,7 @@ auto elementFactory() {
 s2.insert(elementFactory());
 ```
 Changing the key of a map element:
-```C++
+```cpp
 std::map<int, string> m {{1, "one"}, {2, "two"}, {3, "three"}};
 auto e = m.extract(2);
 e.key() = 4;
@@ -411,7 +411,7 @@ m.insert(std::move(e));
 
 ## parallel algorithms
 Many of the STL algorithms, such as the `copy`, `find` and `sort` methods, started to support the parallel execution policies: `seq`, `par` and `par_unseq` which translate to "sequentially", "parallel" and "parallel unsequenced".
-```C++
+```cpp
 std::vector<int> longVector;
 // Find element using parallel execution policy
 auto result1 = std::find(std::execution::par, std::begin(longVector), std::end(longVector), 2);
