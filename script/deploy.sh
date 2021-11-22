@@ -16,7 +16,6 @@ echo "commit msg:${MSG}"
 git commit -m"$MSG"
 
 # git push origin new-note 
-# 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
 git push origin notebook
 
 # publish 
