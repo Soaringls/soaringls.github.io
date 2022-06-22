@@ -40,6 +40,8 @@ $$
 
 ### Camera
 - 像素坐标`(u, v)`和相机坐标`(X, Y, Z)`的转换推导
+  
+  $P_{wrold} = T(相机外参) \cdot P_{camera}$
   $$
   \begin{bmatrix}
       u \\\\
@@ -53,8 +55,8 @@ $$
   \end{bmatrix}
   \begin{bmatrix}
       X \\\\ Y \\\\ 1
-  \end{bmatrix} = \frac{1}{Z} \cdot KP_c 
-  = \frac{1}{Z} \cdot KT  P_w 
+  \end{bmatrix} = \frac{1}{Z} \cdot K\cdot T \cdot P_c 
+  = \frac{1}{Z} \cdot K \cdot  P_w 
   $$
   K为相机内参矩阵， $T$为路标点$P_w$对应的外参(用于先将路标点由世界系转到**相机系**,即$P_c = RP_w +t$),
   归一化相机坐标: $P_c = (\frac{X}{Z}, \frac{Y}{Z},1)$, 像素坐标:$P_{uv} = KP_c$
