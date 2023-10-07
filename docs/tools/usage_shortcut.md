@@ -20,6 +20,8 @@ Nowdays we spend a lot of time in bash shell, typing long and complex commands. 
 | alt+arrows        | switch between different working windows             |
 | ctrl+shift+w      | close current window                                 |
 | ctrl+shift+q      | close all window,that means close current terminator |
+| win+g|各个分窗口同步命令功能|
+| win+shift+g|取消各个分窗口同步命令功能|
 
 ## VsCode
 ### 插件使用及配置
@@ -53,13 +55,3 @@ Nowdays we spend a lot of time in bash shell, typing long and complex commands. 
 | cursorColumnSelectRight                    | alt+shift+l-useless  |
 | cursorColumnSelectUp                       | alt+shift+i-useless  |
 | cursorColumnSelectDown                     | alt+shift+k-useless  |
-
-## Mac 
-- common shortcut cmd
-  |:info|shortcut|
-  |:--|:--|
-  |redo(vscode)|command + shirt + z|
-  |新建terminal(当前活动体为终端)|command+n|
-  |不同terminal之间切换|command+`|
-  |terminal新增tab窗口|command+t|
-  |terminal切换tab窗口|command+shift+左右方向键|

@@ -34,7 +34,7 @@ $$
      0 & -a_3 & a_2  \\\\        
      a_3 & 0 & -a_1 \\\\
      -a_2 & a_1 & 0       
-     \end{bmatrix} .\text{即为a的反对称矩阵} \\\\ &=\hat{\mathbf{a}}\mathbf{k}
+     \end{bmatrix} \cdot b  \\\\ &=\hat{\mathbf{a}} \cdot \mathbf{b} \quad\quad \hat{\mathbf{a}}\text{即为a的反对称矩阵}
   \end{aligned} \tag{4}
   $$
 
