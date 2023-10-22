@@ -12,7 +12,10 @@ note about operation of vector,such as dot and cross
 <!--more-->
 #### 向量点乘
 <!-- web-front not supprt \bold{a}, but support \mathbf{a} -->
+$\mathbf{a} \cdot \mathbf{b}  = |a|\cdot |b|\cdot cos<a,b>$
 - 二维向量
+  
+  
   $$
   \begin{aligned}
     \mathbf{\overrightarrow{a}} &= a_x\mathbf{i}+a_y\mathbf{j}\\\\
@@ -29,6 +32,7 @@ note about operation of vector,such as dot and cross
   \end{aligned}\tag{y}
   $$
 #### 向量叉乘
+$\mathbf{a} \times \mathbf{b}  = |a|\cdot |b|\cdot sin<a,b>$
 - 三维向量
   $$
   \begin{aligned}
