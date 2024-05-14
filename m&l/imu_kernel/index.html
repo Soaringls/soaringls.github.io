@@ -1,0 +1,2255 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../cloud_registration/">
+      
+      
+        <link rel="next" href="../loc_gauss_newton_example/">
+      
+      
+      <link rel="icon" href="../../logo.jpg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
+    
+    
+      
+        <title>IMU使用示例及噪声计算 - Notebook of Dexter</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#imu" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Notebook of Dexter" class="md-header__button md-logo" aria-label="Notebook of Dexter" data-md-component="logo">
+      
+  <img src="../../logo.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Notebook of Dexter
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              IMU使用示例及噪声计算
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../coding/coding_work_style/" class="md-tabs__link">
+          
+  
+  Coding
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../dairy/meetint_key_points/" class="md-tabs__link">
+          
+  
+  Dairy
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../calib_imu_wheel/" class="md-tabs__link">
+          
+  
+  M&l
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../math/algebraist/" class="md-tabs__link">
+          
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tools/00_setup_work_space_mac/" class="md-tabs__link">
+          
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Notebook of Dexter" class="md-nav__button md-logo" aria-label="Notebook of Dexter" data-md-component="logo">
+      
+  <img src="../../logo.jpg" alt="logo">
+
+    </a>
+    Notebook of Dexter
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Coding
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Coding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/coding_work_style/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Coding work style
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            C++
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/absl_cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Absl cpp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/cpp_17/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++17 新特性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/stl_cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stl cpp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/the_essence_of_c%2B%2B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bjarne Strooustrup:The Essence of C++
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/000_summary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Summary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/00_book_basic_note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Basic Note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/01_book_basic_class/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 类和对象
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/02_book_advance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python advance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/03_dev_env/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python开发环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ros
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Ros
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/ros/00_ros_msg_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS&Cartographer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    System&structure
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            System&structure
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/system%26structure/operation_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operation system
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/system%26structure/several_design_patterns_by_cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Several Design Patterns By C++
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/system%26structure/uml_graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UML Graphic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Dairy
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Dairy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dairy/meetint_key_points/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Meetint key points
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dairy/note-no-valience-chatting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    读书笔记:非暴力沟通
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dairy/note-the-seven-habits-of-effective-awosome/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    读书笔记:高效人士的七个习惯
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    M&l
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            M&l
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../calib_imu_wheel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TODO: calib_imu_wheel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud_registration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点云配准
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    IMU使用示例及噪声计算
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    IMU使用示例及噪声计算
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#-eskfimu" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用示例-ESKF算法IMU噪声设置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="使用示例-ESKF算法IMU噪声设置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      陀螺仪噪声和零偏不稳定性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      加速度计噪声和零偏不稳定性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      IMU噪声参数计算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IMU噪声参数计算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gyroscope" class="md-nav__link">
+    <span class="md-ellipsis">
+      gyroscope陀螺仪噪声密度
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="gyroscope陀螺仪噪声密度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rnrate-noise-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rn(Rate noise density)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arwangular-random-walk" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARW(angular random walk)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gyro-bibias-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      gyro BI(Bias Instability)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accel" class="md-nav__link">
+    <span class="md-ellipsis">
+      accel 加速度计噪声密度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accel-bibias-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      accel BI(Bias Instability)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loc_gauss_newton_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高斯牛顿实践-以视觉定位为例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loc_visual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    视觉定位(车道线匹配)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mapping_kernel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mapping kernel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slam_based_lidar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ing-slam-lidar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slam_based_visual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ing-slam-visual
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slambook2_appendix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    done-slambook2额外补充材料
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tf_rigid_motion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    done刚体运动-三维旋转变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Segmentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_11">
+            <span class="md-nav__icon md-icon"></span>
+            Segmentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../segmentation/cloud-segmentation-hdmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点云分割实例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_12" id="__nav_4_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Slam opensource
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_12">
+            <span class="md-nav__icon md-icon"></span>
+            Slam opensource
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slam_opensource/slam_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slam basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slam_opensource/slam_loam_series/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loam series
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/algebraist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    矩阵和向量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/estimation_filter_kalman/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    状态估计-滤波
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/estimation_optimizer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    状态估计-优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/geometry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    几何学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/00_setup_work_space_mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup work space on Mac
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/mathjax/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    usage of mathjax
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/python_matplotlib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tools python-matploglib
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/tools-devel-environment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tools devel-enviroment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/usage_bazel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage Bazel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/usage_markdown/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage markdown
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/usage_shortcut/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage shortcut
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/workspace_setup_ubuntu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup worksapce in ubuntu
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#-eskfimu" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用示例-ESKF算法IMU噪声设置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="使用示例-ESKF算法IMU噪声设置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      陀螺仪噪声和零偏不稳定性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      加速度计噪声和零偏不稳定性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      IMU噪声参数计算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IMU噪声参数计算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gyroscope" class="md-nav__link">
+    <span class="md-ellipsis">
+      gyroscope陀螺仪噪声密度
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="gyroscope陀螺仪噪声密度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rnrate-noise-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rn(Rate noise density)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arwangular-random-walk" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARW(angular random walk)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gyro-bibias-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      gyro BI(Bias Instability)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accel" class="md-nav__link">
+    <span class="md-ellipsis">
+      accel 加速度计噪声密度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accel-bibias-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      accel BI(Bias Instability)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="imu">IMU使用示例及噪声计算<a class="headerlink" href="#imu" title="Permanent link">&para;</a></h1>
+<h2 id="-eskfimu">使用示例-ESKF算法IMU噪声设置<a class="headerlink" href="#-eskfimu" title="Permanent link">&para;</a></h2>
+<p>ESKF内状态量为
+$$
+X=
+\begin{bmatrix}
+    R(\phi_x,\phi_y,\phi_z)\\
+    V(v_x,v_y,v_z)\\
+    P(x,y,z)\\
+    Ba(ba_x,ba_y,ba_z)\\
+    Bg(bg_x,bg_y,bg_z)
+\end{bmatrix} 
+$$</p>
+<p>IMU频率为100Hz, 即采样间隔<span class="arithmatex">\(\Delta t = 0.01s\)</span>,实际数据间隔为 <span class="arithmatex">\(\delta t\)</span></p>
+<h3 id="_1">陀螺仪噪声和零偏不稳定性<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>角度随机游走ARW(angular random walk)手册为<span class="arithmatex">\(\sigma_{g} = 0.21 deg / \sqrt{h}\)</span>为连续时间下的值,不过算法参数文件内使用离散状态下<span class="arithmatex">\(\sigma_{g}(k)\)</span>，angular_random_walk设置为<span class="arithmatex">\(\sigma_{g}(k)\)</span>,参考下文章节<a href="###gyroscope陀螺仪噪声密度">陀螺仪噪声密度ARW</a>, 同理离散状态下陀螺仪零偏噪声<span class="arithmatex">\(\sigma_{bg}(k)\)</span></p>
+<p>角度随机游走信息，手册通常给出如下信息：</p>
+<ul>
+<li>asm330 <code>ARW(angular random walk)</code>: <span class="arithmatex">\(deg / \sqrt{h}\)</span></li>
+<li>asm330 <code>Rn(Rate noise density)</code>: <span class="arithmatex">\(mdps/ \sqrt{Hz}\)</span></li>
+<li>北云 <code>角度随机游走</code>: <span class="arithmatex">\(deg / \sqrt{h} \quad(XY) \qquad deg / \sqrt{h}\quad(Z)\)</span> </li>
+</ul>
+<p>陀螺仪零偏不稳定性，手册则如下：</p>
+<ul>
+<li>asm330 <code>BI(Bias instability)</code>: <span class="arithmatex">\(deg/h\)</span></li>
+<li>北云 <code>零偏稳定性</code>: <span class="arithmatex">\(deg/h\quad(XY) \qquad deg/h\quad(Z)\)</span> </li>
+</ul>
+<p>eskf算法内噪声设置
+参考<code>Joan Sola's thesis: Quaternion kinematics and eskf</code></p>
+<ul>
+<li>
+<p>状态量<span class="arithmatex">\(X\)</span>的姿态预测噪声: <span class="arithmatex">\(Q_{X_R(\phi_x,\phi_y,\phi_z)}\)</span>的噪声为
+  $$
+   Q(\phi_x,\phi_y,\phi_z) = \dfrac{(\sigma_g(k) )^2}{\Delta t} \cdot (\delta t)^2
+  $$</p>
+</li>
+<li>
+<p>状态量<span class="arithmatex">\(X\)</span>的陀螺仪零偏噪声: <span class="arithmatex">\(Q_{X_{Bg}(bg_x,bg_y,bg_z)}\)</span>的噪声为
+  $$
+   Q(bg_x,bg_y,bg_z) = (\sigma_{bg}(k)\cdot )^2\cdot \delta t
+  $$</p>
+</li>
+</ul>
+<h3 id="_2">加速度计噪声和零偏不稳定性<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>速度随机游走Velocity random walk(VRW)手册通常给出如下信息：</p>
+<ul>
+<li>asm330 <code>An(acceleration noise density)</code>:<span class="arithmatex">\(ug/\sqrt{hz}\)</span></li>
+<li>北云 <code>速度随机游走</code>: <span class="arithmatex">\(m/s/\sqrt{h}\)</span></li>
+</ul>
+<p>加速度计零偏不稳定性，手册则如下：</p>
+<ul>
+<li>asm330手册无</li>
+<li>北云 <code>零偏稳定性(ug)</code>: <span class="arithmatex">\(ug\)</span> </li>
+</ul>
+<p>eskf算法内噪声设置</p>
+<ul>
+<li>
+<p>状态量<span class="arithmatex">\(X\)</span>的加速度预测噪声: <span class="arithmatex">\(Q_{X_V(v_x,v_y,v_z)}\)</span>的噪声为
+  $$
+   Q(v_x,v_y,v_z) = \dfrac{(\sigma_a(k) )^2}{\Delta t} \cdot (\delta t)^2
+  $$</p>
+</li>
+<li>
+<p>状态量<span class="arithmatex">\(X\)</span>的加速度计零偏噪声: <span class="arithmatex">\(Q_{X_{Ba}(ba_x,ba_y,ba_z)}\)</span>的噪声为
+  $$
+   Q(ba_x,ba_y,ba_z) = (\sigma_{ba}(k)\cdot )^2\cdot \delta t
+  $$</p>
+</li>
+</ul>
+<h2 id="imu_1">IMU噪声参数计算<a class="headerlink" href="#imu_1" title="Permanent link">&para;</a></h2>
+<p>基于IMU手册所给参数合理设置进行对应参数计算</p>
+<ul>
+<li>
+<p>参考高翔新书&lt;自动驾驶和机器人中slam技术&gt;</p>
+</li>
+<li>
+<p><a href="https://www.advancednavigation.com/tech-articles/inertial-measurement-unit-imu-an-introduction/#intro">零偏不稳定性描述_en</a></p>
+</li>
+<li>
+<p><a href="http://www.i2nav.com/index/newListDetail_zw.do?newskind_id=13a8654e060c40c69e5f3d4c13069078&amp;newsinfo_id=43bf2e0076d947aba8b58725ad8f5c15">惯性器件的零偏误差有哪些呢？-武汉大学多源智能导航实验室</a></p>
+</li>
+</ul>
+<p>由连续时间方差计算离散时间方差:</p>
+<div class="arithmatex">\[
+\begin{align}       
+    \sigma_g(k) = \dfrac{1}{\sqrt{\Delta t}} \sigma_g  \quad ,\sigma_a(k) = \dfrac{1}{\sqrt{\Delta t}} \sigma_a \\\\
+    \sigma_{bg}(k) =\sigma_{bg} \cdot \sqrt{\Delta t}  \quad ,\sigma_{ba}(k) =\sigma_{ba} \cdot \sqrt{\Delta t} 
+\end{align}     
+\]</div>
+<p>如<span class="arithmatex">\(\sigma_g(k)、\sigma_g、\sigma_ghz\)</span>之间的转换如下: 
+$$
+ \sigma_g=\sigma_g(k)\cdot \sqrt{\Delta t} \quad  \to \quad \dfrac{rad}{s} \cdot \sqrt{s}=\dfrac{rad}{\sqrt{s}}<br />
+$$</p>
+<div class="arithmatex">\[
+ \sigma_ghz = \dfrac{rad}{s\sqrt{Hz}} = \dfrac{rad}{s \sqrt{\dfrac{1}{s}}}=\dfrac{rad}{\sqrt{s}}
+ =\sigma_{g}
+\]</div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>gyro</th>
+<th>gyro bias</th>
+<th>accel</th>
+<th>accel bias</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>discrete time</td>
+<td><span class="arithmatex">\(\sigma_g(k) \to \dfrac{rad}{s}\)</span></td>
+<td><span class="arithmatex">\(\sigma_{bg}(k) \to \dfrac{rad}{s}\)</span></td>
+<td><span class="arithmatex">\(\sigma_a(k) \to \dfrac{m}{s^2}\)</span></td>
+<td><span class="arithmatex">\(\sigma_{ba}(k) \to \dfrac{m}{s^2}\)</span></td>
+</tr>
+<tr>
+<td>continuous time</td>
+<td><span class="arithmatex">\(\sigma_g \to   \dfrac{rad}{\sqrt{s}}\)</span></td>
+<td><span class="arithmatex">\(\sigma_{bg} \to   \dfrac{rad}{s\sqrt{s}}\)</span></td>
+<td><span class="arithmatex">\(\sigma_{a} \to   \dfrac{m}{s\sqrt{s}}\)</span></td>
+<td><span class="arithmatex">\(\sigma_{ba} \to   \dfrac{m}{s^2\sqrt{s}}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\dfrac{1}{\Delta t} \to Hz\)</span></td>
+<td><span class="arithmatex">\(\sigma_{g}hz \to \dfrac{rad}{s\sqrt{Hz}}\)</span></td>
+<td><span class="arithmatex">\(\sigma_{bg}hz \to \dfrac{rad}{s^2\sqrt{Hz}}\)</span></td>
+<td><span class="arithmatex">\(\sigma_{a}hz \to \dfrac{m}{s^2\sqrt{Hz}}\)</span></td>
+<td><span class="arithmatex">\(\sigma_{ba}hz \to \dfrac{m}{s^3\sqrt{Hz}}\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="gyroscope">gyroscope陀螺仪噪声密度<a class="headerlink" href="#gyroscope" title="Permanent link">&para;</a></h3>
+<h4 id="rnrate-noise-density">Rn(Rate noise density)<a class="headerlink" href="#rnrate-noise-density" title="Permanent link">&para;</a></h4>
+<p>角速度随机游走的标准差，单位为<span class="arithmatex">\(rad/s\)</span></p>
+<p>如ASM330手册给出该指标为<span class="arithmatex">\(5 mdps/\sqrt{Hz}\)</span>,即<span class="arithmatex">\(0.005deg  /\sqrt{Hz}\)</span>,这意味着在1赫兹的频率范围内，每秒的随机角速度变化在平均情况下为5毫度,即 0.005 deg. 如果imu频率为100hz,采样间隔<span class="arithmatex">\(\Delta t=0.01s\)</span>,则离散状态下角速度的随机游走方差为：</p>
+<p>$$
+   \sigma_g(k) \to 0.005deg  /\sqrt{Hz} =  \dfrac{0.005deg}{\sqrt{\dfrac{1}{\Delta t}}} = 0.005* 10 deg/s = 0.000872 rad/s
+  $$ </p>
+<h4 id="arwangular-random-walk">ARW(angular random walk)<a class="headerlink" href="#arwangular-random-walk" title="Permanent link">&para;</a></h4>
+<p>即角度随机游走,陀螺仪白噪声单位为<span class="arithmatex">\(deg/\sqrt{h}\)</span></p>
+<ul>
+<li>ASM330手册给出ARW值，连续时间噪声单位为: <span class="arithmatex">\(\sigma_g =0.21  deg/\sqrt{h}\)</span>, 则离散状态下角度的随机游走方差为：</li>
+</ul>
+<p>$$
+   \begin{align}
+     \sigma_g(k) \to  \dfrac{0.21deg/\sqrt{3600s}}{\sqrt{\Delta t}}=\dfrac{d2r(0.21/60)}{\sqrt{0.01}} = 6.108e-4 \space rad/s \\
+    \text{具体使用时可根据此值进行调整,如放大或虽小10倍等(6.108e-5)}
+   \end{align} 
+  $$</p>
+<ul>
+<li>北云手册ARW，连续时间角度随机游走为: <span class="arithmatex">\(0.1deg/ \sqrt{h}\)</span>, 则以100hz采样频率进行换算为: <span class="arithmatex">\(\sigma_g(k) =\dfrac{d2r(0.1deg/60)}{\sqrt{\Delta t}}   =  0.0002908 \quad rad/s\)</span>, 峰峰值取6倍<span class="arithmatex">\(\sigma_g(k)\)</span>为0.00174532</li>
+</ul>
+<h3 id="gyro-bibias-instability">gyro BI(Bias Instability)<a class="headerlink" href="#gyro-bibias-instability" title="Permanent link">&para;</a></h3>
+<p>即可陀螺仪的零偏不稳定性，也可角速度的零偏不稳定性。
+ASM330手册给出零偏不稳定性值，连续时间噪声单位为: <span class="arithmatex">\(\sigma_{bg} =3deg/h=\dfrac{3}{3600} deg/s\)</span>, 则离散状态下角速度的随机游走方差为：<span class="arithmatex">\(\sigma_{bg}(k) = \sigma_{bg}\cdot \sqrt{\Delta t}\)</span>, 如100hz采样频率,时间间隔 <span class="arithmatex">\(\Delta t = 0.01s\)</span></p>
+<div class="arithmatex">\[
+\sigma_{bg}(k) = \sigma_{bg} \sqrt{0.01} = 1.45e^{-6} rad/s
+\]</div>
+<p>根据牛小骥教授说法，实际国军标参数为手册放大5-10倍，则取值<span class="arithmatex">\(1.4544e^{-5} rad/s\)</span>进行计算，由于该值描述的是连续状态下bias不稳定性，遵循<span class="arithmatex">\(\dot{b}_g \sim N(0,\sigma^2)\)</span></p>
+<h3 id="accel">accel 加速度计噪声密度<a class="headerlink" href="#accel" title="Permanent link">&para;</a></h3>
+<p>Acceleration noise density,单位为<span class="arithmatex">\(m/s^2\)</span></p>
+<ul>
+<li>北云手册给出<code>速度随机游走</code> 为<span class="arithmatex">\(0.035 m/s/\sqrt{h} = \dfrac{0.035}{\sqrt{3600s}}m/s/\sqrt{s}=0.0005833m/s/\sqrt{s}\)</span>, 以100hz采样频率,时间间隔 <span class="arithmatex">\(\Delta t = 0.01s\)</span> 计算离散状态下加速度的随机游走方差为:</li>
+</ul>
+<p>$$  <br />
+   \sigma_a(k) = \dfrac{\sigma_a}{\sqrt{\Delta t}}   = 0.005833 \space m/s^2
+  $$
+峰峰值取6倍<span class="arithmatex">\(\sigma_a(k)\)</span>为 <span class="arithmatex">\(0.03498 m/s^2\)</span></p>
+<ul>
+<li>ASM330手册加速度计为: <span class="arithmatex">\(\sigma_{a}hz =60 \space ug/\sqrt{hz}\)</span>，<span class="arithmatex">\(1ug=10^{-6}m/s^2=1e{-6}m/s^2\)</span>，对应离散时间噪声计算结果为：</li>
+</ul>
+<div class="arithmatex">\[
+ \sigma_{a}(k) =\dfrac{\sigma_{a}hz * 10^{-6} * 9.8}{\sqrt{\Delta t}}=\dfrac{60* 10^{-6} * 9.8}{\sqrt{0.01}}= 5.88e-3 \space m/s^2
+\]</div>
+<h3 id="accel-bibias-instability">accel BI(Bias Instability)<a class="headerlink" href="#accel-bibias-instability" title="Permanent link">&para;</a></h3>
+<p>即加速度计的零偏不稳定性。</p>
+<p>取 75ug作为经典值<span class="arithmatex">\(1ug=10^{-6}m/s^2=1e{-6}m/s^2\)</span>，其连续状态下<span class="arithmatex">\(\sigma_{ba} =75\times 10^{-6} \times  9.8 =7.35e-4 m/s^2\)</span></p>
+<p>100hz采样, 时间间隔 <span class="arithmatex">\(\Delta t = 0.01s\)</span>, <span class="arithmatex">\(\sigma_{ba}(k) = \sigma_{ba} \cdot \sqrt{\Delta t} = 7.35e-5 \space m/s^2\)</span></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2018 - 2024 Dexter Personal
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
