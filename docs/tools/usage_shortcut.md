@@ -1,6 +1,7 @@
 ## linux system
 ### vim(TODO,Need to test)
 Nowdays we spend a lot of time in bash shell, typing long and complex commands. You can use the arrow keys `up/down/left/right` to move the cursor and select commands, but that's not so efficient.
+
 | info                        | cmd                                               |
 | :-------------------------- | :------------------------------------------------ |
 | Move in Charactor:`back`    | `C+b`: Move back one charactor(`C` is for `Ctrl`) |
@@ -20,11 +21,12 @@ Nowdays we spend a lot of time in bash shell, typing long and complex commands. 
 | alt+arrows        | switch between different working windows             |
 | ctrl+shift+w      | close current window                                 |
 | ctrl+shift+q      | close all window,that means close current terminator |
-| win+g|各个分窗口同步命令功能|
-| win+shift+g|取消各个分窗口同步命令功能|
+| win+g             | 各个分窗口同步命令功能                               |
+| win+shift+g       | 取消各个分窗口同步命令功能                           |
 
 ## VsCode
 ### 插件使用及配置
+
 | 日常插件      | 功能                 | 配置及使用                                                                                                                                                                                                              |
 | :------------ | :------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Settings Sync | 备份vscode配置及插件 | Sync Gist配置<br>1. GitHub GIST ID:vscode内插件setting (github gist repo的url数字部分)<br>2. GitHub Token:`/home/lyu/.config/Code/User/syncLocalSettings.json`里面token<br>Upload: shift+alt+u<br> Download:shift+alt+d |

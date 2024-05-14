@@ -1,12 +1,21 @@
-# note of pointmatcher
+# 点云配准
 
-## 简要ICP
+## note of pointmatcher
+
 - target(ref-scan|pre-scan)和source(read-scan|cur-scan)去除质心
-  $$
-   R^* = argmin \frac{1}{2} \sum_{i=1}^{n} \lVert q_t -  R q_s\rVert^2 \\\\
-   t^* = q_t - R q_s \\\\
-   W = \sum \left( q_t q_s^T\right) = U  \Sigma V^T \to R = UV^T \qquad t = q_t - Rq_s
-  $$
+  
+$$
+\begin{align}
+R^* = argmin \frac{1}{2} \sum_{i=1}^{n} \lVert q_t -  R q_s\rVert^2  
+\end{align}
+$$
+
+
+$$
+W = \sum \left( q_t q_s^T\right) = U  \Sigma V^T \to R = UV^T \qquad t = q_t - Rq_s
+$$
+ 
+
 - residuals可由`point->point`、`point->line`、`point->plane`
   
 ## PointMatcher
@@ -49,9 +58,10 @@
     \end{bmatrix}\\\\
   $$
   
-  $$
-  ret = tmp^T \times ref's normal \quad is \quad N \times N, which 
-    = \begin{bmatrix}
+$$
+\begin{align}
+ret &= tmp^T \times ref's normal \quad is \quad N \times N, which \\\\
+    &= \begin{bmatrix}
         -y1 & x1 & 0 \\\\
         -y2 & x2 & 0 \\\\
         -y3 & x3 & 0 \\\\
@@ -61,13 +71,17 @@
           nx_1 & nx_2 & ... \\\\
           ny_1 & ny_2 & ... \\\\
           nz_1 & nz_2 & ... 
-       \end{bmatrix} =
+       \end{bmatrix} \\\\
+    &=
        \begin{bmatrix}
         -y_1nx_1 + x_1ny_1 & elem_{12} & .....\\\\
         elem_{21} & -y_2nx_2 + x_2ny_2 & .....\\\\
         .... & ...&-y_nnx_n + x_nny_n
-       \end{bmatrix}
-  $$
+       \end{bmatrix}   
+\end{align}
+$$
+
+---
   
   取$ret$的对角线,即为reading点云到ref's normal的距离(点到法向量的距离)
   $tmp2 = ret.diagonal.transpose = \begin{bmatrix}
@@ -76,8 +90,13 @@
  
 
 - $A=WF \cdot F^t \to AX=b \qquad (4, 4) \times (4, 1) \to (4, 1)$
-  $$
-    A \cdot x=\begin{bmatrix}
+
+$$
+A \cdot X = b \qquad \text{即如下}
+$$
+
+$$
+  \begin{bmatrix}
        \sum_{i=1}^n d_i\cdot wd_i & & &  \\\\
        & \sum_{i=1}^nwnx_i\cdot nx_i & & \\\\
        & & \sum_{i=1}^nwny_i\cdot ny_i & \\\\
@@ -86,10 +105,13 @@
     \begin{bmatrix}
         yaw \\\\ X \\\\ Y \\\\ Z
     \end{bmatrix} = b
-  $$
+$$
 
-  $$
-    b = \underbrace{
+
+
+$$
+\begin{align}
+b &= \underbrace{
         \begin{bmatrix}
             & tmp2 \cdot \omega(权重) \\\\
             nx_1 & nx_2 & ...\\\\
@@ -103,7 +125,8 @@
             \Delta x_2 nx_2 + \Delta y_2 ny_2 + \Delta z_2 nz_2 \\\\
             ...\\\\
         \end{bmatrix}
-    } =  -\underbrace{
+    }  \\\\
+&=  -\underbrace{
          \begin{bmatrix}
              \sum_{i=1}^n d_i \cdot (\Delta x_i nx_i + \Delta y_i ny_i + \Delta z_i      nz_i) \\\\
              \sum_{i=1}^n nx_i \cdot (\Delta x_i nx_i + \Delta y_i ny_i + \Delta z_i      nz_i) \\\\
@@ -111,4 +134,5 @@
              \sum_{i=1}^n nz_i \cdot (\Delta x_i nx_i + \Delta y_i ny_i + \Delta z_i      nz_i) 
          \end{bmatrix}
     }_{(4\times1)}
-    $$
+\end{align}
+$$

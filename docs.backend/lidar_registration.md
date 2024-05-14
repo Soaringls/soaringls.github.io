@@ -1,28 +1,23 @@
----
-title: icp算法的20年
-date: 2020-07-08 11:07:05
-mathjax: true
-categories:
-  - paper
-  - algorithm
-tags: 
-  - pointcloud
-  - registration
----
-$$
-y = \frac{a}{b}
-$$
+
+# ing-点云匹配算法
+
+## ICP-ETH
+https://libpointmatcher.readthedocs.io/en/latest/#developer
+ 
+
+![features matrix](images/lidar-odometry/libpointmatcher/featuresMatrix.png) 
 ### ETH-libpointmatcher使用
-使用的eigen版本需和pcl的一致，
+ 
 
 科学实验方法的三个原则: 可比较(可评估)、可复现(稳定重复)、可证明(可解释)
 算法内在：什么参数、不同参数下表现的差异
 算法外在：准确度、精度
 <!-- more -->
-The first one is to remove some points that do not bring any valuable infor-
+- The first one is to remove some points that do not bring any valuable infor-
 mation for the registration. As the complexity of the algorithm is linear
 in the number of points, reducing this number can have a significant
-impact on the time of registration. The second use of filters can be to
+impact on the time of registration. 
+- The second use of filters can be to
 add information to the point. The typical example is the inference of
 local structural properties of the shape, such as normal information or
 curvature. This information, which is usually not present in the raw
@@ -39,18 +34,12 @@ different platform
 | :--------- | :-------------------------------- |
 | DataFilter |                                   |
 
-### ICP of ETH
+ 
+<!-- #### Data flow of ETH-ICP <br> -->
 
-#### Dependency
-1. eigen:matrix and liear-albebra library
-2. libnabo:from eth, a fast k nearest neighbour library for low-dimensional spaces
-3. libboost
-
-#### Data flow of ETH-ICP <br>
-
-  ![](images/lidar-odometry/libpointmatcher/default_icp_chain.svg)
+  <!-- ![](images/lidar-odometry/libpointmatcher/default_icp_chain.svg) -->
   ![](images/lidar-odometry/libpointmatcher/icp_tutorial_reading.gif)
-
+<!-- 
 #### Theory of eth-icp algorithm
 ![](images/lidar-odometry/eth-icp-basic-algorithm.png)
 1. Reading and Reference Sources
@@ -59,9 +48,8 @@ $$
 \mathcal P = \bold P=[p_1\quad p_2\quad ...\quad p_N]
 $$
 where $p_i$is a point and N the number of points in the point cloud
-Features is an [Eigen matrix](http://eigen.tuxfamily.org/dox/classEigen_1_1Matrix.html) typically containing the coordinates of the points which form the cloud.  Each column corresponds to a point in the cloud.  The rows correspond to the dimensions of the points in homogeneous coordinates.  Homogeneous coordinates are used to allow for translations and rotations.  For 2D point clouds, there will thus be 3 rows and for 4 rows for 3D point clouds.
+Features is an [Eigen matrix](http://eigen.tuxfamily.org/dox/classEigen_1_1Matrix.html) typically containing the coordinates of the points which form the cloud.  Each column corresponds to a point in the cloud.  The rows correspond to the dimensions of the points in homogeneous coordinates.  Homogeneous coordinates are used to allow for translations and rotations.  For 2D point clouds, there will thus be 3 rows and for 4 rows for 3D point clouds. -->
 
-![features matrix](images/lidar-odometry/libpointmatcher/featuresMatrix.png) 
 <!-- <img src="images/lidar-odometry/libpointmatcher/featuresMatrix.png" style="float:center" /> -->
 
 1. Transformation Functions

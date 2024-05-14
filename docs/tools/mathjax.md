@@ -9,20 +9,23 @@ tags:
 ---
 
 usage of mathjac
+
+[Help:Displaying_a_formula](https://en.wikipedia.org/wiki/Help:Displaying_a_formula#Alphabets_and_typefaces)
 <!-- more -->
 ## 字体
 花体字母$\mathcal{H}$
-1. $\mathclap{R}$
+
+<!-- 1. $\mathclap{R}$ -->
 2. $\mathcal{R}$
 3. $\mathbin{R}$
 4. $\mathbf{R}$
 5. $\mathbb{R}$
 6. $\mathclose{R}$
-7. $\mathellipsis{R}$
+<!-- 7. $\mathellipsis{R}$ -->
 8. $\mathfrak{R}$
 9.  $\mathinner{R}$
 10. $\mathit{R}$
-11. $\mathllap{R}$
+<!-- 11. $\mathllap{R}$ -->
 12. $\mathnormal{R}$
 
 数学符号

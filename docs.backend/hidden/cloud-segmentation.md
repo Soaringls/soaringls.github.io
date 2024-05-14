@@ -10,6 +10,8 @@ tags:
   - segmentation
 ---
 
+原始路径: `blog/docs/m&l/segmentation/cloud-segmentation.md`
+
 找到较早期整理的文档, 保存一下到blog.
 <!--more-->
 # 传统分割方法
@@ -17,7 +19,7 @@ tags:
 
 ## 基于几何特征
 基于sphere/cone/plane/cylinder等数学规则进行拟合
-<!-- ![](images/cloud_segmentation/survey/2.1.1-geometry.png) -->
+![](images/cloud_segmentation/survey/2.1.1-geometry.png)
 <img src="images/cloud_segmentation/survey/2.1.1-geometry.png" width="300pix" height="320pix" />
 
 ## 区域增长(应用广泛、持续研究中)

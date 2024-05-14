@@ -1,5 +1,0 @@
-- 如何选择线性求解器
-  - 对于密集雅可比的小规模问题(几百或几千) DENSE_QR
-  - 对于一般稀疏性问题(雅可比大量为零) SPARSE_NORMAL_CHOLESKY (依赖SuitSparse|CXSparse)
-  - 对于稀疏schur补或缩减相机矩阵的大型bundle adjustment问题，使用SPARSE_SCHUR(候补为 ITERATIVE_SCHUR)
-  - 对于大型的bundle adjustment问题(几千相机以上), 使用ITERATIVE_SCHUR

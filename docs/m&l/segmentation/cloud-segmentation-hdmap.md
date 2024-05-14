@@ -1,4 +1,5 @@
----
+# 点云分割实例
+<!-- ---
 title: cloud segmentation and filtered by hdmap
 date: 2020-07-12 14:19:22
 categories: 
@@ -8,11 +9,13 @@ tags:
   - segmentation
   - pointcloud
   - hdmap
----
+--- -->
 基本流程：
+
 1. 分割地面点和非地面点
 2. 基于非地面点进行点云分割
 3. 实时加载hdmap将位于道路上的分割结果进去滤出(亦可通过tracking将动态障碍物滤除)
+
 <!-- more -->
 #### 整体概览
 1. 左下角为原始点云数据
