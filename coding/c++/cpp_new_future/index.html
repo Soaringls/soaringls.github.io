@@ -9,22 +9,22 @@
       
       
       
-        <link rel="prev" href="../absl_cpp/">
+        <link rel="prev" href="../../coding_work_style/">
       
       
-        <link rel="next" href="../stl_cpp/">
+        <link rel="next" href="../note_tips_cpp/">
       
       
       <link rel="icon" href="../../../logo.jpg">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
     
     
       
-        <title>C++17 新特性 - Notebook of Dexter</title>
+        <title>C++ New Feture - Notebook of Dexter</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e359304.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6543a935.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#c17" class="md-skip">
+        <a href="#c-new-feture" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              C++17 新特性
+              C++ New Feture
             
           </span>
         </div>
@@ -205,7 +205,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../dairy/meetint_key_points/" class="md-tabs__link">
+        <a href="../../../dairy/about_human/" class="md-tabs__link">
           
   
   Dairy
@@ -430,27 +430,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../absl_cpp/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Absl cpp
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -467,7 +446,7 @@
           
   
   <span class="md-ellipsis">
-    C++17 新特性
+    C++ New Feture
   </span>
   
 
@@ -478,7 +457,7 @@
         
   
   <span class="md-ellipsis">
-    C++17 新特性
+    C++ New Feture
   </span>
   
 
@@ -500,6 +479,49 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#c-new-features-and-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      c++ new features and usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="c++ new features and usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keywords" class="md-nav__link">
+    <span class="md-ellipsis">
+      keywords
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdoptional-etc" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见用法(std::optional etc)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c17" class="md-nav__link">
+    <span class="md-ellipsis">
+      C++17 新特性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C++17 新特性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       构造函数模板推导
@@ -507,8 +529,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#declaring-non-type-template-parameters-with-auto" class="md-nav__link">
     <span class="md-ellipsis">
       Declaring non-type template parameters with auto
@@ -516,8 +538,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#folding-expressions" class="md-nav__link">
     <span class="md-ellipsis">
       Folding expressions
@@ -525,8 +547,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#new-rules-for-auto-deduction-from-braced-init-list" class="md-nav__link">
     <span class="md-ellipsis">
       New rules for auto deduction from braced-init-list
@@ -534,8 +556,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#constexpr-lambda" class="md-nav__link">
     <span class="md-ellipsis">
       constexpr lambda
@@ -543,8 +565,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#lambda-capture-this-by-value" class="md-nav__link">
     <span class="md-ellipsis">
       Lambda capture this by value
@@ -552,8 +574,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#inline-variables" class="md-nav__link">
     <span class="md-ellipsis">
       Inline variables
@@ -561,8 +583,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#nested-namespaces" class="md-nav__link">
     <span class="md-ellipsis">
       Nested namespaces
@@ -570,8 +592,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#structured-bindings" class="md-nav__link">
     <span class="md-ellipsis">
       Structured bindings
@@ -579,8 +601,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#selection-statements-with-initializer" class="md-nav__link">
     <span class="md-ellipsis">
       Selection statements with initializer
@@ -588,8 +610,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#constexpr-if" class="md-nav__link">
     <span class="md-ellipsis">
       constexpr if
@@ -597,8 +619,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#utf-8-character-literals" class="md-nav__link">
     <span class="md-ellipsis">
       UTF-8 character literals
@@ -606,8 +628,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#direct-list-initialization-of-enums" class="md-nav__link">
     <span class="md-ellipsis">
       Direct list initialization of enums
@@ -615,13 +637,108 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#fallthrough-nodiscard-maybe_unused-attributes" class="md-nav__link">
     <span class="md-ellipsis">
       fallthrough, nodiscard, maybe_unused attributes
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdvariant" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::variant
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdoptional" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::optional
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdany" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::any
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdstring_view" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::string_view
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdinvoke" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::invoke
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdapply" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::apply
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdfilesystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::filesystem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdbyte" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::byte
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#splicing-for-maps-and-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Splicing for maps and sets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      parallel algorithms
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -641,11 +758,32 @@
   
   
     <li class="md-nav__item">
-      <a href="../stl_cpp/" class="md-nav__link">
+      <a href="../note_tips_cpp/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Stl cpp
+    C++ Tips and Tricks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../test/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Test
   </span>
   
 
@@ -884,7 +1022,7 @@
         
   
   <span class="md-ellipsis">
-    ROS&Cartographer
+    ROS&amp;Cartographer
   </span>
   
 
@@ -1055,6 +1193,27 @@
             Dairy
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dairy/about_human/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About human
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1815,6 +1974,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tools/usage_git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git常见命令使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../tools/usage_markdown/" class="md-nav__link">
         
   
@@ -1905,6 +2085,49 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#c-new-features-and-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      c++ new features and usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="c++ new features and usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keywords" class="md-nav__link">
+    <span class="md-ellipsis">
+      keywords
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdoptional-etc" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见用法(std::optional etc)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c17" class="md-nav__link">
+    <span class="md-ellipsis">
+      C++17 新特性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C++17 新特性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       构造函数模板推导
@@ -1912,8 +2135,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#declaring-non-type-template-parameters-with-auto" class="md-nav__link">
     <span class="md-ellipsis">
       Declaring non-type template parameters with auto
@@ -1921,8 +2144,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#folding-expressions" class="md-nav__link">
     <span class="md-ellipsis">
       Folding expressions
@@ -1930,8 +2153,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#new-rules-for-auto-deduction-from-braced-init-list" class="md-nav__link">
     <span class="md-ellipsis">
       New rules for auto deduction from braced-init-list
@@ -1939,8 +2162,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#constexpr-lambda" class="md-nav__link">
     <span class="md-ellipsis">
       constexpr lambda
@@ -1948,8 +2171,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#lambda-capture-this-by-value" class="md-nav__link">
     <span class="md-ellipsis">
       Lambda capture this by value
@@ -1957,8 +2180,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#inline-variables" class="md-nav__link">
     <span class="md-ellipsis">
       Inline variables
@@ -1966,8 +2189,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#nested-namespaces" class="md-nav__link">
     <span class="md-ellipsis">
       Nested namespaces
@@ -1975,8 +2198,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#structured-bindings" class="md-nav__link">
     <span class="md-ellipsis">
       Structured bindings
@@ -1984,8 +2207,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#selection-statements-with-initializer" class="md-nav__link">
     <span class="md-ellipsis">
       Selection statements with initializer
@@ -1993,8 +2216,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#constexpr-if" class="md-nav__link">
     <span class="md-ellipsis">
       constexpr if
@@ -2002,8 +2225,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#utf-8-character-literals" class="md-nav__link">
     <span class="md-ellipsis">
       UTF-8 character literals
@@ -2011,8 +2234,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#direct-list-initialization-of-enums" class="md-nav__link">
     <span class="md-ellipsis">
       Direct list initialization of enums
@@ -2020,13 +2243,108 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#fallthrough-nodiscard-maybe_unused-attributes" class="md-nav__link">
     <span class="md-ellipsis">
       fallthrough, nodiscard, maybe_unused attributes
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdvariant" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::variant
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdoptional" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::optional
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdany" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::any
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdstring_view" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::string_view
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdinvoke" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::invoke
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdapply" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::apply
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdfilesystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::filesystem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdbyte" class="md-nav__link">
+    <span class="md-ellipsis">
+      std::byte
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#splicing-for-maps-and-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Splicing for maps and sets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      parallel algorithms
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2045,8 +2363,437 @@
                   
 
 
-<h1 id="c17">C++17 新特性<a class="headerlink" href="#c17" title="Permanent link">&para;</a></h1>
-<h2 id="_1">构造函数模板推导<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h1 id="c-new-feture">C++ New Feture<a class="headerlink" href="#c-new-feture" title="Permanent link">&para;</a></h1>
+<h2 id="c-new-features-and-usage">c++ new features and usage<a class="headerlink" href="#c-new-features-and-usage" title="Permanent link">&para;</a></h2>
+<h3 id="keywords">keywords<a class="headerlink" href="#keywords" title="Permanent link">&para;</a></h3>
+<ul>
+<li>nodiscard
+  <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">//from c++17 如果返回值没有被赋予到某个变量，编译将会wanrning</span>
+<span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsChina</span><span class="p">();</span><span class="w"> </span>
+</code></pre></div></td></tr></table></div></li>
+<li>maybe_unused
+  <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">//from c++17 可能不用的变量</span>
+<span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div></li>
+<li>constexpr and const
+  <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">//constexpr since c++11</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">PI1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.1415926</span><span class="p">;</span><span class="w">     </span><span class="c1">//initialized at compile time or run time</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">PI2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.1415926</span><span class="p">;</span><span class="w"> </span><span class="c1">//initialized at compile time, compile-time constant</span>
+
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">PI3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PI1</span><span class="p">;</span><span class="w"> </span><span class="c1">//error</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">PI3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PI2</span><span class="p">;</span><span class="w"> </span><span class="c1">//ok</span>
+
+<span class="c1">//const initialized at run time</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">num</span><span class="p">;</span>
+<span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">....;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kArraySize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div></li>
+</ul>
+<h3 id="stdoptional-etc">常见用法(std::optional etc)<a class="headerlink" href="#stdoptional-etc" title="Permanent link">&para;</a></h3>
+<ul>
+<li>std::adjacent_find</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">TODO</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>std::set_intersection</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">set_a</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">set_b</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">common_a_b</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">set_intersection</span><span class="p">(</span><span class="n">set_a</span><span class="p">.</span><span class="n">cbegin</span><span class="p">(),</span><span class="w"> </span><span class="n">set_a</span><span class="p">.</span><span class="n">cend</span><span class="p">(),</span><span class="w"> </span>
+<span class="w">                      </span><span class="n">set_b</span><span class="p">.</span><span class="n">cbegin</span><span class="p">(),</span><span class="w"> </span><span class="n">set_b</span><span class="p">.</span><span class="n">cend</span><span class="p">(),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">back_inserter</span><span class="p">(</span><span class="n">common_a_b</span><span class="p">));</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>std::optional</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w">  </span><span class="n">GetInfo</span><span class="p">(){</span>
+<span class="w">  </span><span class="c1">//func1</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">result_1</span><span class="p">;</span><span class="w"> </span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="n">result_1</span><span class="p">.</span><span class="n">empty</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">;</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">result_1</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">//func2</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">;</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="n">result_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello world&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">result_2</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span>
+<span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetInfo</span><span class="p">();</span>
+<span class="n">CHECK</span><span class="p">(</span><span class="n">ret</span><span class="p">.</span><span class="n">has_value</span><span class="p">())</span><span class="o">&lt;&lt;</span><span class="s">&quot;Failed to parser...&quot;</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ret</span><span class="p">.</span><span class="n">value</span><span class="p">();</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><code>std::upper_bound</code>、<code>std::lower_bound</code>、  <code>std::distance</code></li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">upper_bound</span><span class="o">:</span><span class="w"> </span><span class="n">左小右大原则</span><span class="err">，</span><span class="w"> </span><span class="n">ref</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">结果</span><span class="p">,</span><span class="w"> </span><span class="n">lambda内比较与参数一致</span><span class="err">，</span><span class="n">参数ref第一个</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">next_gt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span>
+<span class="w">                         </span><span class="n">std</span><span class="o">::</span><span class="n">upper_bound</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">vec</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">timestamp_ref</span><span class="p">,</span>
+<span class="w">                                         </span><span class="p">[](</span><span class="kt">double</span><span class="w"> </span><span class="n">target</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">elem</span><span class="p">){</span>
+<span class="w">                                           </span><span class="k">return</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">elem</span><span class="p">;</span>
+<span class="w">                                        </span><span class="p">});</span>
+<span class="n">std</span><span class="o">::</span><span class="n">lower_bound</span><span class="o">:</span><span class="w"> </span><span class="n">左小右大原则</span><span class="err">，</span><span class="w"> </span><span class="n">ref</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">结果</span><span class="p">,</span><span class="n">lambda内比较与参数一致</span><span class="p">,</span><span class="n">参数ref第二个</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">next_ge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+<span class="w">                           </span><span class="n">std</span><span class="o">::</span><span class="n">lower_bound</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">vec</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">time_ref</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                                           </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">elem</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">target</span><span class="p">){</span>
+<span class="w">                                             </span><span class="k">return</span><span class="w"> </span><span class="n">elem</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">target</span><span class="p">;</span>
+<span class="w">                                           </span><span class="p">}));</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><code>std::accumulate</code>和 <code>std::min_element</code>、<code>std::max_element</code></li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">values</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="n">flost</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">std</span><span class="o">::</span><span class="n">min_element</span><span class="p">(</span><span class="n">values</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">values</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="c1">//std::min std::max 要求数据类型一致</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * 获取除指定值之外的最值</span>
+<span class="cm">*/</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vectro</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">arr_vec</span><span class="p">;</span>
+<span class="p">....</span><span class="w"> </span><span class="c1">//假设arr_vec内包含极大值 FLT_MAX 和极小值FLT_MIN 需要排除</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">min_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">max_element</span><span class="p">(</span><span class="n">arr_vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">arr_vec</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+<span class="w">                                     </span><span class="p">[(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ele1</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ele2</span><span class="p">){</span>
+<span class="w">                                      </span><span class="k">if</span><span class="p">(</span><span class="n">ele1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">FLT_MAX</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">ele2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">FLT_MAX</span><span class="p">){</span>
+<span class="w">                                        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">                                      </span><span class="p">}</span>
+<span class="w">                                      </span><span class="k">return</span><span class="w"> </span><span class="n">ele1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ele2</span><span class="p">;</span><span class="c1">//</span>
+<span class="w">                                     </span><span class="p">}]);</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">min_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">max_element</span><span class="p">(</span><span class="n">arr_vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">arr_vec</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+<span class="w">                                     </span><span class="p">[(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ele1</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ele2</span><span class="p">){</span>
+<span class="w">                                      </span><span class="k">if</span><span class="p">(</span><span class="n">ele1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">FLT_MIN</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">ele2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">FLT_MIN</span><span class="p">){</span>
+<span class="w">                                        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">                                      </span><span class="p">}</span>
+<span class="w">                                      </span><span class="k">return</span><span class="w"> </span><span class="n">ele1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ele2</span><span class="p">;</span>
+<span class="w">                                     </span><span class="p">}]);</span><span class="w"> </span>
+<span class="k">auto</span><span class="w"> </span><span class="n">max_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">max_element</span><span class="p">(</span>
+<span class="w">      </span><span class="n">lines</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">lines</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">lhs</span><span class="p">.</span><span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="c1">// lhs... &gt; rhs... 则找到的最小的元素</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">min_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">min_element</span><span class="p">(</span>
+<span class="w">      </span><span class="n">lines</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">lines</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">lhs</span><span class="p">.</span><span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="c1">// lhs... &gt; rhs... 则找到的最大的元素</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;max elemnt:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">max_size</span><span class="o">-&gt;</span><span class="n">id</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;min elemnt:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">min_size</span><span class="o">-&gt;</span><span class="n">id</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>std::none_of和std::any_of</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">none_of</span><span class="p">(</span><span class="n">level_to_polygons</span><span class="p">[</span><span class="n">level</span><span class="p">].</span><span class="n">begin</span><span class="p">(),</span>
+<span class="w">                 </span><span class="n">level_to_polygons</span><span class="p">[</span><span class="n">level</span><span class="p">].</span><span class="n">end</span><span class="p">(),</span>
+<span class="w">                 </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">polygon</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="c1">//取反</span>
+<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="n">polygon</span><span class="p">.</span><span class="n">IsPointIn</span><span class="p">(</span>
+<span class="w">                                     </span><span class="p">{</span><span class="n">smooth_point</span><span class="p">.</span><span class="n">x</span><span class="p">(),</span><span class="w"> </span><span class="n">smooth_point</span><span class="p">.</span><span class="n">y</span><span class="p">()});</span>
+<span class="w">   </span><span class="p">}))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="c1">//filtered</span>
+<span class="p">}</span>
+<span class="c1">//is same as below</span>
+<span class="k">if</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">any_of</span><span class="p">(</span><span class="n">level_to_polygons</span><span class="p">[</span><span class="n">level</span><span class="p">].</span><span class="n">begin</span><span class="p">(),</span>
+<span class="w">               </span><span class="n">level_to_polygons</span><span class="p">[</span><span class="n">level</span><span class="p">].</span><span class="n">end</span><span class="p">(),</span>
+<span class="w">               </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">polygon</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                 </span><span class="k">return</span><span class="w"> </span><span class="n">polygon</span><span class="p">.</span><span class="n">IsPointIn</span><span class="p">(</span>
+<span class="w">                                     </span><span class="p">{</span><span class="n">smooth_point</span><span class="p">.</span><span class="n">x</span><span class="p">(),</span><span class="w"> </span><span class="n">smooth_point</span><span class="p">.</span><span class="n">y</span><span class="p">()});</span>
+<span class="p">})){</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="c1">//filtered</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><code>std::transfrom</code></li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">StringToLower</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span><span class="w"> </span><span class="n">str</span><span class="p">){</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">transfrom</span><span class="p">(</span><span class="n">str</span><span class="o">-&gt;</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">str</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">tolower</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><code>std::remove_if、std::regex_search</code></li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">file_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{.....};</span>
+<span class="n">file_names</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span>
+<span class="w">          </span><span class="c1">//通过std::remove_if获取file_names内要erase的元素列表 X</span>
+<span class="w">          </span><span class="n">std</span><span class="o">::</span><span class="n">remove_if</span><span class="p">(</span><span class="n">file_names</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">file_names</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+<span class="w">                         </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">frame_filename</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                           </span><span class="c1">//patch_ids为要保留的文件</span>
+<span class="w">                           </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">patch_ids</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                             </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">regex_search</span><span class="p">(</span>
+<span class="w">                                     </span><span class="n">frame_filename</span><span class="p">,</span>
+<span class="w">                                     </span><span class="n">std</span><span class="o">::</span><span class="n">regex</span><span class="p">(</span><span class="n">absl</span><span class="o">::</span><span class="n">StrCat</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;.pb.bin&quot;</span><span class="p">))))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                               </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="c1">//不加入列表 X</span>
+<span class="w">                             </span><span class="p">}</span>
+<span class="w">                           </span><span class="p">}</span>
+<span class="w">                           </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="c1">//加入列表 X</span>
+<span class="w">                         </span><span class="p">}),</span>
+<span class="w">          </span><span class="n">file_names</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>std::typeid</li>
+</ul>
+<p>可用作关联与无序关联容器的索引</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;typeinfo&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;typeindex&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unordered_map&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">A</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">C</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">type_names</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">type_names</span><span class="p">[</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="kt">int</span><span class="p">))]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;int&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">type_names</span><span class="p">[</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="kt">double</span><span class="p">))]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;double&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">type_names</span><span class="p">[</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="n">A</span><span class="p">))]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;A&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">type_names</span><span class="p">[</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="n">B</span><span class="p">))]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;B&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">type_names</span><span class="p">[</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="n">C</span><span class="p">))]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 注意我们正在存储指向类型 A 的指针</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">B</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">C</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;i is &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">type_names</span><span class="p">[</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="n">i</span><span class="p">))]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;d is &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">type_names</span><span class="p">[</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="n">d</span><span class="p">))]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;a is &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">type_names</span><span class="p">[</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="n">a</span><span class="p">))]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;b is &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">type_names</span><span class="p">[</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="o">*</span><span class="n">b</span><span class="p">))]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;c is &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">type_names</span><span class="p">[</span><span class="n">std</span><span class="o">::</span><span class="n">type_index</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="o">*</span><span class="n">c</span><span class="p">))]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">////output is below</span>
+<span class="n">i</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="kt">int</span>
+<span class="n">d</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="kt">double</span>
+<span class="n">a</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">A</span>
+<span class="n">b</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">B</span>
+<span class="n">c</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">C</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>vector.erase</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vecs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="c1">//正确做法</span>
+<span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vecs</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">vecs</span><span class="p">.</span><span class="n">end</span><span class="p">();){</span>
+<span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="cm">/*erase-condition*/</span><span class="p">){</span>
+<span class="w">    </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vecs</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">iter</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="w">    </span><span class="n">iter</span><span class="o">++</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">//错误做法</span>
+<span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vecs</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">vecs</span><span class="p">.</span><span class="n">end</span><span class="p">();</span><span class="w"> </span><span class="n">iter</span><span class="o">++</span><span class="p">){</span>
+<span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="cm">/*erase-condition*/</span><span class="p">){</span>
+<span class="w">    </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vecs</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">iter</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><code>usage:"std::forward_as_tuple</code></li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">NodeId</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">NodeId</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">trajectory_id</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">node_index</span><span class="p">)</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">trajectory_id</span><span class="p">(</span><span class="n">trajectory_id</span><span class="p">),</span><span class="w"> </span><span class="n">node_index</span><span class="p">(</span><span class="n">node_index</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">trajectory_id</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">node_index</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">NodeId</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">forward_as_tuple</span><span class="p">(</span><span class="n">trajectory_id</span><span class="p">,</span><span class="w"> </span><span class="n">node_index</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span>
+<span class="w">   </span><span class="n">std</span><span class="o">::</span><span class="n">forward_as_tuple</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">trajectory_id</span><span class="p">,</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">node_index</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">NodeId</span><span class="o">&gt;</span><span class="w"> </span><span class="n">extrapolators_</span><span class="p">;</span>
+<span class="n">extrapolators_</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">piecewise_construct</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">forward_as_tuple</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">forward_as_tuple</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">));</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="c17">C++17 新特性<a class="headerlink" href="#c17" title="Permanent link">&para;</a></h2>
+<h3 id="_1">构造函数模板推导<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <p>Automatic template argument deduction much like how it's done for functions, but now including class constructors.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -2078,7 +2825,7 @@
 <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="w"> </span><span class="nf">p</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2.2</span><span class="p">);</span><span class="w"> </span><span class="c1">//now, 自动推导</span>
 <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">};</span><span class="c1">//now</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="declaring-non-type-template-parameters-with-auto">Declaring non-type template parameters with auto<a class="headerlink" href="#declaring-non-type-template-parameters-with-auto" title="Permanent link">&para;</a></h2>
+<h3 id="declaring-non-type-template-parameters-with-auto">Declaring non-type template parameters with auto<a class="headerlink" href="#declaring-non-type-template-parameters-with-auto" title="Permanent link">&para;</a></h3>
 <p>Following the deduction rules of <code>auto</code>, while respecting the non-type template parameter list of allowable types[*], template arguments can be deduced from the type ot its arguments:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -2098,7 +2845,7 @@
 <span class="c1">// Type is deduced to be `int`.</span>
 <span class="k">auto</span><span class="w"> </span><span class="n">seq2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_integer_sequence</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="o">&gt;</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="folding-expressions">Folding expressions<a class="headerlink" href="#folding-expressions" title="Permanent link">&para;</a></h2>
+<h3 id="folding-expressions">Folding expressions<a class="headerlink" href="#folding-expressions" title="Permanent link">&para;</a></h3>
 <p>A fold expression performs a fold of a template parameter pack over a binary operator.</p>
 <ul>
 <li>An expression of the form <code>(... op e)</code> or <code>(e op ...)</code>, where <code>op</code> is a fold-operator and <code>e</code> is an unexpanded parameter pack, are called unary folds.</li>
@@ -2134,7 +2881,7 @@
 <span class="p">}</span>
 <span class="n">sum</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0f</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">// == 6.0</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="new-rules-for-auto-deduction-from-braced-init-list">New rules for auto deduction from braced-init-list<a class="headerlink" href="#new-rules-for-auto-deduction-from-braced-init-list" title="Permanent link">&para;</a></h2>
+<h3 id="new-rules-for-auto-deduction-from-braced-init-list">New rules for auto deduction from braced-init-list<a class="headerlink" href="#new-rules-for-auto-deduction-from-braced-init-list" title="Permanent link">&para;</a></h3>
 <p>Changes to <code>auto</code> deduction when used with the uniform initialization syntax. Previously, <code>auto x {3}</code> deduced a <code>std::initializer_list&lt;int&gt;</code>, which now deduces to <code>int</code>.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -2144,7 +2891,7 @@
 <span class="k">auto</span><span class="w"> </span><span class="n">x3</span><span class="w"> </span><span class="p">{</span><span class="mi">3</span><span class="p">};</span><span class="w">  </span><span class="c1">// x3 is int</span>
 <span class="k">auto</span><span class="w"> </span><span class="n">x4</span><span class="w"> </span><span class="p">{</span><span class="mf">3.0</span><span class="p">};</span><span class="w">  </span><span class="c1">// x4 is double</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="constexpr-lambda">constexpr lambda<a class="headerlink" href="#constexpr-lambda" title="Permanent link">&para;</a></h2>
+<h3 id="constexpr-lambda">constexpr lambda<a class="headerlink" href="#constexpr-lambda" title="Permanent link">&para;</a></h3>
 <p>Compile-time lambda using <code>constexpr</code>.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -2174,7 +2921,7 @@
 
 <span class="k">static_assert</span><span class="p">(</span><span class="n">addOne</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="lambda-capture-this-by-value">Lambda capture <code>this</code> by value<a class="headerlink" href="#lambda-capture-this-by-value" title="Permanent link">&para;</a></h2>
+<h3 id="lambda-capture-this-by-value">Lambda capture <code>this</code> by value<a class="headerlink" href="#lambda-capture-this-by-value" title="Permanent link">&para;</a></h3>
 <p>Capturing <code>this</code> in a lambda's environment was previously reference-only. An example of where <code>this</code> is problematic is asynchronous code using callbacks that require an object to be available, potentially past its lifetime. <code>*this</code> (C++17) will now make a copy of the current object, while <code>this</code> (C++11) continues to capture by reference.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -2206,7 +2953,7 @@
 <span class="n">valueCopy</span><span class="p">();</span><span class="w"> </span><span class="c1">// 123</span>
 <span class="n">valueRef</span><span class="p">();</span><span class="w"> </span><span class="c1">// 321</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="inline-variables">Inline variables<a class="headerlink" href="#inline-variables" title="Permanent link">&para;</a></h2>
+<h3 id="inline-variables">Inline variables<a class="headerlink" href="#inline-variables" title="Permanent link">&para;</a></h3>
 <p>The inline specifier can be applied to variables as well as to functions. A variable declared inline has the same semantics as a function declared inline.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -2237,7 +2984,7 @@ It can also be used to declare and define a static member variable, such that it
 <span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w"> </span><span class="c1">// declare and initialize count to 0 within the class</span>
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="nested-namespaces">Nested namespaces<a class="headerlink" href="#nested-namespaces" title="Permanent link">&para;</a></h2>
+<h3 id="nested-namespaces">Nested namespaces<a class="headerlink" href="#nested-namespaces" title="Permanent link">&para;</a></h3>
 <p>Using the namespace resolution operator to create nested namespace definitions.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -2261,7 +3008,7 @@ It can also be used to declare and define a static member variable, such that it
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="structured-bindings">Structured bindings<a class="headerlink" href="#structured-bindings" title="Permanent link">&para;</a></h2>
+<h3 id="structured-bindings">Structured bindings<a class="headerlink" href="#structured-bindings" title="Permanent link">&para;</a></h3>
 <p>A proposal for de-structuring initialization, that would allow writting <code>auto [ x, y, z] = expr;</code> where the type of <code>expr</code> was a tuple-like object, whose elements would be bound to the variables <code>x</code>, <code>y</code> and <code>z</code>(which is construc declares). <strong>tuple-like</strong> objects include <code>std::tuple</code>, <code>std::pair</code>, <code>std::array</code>, and aggregate structures.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -2299,7 +3046,7 @@ It can also be used to declare and define a static member variable, such that it
 <span class="w">  </span><span class="c1">// Do something with key and value</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="selection-statements-with-initializer">Selection statements with initializer<a class="headerlink" href="#selection-statements-with-initializer" title="Permanent link">&para;</a></h2>
+<h3 id="selection-statements-with-initializer">Selection statements with initializer<a class="headerlink" href="#selection-statements-with-initializer" title="Permanent link">&para;</a></h3>
 <p>New version of <code>if</code> and <code>switch</code> statements which simplify code patterns and help users keep scopes tight.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -2339,7 +3086,7 @@ It can also be used to declare and define a static member variable, such that it
 <span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">Bad</span><span class="p">:</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="n">BadFoo</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">message</span><span class="p">());</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="constexpr-if">constexpr if<a class="headerlink" href="#constexpr-if" title="Permanent link">&para;</a></h2>
+<h3 id="constexpr-if">constexpr if<a class="headerlink" href="#constexpr-if" title="Permanent link">&para;</a></h3>
 <p>Write code that is instantiated depending on a compile=time condition.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -2367,11 +3114,11 @@ It can also be used to declare and define a static member variable, such that it
 <span class="k">struct</span><span class="w"> </span><span class="nc">S</span><span class="w"> </span><span class="p">{};</span>
 <span class="k">static_assert</span><span class="p">(</span><span class="n">isIntegral</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="utf-8-character-literals">UTF-8 character literals<a class="headerlink" href="#utf-8-character-literals" title="Permanent link">&para;</a></h2>
+<h3 id="utf-8-character-literals">UTF-8 character literals<a class="headerlink" href="#utf-8-character-literals" title="Permanent link">&para;</a></h3>
 <p>A character literal that begins with <code>u8</code> is a character literal of type <code>char</code>. The value of a UTF-8 character literal is equal to its ISO 10646 code point value.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">u8</span><span class="sc">&#39;x&#39;</span><span class="p">;</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="direct-list-initialization-of-enums">Direct list initialization of enums<a class="headerlink" href="#direct-list-initialization-of-enums" title="Permanent link">&para;</a></h2>
+<h3 id="direct-list-initialization-of-enums">Direct list initialization of enums<a class="headerlink" href="#direct-list-initialization-of-enums" title="Permanent link">&para;</a></h3>
 <p>Enums can now be initialized using braced syntax.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -2383,7 +3130,7 @@ It can also be used to declare and define a static member variable, such that it
 <span class="n">byte</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">byte</span><span class="p">{</span><span class="mi">1</span><span class="p">};</span><span class="w"> </span><span class="c1">// OK</span>
 <span class="n">byte</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">byte</span><span class="p">{</span><span class="mi">256</span><span class="p">};</span><span class="w"> </span><span class="c1">// ERROR</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="fallthrough-nodiscard-maybe_unused-attributes">fallthrough, nodiscard, maybe_unused attributes<a class="headerlink" href="#fallthrough-nodiscard-maybe_unused-attributes" title="Permanent link">&para;</a></h2>
+<h3 id="fallthrough-nodiscard-maybe_unused-attributes">fallthrough, nodiscard, maybe_unused attributes<a class="headerlink" href="#fallthrough-nodiscard-maybe_unused-attributes" title="Permanent link">&para;</a></h3>
 <p>C++17 introduces threee new attributes:</p>
 <ul>
 <li>
@@ -2458,8 +3205,7 @@ It can also be used to declare and define a static member variable, such that it
 </code></pre></div></td></tr></table></div></p>
 </li>
 </ul>
-<h1 id="c17-new-libraries">C++17 New Libraries<a class="headerlink" href="#c17-new-libraries" title="Permanent link">&para;</a></h1>
-<h2 id="stdvariant">std::variant<a class="headerlink" href="#stdvariant" title="Permanent link">&para;</a></h2>
+<h3 id="stdvariant">std::variant<a class="headerlink" href="#stdvariant" title="Permanent link">&para;</a></h3>
 <p>The class template <code>std::variant</code> represents a type-safe <code>union</code>. An instance of <code>std::variant</code> at any given time holds a value of one of its alternativqe types(it's possible for it to be valueless).
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -2473,7 +3219,7 @@ It can also be used to declare and define a static member variable, such that it
 <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v</span><span class="p">);</span><span class="w"> </span><span class="c1">// == 12.0</span>
 <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v</span><span class="p">);</span><span class="w"> </span><span class="c1">// == 12.0</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="stdoptional">std::optional<a class="headerlink" href="#stdoptional" title="Permanent link">&para;</a></h2>
+<h3 id="stdoptional">std::optional<a class="headerlink" href="#stdoptional" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2502,7 +3248,7 @@ It can also be used to declare and define a static member variable, such that it
 <span class="w">  </span><span class="c1">// ...</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="stdany">std::any<a class="headerlink" href="#stdany" title="Permanent link">&para;</a></h2>
+<h3 id="stdany">std::any<a class="headerlink" href="#stdany" title="Permanent link">&para;</a></h3>
 <p>A type-safe container for single values of any type.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -2514,7 +3260,7 @@ It can also be used to declare and define a static member variable, such that it
 <span class="n">std</span><span class="o">::</span><span class="n">any_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">any_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c1">// == 10</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="stdstring_view">std::string_view<a class="headerlink" href="#stdstring_view" title="Permanent link">&para;</a></h2>
+<h3 id="stdstring_view">std::string_view<a class="headerlink" href="#stdstring_view" title="Permanent link">&para;</a></h3>
 <p>A non-owning reference to a string. Useful for providing an abstraction on top of strings (e.g. for parsing).
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -2542,7 +3288,7 @@ It can also be used to declare and define a static member variable, such that it
 <span class="n">str</span><span class="p">;</span><span class="w"> </span><span class="c1">//  == &quot;   trim me&quot;</span>
 <span class="n">v</span><span class="p">;</span><span class="w"> </span><span class="c1">// == &quot;trim me&quot;</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="stdinvoke">std::invoke<a class="headerlink" href="#stdinvoke" title="Permanent link">&para;</a></h2>
+<h3 id="stdinvoke">std::invoke<a class="headerlink" href="#stdinvoke" title="Permanent link">&para;</a></h3>
 <p>Invoke a <code>Callable</code> object with parameters. Examples of <code>Callable</code> objects are <code>std::function</code> or <code>std::bind</code> where an object can be called similarly to a regular function.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -2576,7 +3322,7 @@ It can also be used to declare and define a static member variable, such that it
 <span class="n">Proxy</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">add</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="p">{</span><span class="n">add</span><span class="p">};</span>
 <span class="n">p</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// == 3</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="stdapply">std::apply<a class="headerlink" href="#stdapply" title="Permanent link">&para;</a></h2>
+<h3 id="stdapply">std::apply<a class="headerlink" href="#stdapply" title="Permanent link">&para;</a></h3>
 <p>Invoke a <code>Callable</code> object with a tuple of arguments
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -2586,7 +3332,7 @@ It can also be used to declare and define a static member variable, such that it
 <span class="p">};</span>
 <span class="n">std</span><span class="o">::</span><span class="n">apply</span><span class="p">(</span><span class="n">add</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_tuple</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">));</span><span class="w"> </span><span class="c1">// == 3</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="stdfilesystem">std::filesystem<a class="headerlink" href="#stdfilesystem" title="Permanent link">&para;</a></h2>
+<h3 id="stdfilesystem">std::filesystem<a class="headerlink" href="#stdfilesystem" title="Permanent link">&para;</a></h3>
 <p>The new <code>std::filesystem</code> library provides a standard way to manipulate files, directories, and paths in a filesystem.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -2606,7 +3352,7 @@ It can also be used to declare and define a static member variable, such that it
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="stdbyte">std::byte<a class="headerlink" href="#stdbyte" title="Permanent link">&para;</a></h2>
+<h3 id="stdbyte">std::byte<a class="headerlink" href="#stdbyte" title="Permanent link">&para;</a></h3>
 <p>The new <code>std::byte</code> type provides a standard way of representing data as byte. Benefits of using <code>std::byte</code> over <code>char</code> or <code>unsigned char</code> is that it is not a character type, and is also not an arithmetic type; while the only operator overloads available are bitwise operator.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -2618,7 +3364,7 @@ It can also be used to declare and define a static member variable, such that it
 <span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_integer</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w"> </span><span class="c1">// 0</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="splicing-for-maps-and-sets">Splicing for maps and sets<a class="headerlink" href="#splicing-for-maps-and-sets" title="Permanent link">&para;</a></h2>
+<h3 id="splicing-for-maps-and-sets">Splicing for maps and sets<a class="headerlink" href="#splicing-for-maps-and-sets" title="Permanent link">&para;</a></h3>
 <p>Moving nodes and merging containers whithout the overhead of expensive copies, moves, or heap allocations/deallocations.
 Moving elements from one map to another:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -2655,7 +3401,7 @@ Changing the key of a map element:
 <span class="n">m</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">e</span><span class="p">));</span>
 <span class="c1">// m == { { 1, &quot;one&quot; }, { 3, &quot;three&quot; }, { 4, &quot;two&quot; } }</span>
 </code></pre></div></td></tr></table></div></p>
-<h2 id="parallel-algorithms">parallel algorithms<a class="headerlink" href="#parallel-algorithms" title="Permanent link">&para;</a></h2>
+<h3 id="parallel-algorithms">parallel algorithms<a class="headerlink" href="#parallel-algorithms" title="Permanent link">&para;</a></h3>
 <p>Many of the STL algorithms, such as the <code>copy</code>, <code>find</code> and <code>sort</code> methods, started to support the parallel execution policies: <code>seq</code>, <code>par</code> and <code>par_unseq</code> which translate to "sequentially", "parallel" and "parallel unsequenced".
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -2722,7 +3468,7 @@ Changing the key of a map element:
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.081f42fc.min.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
