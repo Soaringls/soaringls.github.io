@@ -80,6 +80,8 @@ brew tap homebrew/science && brew install numpy scipy matplotlib
 #2. install
 bash Miniconda3-latest-MacOSX-arm64.sh
 #3. install pkg
+export PATH="/Users/dexter/miniconda3/bin:$PATH"
+export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
 #创建空间shuai_space并在空间内默认安装3.10版本的python
 conda create -n shuai_space  python=3.10  
 conda deactivate

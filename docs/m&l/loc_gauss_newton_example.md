@@ -32,10 +32,14 @@ $$
 f(x) =f[P(x)]  = \frac{|PP_1 \times PP_2|}{|P_1P_2|} = \frac{|PP_{1x} PP_{2y} - PP_{1y} PP_{2x}|}{|P_1P_2|} = d   \tag{2}
 $$
 #### 计算jacobian
+
 $$
+\begin{aligned}
 J^TJ \Delta x = -J^T\cdot f(x) \\\\
-H \Delta = - g ,\quad \text{g is gradient}  \tag{3}
+H \Delta = - g ,\quad \text{g is gradient} 
+\end{aligned}  \tag{3}
 $$
+ 
 
 $$
 J = 
@@ -58,10 +62,10 @@ set \quad A =PP_{1x} PP_{2y} - PP_{1y} PP_{2x}   \quad and \quad B = {|P_1P_2|} 
 $$
 
 $$
-\begin{aligned}
+\begin{align}
 (f(x))^2 = \frac{A^2}{B^2} =d^2 \\\\
 2f(x){f}'(x) = \frac{2A{A}'}{B^2} 
-\end{aligned}\tag{5} 
+\end{align}\tag{5} 
 $$
 
 公式$(5)$两边同时对$P_x$求导
