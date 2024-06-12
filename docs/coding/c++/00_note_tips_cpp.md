@@ -361,6 +361,16 @@ FlatHashMap<int, std::vector<int>> key_submapids;
 
 ### 基本类型
 
+**字符串**
+
+- `std::stringstream`
+```cpp
+std::string msg;
+std::stringstream ss;  //#include<sstream>
+ss<<"hello world!";
+msg = ss.str();        //stringstream->string,而c_str()将string转为C串
+```
+
 **数值型**
 
 - int8和uint8默认表示字符，输出的话不会输出对应的数字(**需要如下如下转换才能显示数字**)
@@ -381,13 +391,13 @@ FlatHashMap<int, std::vector<int>> key_submapids;
 
 常见数据类型
 
-| 变量                                                   | 值                                                                                                                                     | 值                      |
-| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| FLT_MIN                                                | float类型：无限接近0，但大于0                                                                                                          | 0.00000 or 1.175494e-38 |
-| FLT_MAX                                                | float类型：无限大                                                                                                                      | 3.402823e+38            |
-| INT_MIN                                                | int类型：负最大                                                                                                                        | -2147483648             |
-| INT_MAX                                                |                                                                                                                                        | 2147483647              |
-| std::numeric_limits `<T>::`,Defined in header <limits> | lowest() : int float double  <0的极大值<br />min(): int类型 <0的极小值<br />min(): float和double类型 都是>0的极小值<br />max(): 极大值 |                         |
+| 变量                                                                      | 值                                                                                                                                                                                                                                                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| FLT_MIN  <br /> `Defined in header <cfloat>`                              | **无限接近0，但大于0**                                                                                                                                                                                                                                                                           |
+| FLT_MAX                                                                   | >0的极大值                                                                                                                                                                                                                                                                                       |
+| INT_MIN    <br /> `Defined in header <climits>`                           | <0的极大值                                                                                                                                                                                                                                                                                       |
+| INT_MAX                                                                   | >0的极大值                                                                                                                                                                                                                                                                                       |
+| $\mathbf{std::numeric\_limits<T>::}$  <br /> `Defined in header <limits>` | $\mathbf{max()}$: >0的极大值<br />$\mathbf{lowest()}$ : int float double  <0的极大值<br />$\mathbf{min()}$: int类型 <0的极大值<br />$\mathbf{min()}$: **float和double类型 都是>0的极小值** <br />$\mathbf{epsilon()}$: int为0,double、float为>0的极小值 <br />$\mathbf{quiet\_NaN()}$: 值为`nan` |
 
 [std::numeric_limits](https://en.cppreference.com/w/cpp/types/numeric_limits)
 ![s](./img/note_tips_cpp.png)
@@ -1083,7 +1093,7 @@ int main() {
 ```
 #### 绑定器(binder)
 
-> bind()用来将参数绑定于*可调用对象(call object)*`<br>`
+> bind()用来将参数绑定于*可调用对象(call object)* 
 
 包括2类: 
 
@@ -1261,6 +1271,21 @@ class D : public C{
 >析构函数调用顺序从派生类到基类
 
 虚析构函数: 多态时使用,即含有虚函数和纯虚函数是析构函数需为虚析构函数; 虚析构函数可以**确保在通过基类指针或引用删除派生类对象时，能够正确地调用派生类的析构函数,避免资源泄漏或未释放派生类特定资源的情况**,如果基类的析构函数不是虚函数，通过基类指针删除派生类对象时，只会调用基类的析构函数，而不会调用派生类的析构函数，这会导致派生类的资源没有正确释放。
+
+### 类的继承
+
+| 基类成员 | public继承子类 | protect继承子类 | private继承子类 |
+| -------- | -------------- | --------------- | --------------- |
+| public   | public         | protect         | private         |
+| protect  | protect        | protect         | private         |
+| private  | 不可访问×      | 不可访问×       | 不可访问×       |
+
+>虚函数原理
+
+- [C/C++杂记：虚函数的实现的基本原理](https://www.cnblogs.com/malecrab/p/5572730.html)
+- [C/C++杂记：深入虚表结构](http://www.cnblogs.com/malecrab/p/5573368.html)
+- [C++中虚析构函数的作用及其原理分析](https://blog.csdn.net/derkampf/article/details/62093252)
+
 
 ### 多态
 
@@ -1534,7 +1559,7 @@ int main() {
 
 ## 多线程与锁
 
-### 常见用法
+### std::mutex
 
 ```cpp
 std::mutex mut_buffer;
@@ -1544,8 +1569,46 @@ mut_buffer.lock();
 mut_buffer.unlock();
 ```
 
+
+### st::atomic<T>
+```cpp
+std::atomic<bool> init_(false);
+return init_.load();  //返回init_的值
+init_.exchange(true); //init_设为true,返回init_之前的值(false)
+
+```
+
+
 ## 其他
 ### enum枚举相关
+
+```cpp
+class Lane {
+ public:
+  typedef std::shared_ptr<Lane> Ptr;
+  typedef std::shared_ptr<const Lane> ConstPtr;
+  enum class LaneType {
+      HIGHWAY_DRIVING,
+      BIKING,
+      BORDER,
+  };
+  enum TurningType {
+      NO_TURN = 1;
+      LEFT_TRUN = 2;
+      RIGHT_TRUN = 3;
+      U_TURN = 4;
+  };
+ private:
+  LaneType lane_type_;
+  TurningType turning_type_;
+  double speed_limit;
+};
+/**
+ * @brief       对enum变量的使用
+ * @LaneType    Lane::LaneType::BIKING  因为有class修饰,使用enum变量必须添加LaneType
+ * @TurningType Lane::LEFT_TRUN         可省略enum的名称
+ */
+```
 
 - enum与数值
 
@@ -1870,6 +1933,62 @@ public:
 ### delete本质(kaiqi)
 [C++ delete释放内存的本质](https://blog.csdn.net/y109y/article/details/87859274)
 在C++中，调用delete的时候，系统会自动调用已分配的对象的析构函数，然后释放指定内存,delete所谓的释放内存，只是将指定空间定义为可分配内存，该空间仍保留原有的值，且可以访问。
+
+
+### 堆与栈
+[堆和栈的区别（转过无数次的文章）](https://blog.csdn.net/hairetz/article/details/4141043)
+
+[malloc/calloc/realloc/alloca内存分配函数](https://www.cnblogs.com/3me-linux/p/3962152.html)
+
+
+- stack: 由系统自动分配。例如，声明在函数中一个局部变量int b;系统自动在栈中为b开辟空间   
+- heap: 需要程序员自己申请，并指明大小; 在c中malloc函数,如p1 = (char*)malloc(10); p1本身是在栈中; 在C++中用new运算符,如p2= new char[10]; p2本身是在栈中  
+
+`std::array`是在栈上分配，存在栈溢出风险，而`std::vector`是在堆上分配，不存在栈溢出风险,参见[数据类型array](#array)
+   
+#### 基础
+>一个由C/C++编译的程序占用的内存分为以下几个部分
+
+- `栈区（stack）`— 由编译器自动分配释放，存放函数的参数值，局部变量的值等。其 
+  操作方式类似于数据结构中的栈。 
+
+- `堆区（heap）` — 一般由程序员分配释放，若程序员不释放，程序结束时可能由OS回 
+  收 。注意它与数据结构中的堆是两回事，分配方式倒是类似于链表，呵呵。 
+
+- `全局区（静态区）`（static）—，全局变量和静态变量的存储是放在一块的，初始化的全局变量和静态变量在一块区域，未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。 程序结束后由系统释放。 
+
+- `文字常量区` — 常量字符串就是放在这里的。 程序结束后由系统释放 
+
+- `程序代码区` — 存放函数体的二进制代码。 
+
+ 
+ 
+  
+>*堆和栈的区别可以用如下的比喻来看出*
+
+- 使用栈就象我们去饭馆里吃饭，只管点菜（发出申请）、付钱、和吃（使用），吃饱了就走，不必理会切菜、洗菜等准备工作和洗碗、刷锅等扫尾工作，他的好处是快捷，但是自由度小。   
+- 使用堆就象是自己动手做喜欢吃的菜肴，比较麻烦，但是比较符合自己的口味，而且自由度大。(经典！)  
+
+#### 示例代码
+```cpp
+ //main.cpp 
+  int a = 0; //全局初始化区 
+  char *p1;  //全局未初始化区 
+  main() 
+  { 
+    int b;              // 栈 
+    char s[] = "abc";   // 栈 
+    char *p2;           // 栈 
+    char *p3 = "123456"; // 123456/0在常量区，p3在栈上。 
+    static int c =0；    // 全局（静态）初始化区 
+
+    //分配得来得10和20字节的区域就在堆区。
+    p1 = (char*)malloc(10); 
+    p2 = (char*)malloc(20);  
+    strcpy(p1, "123456"); // 123456/0放在常量区，编译器可能会将它与p3所指向的"123456"优化成一个地方。 
+  }  
+```
+
 
 ## Protobuf C++
 ### data type

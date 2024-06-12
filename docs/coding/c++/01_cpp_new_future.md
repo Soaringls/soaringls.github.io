@@ -30,6 +30,29 @@
   const int kArraySize = num;
   ```
 
+### 基本函数
+
+| `math函数`                               | `描述`                                                                                     |
+| :--------------------------------------- | :----------------------------------------------------------------------------------------- |
+| std::atan2(y,x) <br />即tan(angle) = y/x | ngle范围[-PI, PI] [-180°, 180°]                                                            |
+| std::atan(x)    <br />即tan(angle) = x   | angle范围[-PI/2, PI/2]  [-90°, 90°]                                                        |
+| atof()                                   | double atof(const char *str) string转double                                                |
+| std::to_string()                         | 数值转string，浮点数转string时 `std::to_string(12.12) = "12.120000"`                       |
+| std::stod("124.123")                     | 将字符串"124.123"转成double类型                                                            |
+| std::stoi("123")                         | 将字符串"123"转成int类型                                                                   |
+| std::min(a,b)                            | 返回a,b中较小的, **a、b类型必须一致**                                                      |
+| std::max(a,b)                            | 返回a,b中较大的, **a、b类型必须一致**                                                      |
+| std::fmod(x, y)                          | 计算x/y的浮点余数，如std::fmod(3.1, 2.0) = 1.1  <br />**%只用于整型的求余后一个数不能为0** |
+| std::hypot(x, y)                         | 等同于 std::sqrt(x*x + y*y),  如 std::hypot(3,4) = 5                                       |
+| std::floor(param)                        | 向下取整:不大于给定值的最近整数   4.5/4.2/4.8结果都为4.0(返回还是浮点数,不是int)           |
+| std::ceil(param)                         | 向上取整:不小于给定值的最近整数    4.5/4.2/4.8结果都为5.0                                  |
+| std::round(param)                        | 就近取整:即4舍5入取整    4.45为4  4.5/4.55为5.0                                            |
+| std::isfinite(param)                     | 若为正常有限数字,在-Infinity和Infinity之间返回true,infinity则返回false                     |
+| std::isnan(pt.x)                         | 判断点pt的x值是否为`nan值`                                                                 |
+| **`boost相关`**                          | **`描述`**                                                                                 |
+| boost::lexical_cast                      | 用于类型转换，使用的stringstream实现的数值类型转换                                         |
+
+
 ### 常见用法(std::optional etc)
 
 - std::adjacent_find
@@ -70,6 +93,22 @@ ret = GetInfo();
 CHECK(ret.has_value())<<"Failed to parser...";
 const std::string info = ret.value();
 ```
+
+- `std::unique()`
+> 作用：去除容器中重复的元素，结合sort和unique使用，可以实现排序去重
+
+```cpp
+// remove duplicate elements
+std::vector<int> v{123,432,1,2,3,1,2,3,3,4,5,4,5,6,7};
+
+//默认升序,即std::sort(v.begin(), v.end(),std::less<int>());降序则std::greater<int>()
+std::sort(v.begin(), v.end()); 
+auto last = std::unique(v.begin(), v.end());//v必须是有序数组(升序/降序均可)
+// now the v: {1 2 3 4 5 6 7 123 432 5 5 6 7 123 432}
+const index_last = std::distance(v.begin(), last);
+v.erase(last, v.end()); //now v: {1 2 3 4 5 6 7 123 432} 
+```
+
 
 - `std::upper_bound`、`std::lower_bound`、  ` std::distance`
 
