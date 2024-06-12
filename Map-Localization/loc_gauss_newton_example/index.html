@@ -1,0 +1,3443 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../imu_kernel/">
+      
+      
+        <link rel="next" href="../loc_visual/">
+      
+      
+      <link rel="icon" href="../../logo.jpg">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
+    
+    
+      
+        <title>高斯牛顿实践-以视觉定位为例 - Notebook of Dexter</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#-" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Notebook of Dexter" class="md-header__button md-logo" aria-label="Notebook of Dexter" data-md-component="logo">
+      
+  <img src="../../logo.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Notebook of Dexter
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              高斯牛顿实践-以视觉定位为例
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../00_lidar_mechanical_theory/" class="md-tabs__link">
+          
+  
+  Map Localization
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../coding/coding_debug_tips/" class="md-tabs__link">
+          
+  
+  Coding
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../dairy/about_human/" class="md-tabs__link">
+          
+  
+  Dairy
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../math/algebraist/" class="md-tabs__link">
+          
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tools/00_setup_work_space_mac/" class="md-tabs__link">
+          
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Notebook of Dexter" class="md-nav__button md-logo" aria-label="Notebook of Dexter" data-md-component="logo">
+      
+  <img src="../../logo.jpg" alt="logo">
+
+    </a>
+    Notebook of Dexter
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Map Localization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Map Localization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00_lidar_mechanical_theory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    机械雷达原理(Velodyne为例)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../calib_imu_wheel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TODO: calib_imu_wheel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud_registration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点云配准
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../imu_kernel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IMU使用示例及噪声计算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    高斯牛顿实践-以视觉定位为例
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    高斯牛顿实践-以视觉定位为例
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D空间
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2D空间">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      待优化变量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      点到线cost function
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="点到线cost function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jacobian" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算jacobian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jacobian_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      详细计算Jacobian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码如下
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-function_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      点到点cost function
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="点到点cost function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jacobian_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算jacobian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码如下
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化求解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      3D空间
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3D空间">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化变量用例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so3t" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于SO(3)+t
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-function_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      点到点cost function
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="点到点cost function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jacobian_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算jacobian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码如下
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-function_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      点到线cost function
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="点到线cost function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jacobian_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算jacobian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码如下
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化效果示例
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lego-loam" class="md-nav__link">
+    <span class="md-ellipsis">
+      三维变换(Lego-Loam后端推导)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      变量
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-function_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      点线cost function
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="点线cost function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化求解优过程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="优化求解优过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step2jocabian" class="md-nav__link">
+    <span class="md-ellipsis">
+      step2详解：求Jocabian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jacobian_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算jacobian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jacobian_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      详细计算Jacobian
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-function_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      点到面cost function
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loc_visual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    视觉定位(车道线匹配)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mapping_kernel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mapping kernel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slam_based_lidar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ing-slam-lidar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slam_based_visual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ing-slam-visual
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slambook2_appendix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    done-slambook2额外补充材料
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tf_rigid_motion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    done刚体运动-三维旋转变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_12" id="__nav_2_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Segmentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_12">
+            <span class="md-nav__icon md-icon"></span>
+            Segmentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../segmentation/cloud-segmentation-hdmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点云分割实例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_13" id="__nav_2_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Slam opensource
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_13">
+            <span class="md-nav__icon md-icon"></span>
+            Slam opensource
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slam_opensource/slam_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slam basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slam_opensource/slam_loam_series/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loam series
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Coding
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Coding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/coding_debug_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Coding Debug Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/coding_work_style/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Style
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Algorithm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Algorithm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/algorithm/00_sorting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    排序算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            C++
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/00_note_tips_cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ Tips and Tricks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/01_cpp_new_future/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ New Feture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/02_cpp_note_gpt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ Note GPT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/03_cpp_boost_note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Boost usage note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/04_camke_faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cmake FAQ&amp;Examples
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/05_debug_dev_neolix_note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debug Dev Final Neolix Note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/the_essence_of_c%2B%2B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Essence of C++
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/000_summary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Summary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/00_book_basic_note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Basic Note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/01_book_basic_class/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 类和对象
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/02_book_advance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python advance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/03_dev_env/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python开发环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/04_appendix_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appendix: tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ros
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Ros
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/ros/00_ros_msg_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS&amp;Cartographer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Shell
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Shell
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/shell/function/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bash Shell Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    System&structure
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            System&structure
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/system%26structure/operation_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operation system
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/system%26structure/several_design_patterns_by_cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Several Design Patterns By C++
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/system%26structure/uml_graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UML Graphic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Dairy
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Dairy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dairy/about_human/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About human
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dairy/meetint_key_points/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Meetint key points
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dairy/note-no-valience-chatting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    读书笔记:非暴力沟通
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dairy/note-the-seven-habits-of-effective-awosome/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    读书笔记:高效人士的七个习惯
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/algebraist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    矩阵和向量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/estimation_filter_kalman/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    状态估计-滤波
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/estimation_optimizer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    状态估计-优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/geometry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    几何学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/pca_theory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主成分分析PCA-TODO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/00_setup_work_space_mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup work space on Mac
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/mathjax/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    usage of mathjax
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/python_matplotlib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tools python-matploglib
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/tools-devel-environment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tools devel-enviroment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/usage_bazel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage Bazel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/usage_markdown/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage markdown
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/usage_shortcut/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage shortcut
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/workspace_setup_ubuntu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup worksapce in ubuntu
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D空间
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2D空间">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      待优化变量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      点到线cost function
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="点到线cost function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jacobian" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算jacobian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jacobian_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      详细计算Jacobian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码如下
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-function_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      点到点cost function
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="点到点cost function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jacobian_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算jacobian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码如下
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化求解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      3D空间
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3D空间">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化变量用例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so3t" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于SO(3)+t
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-function_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      点到点cost function
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="点到点cost function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jacobian_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算jacobian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码如下
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-function_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      点到线cost function
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="点到线cost function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jacobian_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算jacobian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码如下
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化效果示例
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lego-loam" class="md-nav__link">
+    <span class="md-ellipsis">
+      三维变换(Lego-Loam后端推导)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      变量
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-function_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      点线cost function
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="点线cost function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化求解优过程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="优化求解优过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step2jocabian" class="md-nav__link">
+    <span class="md-ellipsis">
+      step2详解：求Jocabian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jacobian_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算jacobian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jacobian_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      详细计算Jacobian
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-function_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      点到面cost function
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="-">高斯牛顿实践-以视觉定位为例<a class="headerlink" href="#-" title="Permanent link">&para;</a></h1>
+<p>视觉定位当前主要基于线特征(如车道线、停止线)、点特征(杆状物、如地表marking、Y型点)进行约束构建，然后基于粒子滤波和卡尔曼滤波实现状态估计，对于点点约束、点线或点面等约束也可以采用优化的方法进行解决。</p>
+<h2 id="2d">2D空间<a class="headerlink" href="#2d" title="Permanent link">&para;</a></h2>
+<h3 id="_1">待优化变量<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(x = (\theta, t_x, t_y)\)</span>表示yaw及二维translation的变化
+$$
+P = 
+\begin{bmatrix}
+P_x \\
+P_y
+\end{bmatrix} = 
+\begin{bmatrix}
+\cos \theta, &amp; \sin \theta \\
+\sin \theta, &amp; \cos \theta
+\end{bmatrix}
+\begin{bmatrix}
+x_i \\
+y_i
+\end{bmatrix} + 
+\begin{bmatrix}
+t_x \\
+t_y
+\end{bmatrix} =
+\begin{bmatrix}
+\cos \theta x_i - \sin \theta y_i + t_x \\
+\sin \theta x_i + \cos \theta y_i + t_y
+\end{bmatrix} \tag{1}
+$$</p>
+<h3 id="cost-function">点到线cost function<a class="headerlink" href="#cost-function" title="Permanent link">&para;</a></h3>
+<p>即优化点<span class="arithmatex">\(P\)</span>到线段<span class="arithmatex">\(P_1 \quad P_2\)</span>的距离
+$$
+f(x) =f[P(x)]  = \frac{|PP_1 \times PP_2|}{|P_1P_2|} = \frac{|PP_{1x} PP_{2y} - PP_{1y} PP_{2x}|}{|P_1P_2|} = d   \tag{2}
+$$</p>
+<h4 id="jacobian">计算jacobian<a class="headerlink" href="#jacobian" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned}
+J^TJ \Delta x = -J^T\cdot f(x) \\\\
+H \Delta = - g ,\quad \text{g is gradient} 
+\end{aligned}  \tag{3}
+\]</div>
+<div class="arithmatex">\[
+J = 
+\begin{bmatrix}
+\frac{\partial f}{\partial \theta} \\\\
+\frac{\partial f}{\partial t_x} \\\\
+\frac{\partial f}{\partial t_y}
+\end{bmatrix}^T =  
+\frac{\partial f}{\partial P}\frac{\partial P}{\partial x(\theta, t_x, t_y)} =  
+\begin{bmatrix}
+\frac{\partial f}{\partial P_x} \frac{\partial P_x}{\partial \theta} + \frac{\partial f}{\partial P_y} \frac{\partial P_y}{\partial \theta} \\\\
+\frac{\partial f}{\partial P_x} \frac{\partial P_x}{\partial t_x} + \frac{\partial f}{\partial P_y} \frac{\partial P_y}{\partial t_x} \\\\
+\frac{\partial f}{\partial P_x} \frac{\partial P_x}{\partial t_y} + \frac{\partial f}{\partial P_y} \frac{\partial P_y}{\partial t_y} 
+\end{bmatrix}^T.  \tag{4}
+\]</div>
+<h4 id="jacobian_1">详细计算Jacobian<a class="headerlink" href="#jacobian_1" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+set \quad A =PP_{1x} PP_{2y} - PP_{1y} PP_{2x}   \quad and \quad B = {|P_1P_2|} \\\\
+\]</div>
+<div class="arithmatex">\[
+\begin{align}
+(f(x))^2 = \frac{A^2}{B^2} =d^2 \\\\
+2f(x){f}'(x) = \frac{2A{A}'}{B^2} 
+\end{align}\tag{5} 
+\]</div>
+<p>公式<span class="arithmatex">\((5)\)</span>两边同时对<span class="arithmatex">\(P_x\)</span>求导
+$$ 
+\begin{align}
+2d \frac{\partial f}{\partial P_x} 
+&amp;= \frac{2A}{B^2} \frac{\partial A}{\partial P_x}\\
+&amp;= \frac{2A}{B^2} \cdot(PP_{2y} - PP_{1y})   <br />
+\end{align}
+$$</p>
+<div class="arithmatex">\[
+\frac{\partial f}{\partial P_x} =  \frac{A \cdot P_1P_{2y}}{d\cdot B^2}  \tag{6}
+\]</div>
+<p>公式<span class="arithmatex">\((5)\)</span>两边同时对<span class="arithmatex">\(P_y\)</span>求导
+$$
+\begin{align}
+2d \frac{\partial f}{\partial P_y} = \frac{2A}{B^2} \frac{\partial A}{\partial P_y} = \frac{2A}{B^2} \cdot(PP_{1x} - PP_{2x}) \\
+\frac{\partial f}{\partial P_y} =  \frac{A \cdot P_2P_{1x}}{d\cdot B^2} =  \frac{ - A \cdot P_1P_{2x}}{d\cdot B^2}  
+\end{align} \tag{7}
+$$</p>
+<p><span class="arithmatex">\(P(x)对 x = (\theta, t_x, t_y)求导\)</span>
+$$
+\frac{\partial P}{\partial x} = 
+\begin{bmatrix}
+\frac{\partial P_x}{\partial \theta} \quad \frac{\partial P_x}{\partial t_x} \quad \frac{\partial P_x}{\partial t_y}
+ \\
+ \frac{\partial P_y}{\partial \theta} \quad \frac{\partial P_y}{\partial t_x} \quad \frac{\partial P_y}{\partial t_y}
+\end{bmatrix}  \tag{8}
+$$</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\frac{\partial P_x}{\partial \theta} = -\sin \theta x_i - \cos \theta y_i \quad \quad \frac{\partial P_x}{\partial t_x} = 1 \quad \quad \frac{\partial P_x}{\partial t_y} = 0 \\\\
+\frac{\partial P_y}{\partial \theta} = \cos \theta x_i - \sin \theta y_i \quad \quad \frac{\partial P_y}{\partial t_x} = 0 \quad \quad \frac{\partial P_y}{\partial t_y} = 1 
+\end{aligned}   \tag{9}
+\]</div>
+<h4 id="_2">代码如下<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CostFunctionPointToLine</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">src_pt</span><span class="p">:</span> <span class="n">Point</span><span class="p">,</span> <span class="n">tar_pt1</span><span class="p">:</span> <span class="n">Point</span><span class="p">,</span> <span class="n">tar_pt2</span><span class="p">:</span> <span class="n">Point</span><span class="p">,</span> <span class="n">score</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">src_point</span> <span class="o">=</span> <span class="n">src_pt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tar_point1</span> <span class="o">=</span> <span class="n">tar_pt1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tar_point2</span> <span class="o">=</span> <span class="n">tar_pt2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="n">score</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_px</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_py</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_px_to_theta</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_py_to_theta</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">def</span> <span class="nf">compute_residual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">param_yaw</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">param_tx</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">param_ty</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">tmp_src_pt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_point</span><span class="o">.</span><span class="n">transform_point</span><span class="p">(</span><span class="n">param_yaw</span><span class="p">,</span> <span class="n">param_tx</span><span class="p">,</span> <span class="n">param_ty</span><span class="p">)</span>
+
+        <span class="c1"># residual = 0</span>
+        <span class="n">pp1</span> <span class="o">=</span> <span class="n">tmp_src_pt</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tar_point1</span>
+        <span class="n">pp2</span> <span class="o">=</span> <span class="n">tmp_src_pt</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tar_point2</span>
+        <span class="n">p1p2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tar_point1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tar_point2</span>
+        <span class="c1">##f_value_distance_to_line</span>
+        <span class="n">residual</span> <span class="o">=</span> <span class="n">tmp_src_pt</span><span class="o">.</span><span class="n">distance_to_line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tar_point1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tar_point2</span><span class="p">)</span>
+
+        <span class="c1"># jacobian</span>
+        <span class="k">if</span> <span class="n">residual</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">A</span> <span class="o">=</span> <span class="n">pp1</span><span class="o">.</span><span class="n">cross_multi</span><span class="p">(</span><span class="n">pp2</span><span class="p">)</span>
+            <span class="n">B</span> <span class="o">=</span> <span class="n">p1p2</span><span class="o">.</span><span class="n">squre_norm</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_px</span> <span class="o">=</span> <span class="n">p1p2</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">A</span> <span class="o">/</span> <span class="p">(</span><span class="n">residual</span> <span class="o">*</span> <span class="n">B</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_py</span> <span class="o">=</span> <span class="o">-</span><span class="n">p1p2</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">A</span> <span class="o">/</span> <span class="p">(</span><span class="n">residual</span> <span class="o">*</span> <span class="n">B</span><span class="p">)</span>
+            <span class="n">delta_pt_to_theta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_point</span><span class="o">.</span><span class="n">jacobian_point_to_theta</span><span class="p">(</span><span class="n">param_yaw</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delta_px_to_theta</span> <span class="o">=</span> <span class="n">delta_pt_to_theta</span><span class="o">.</span><span class="n">x</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delta_py_to_theta</span> <span class="o">=</span> <span class="n">delta_pt_to_theta</span><span class="o">.</span><span class="n">y</span>
+        <span class="k">return</span> <span class="n">residual</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">score</span>
+    <span class="k">def</span> <span class="nf">compute_jacobian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)):</span>
+        <span class="n">jacobian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="c1"># delta to yaw</span>
+        <span class="n">jacobian</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_px</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_px_to_theta</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_py</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_py_to_theta</span>
+        <span class="p">)</span>
+        <span class="c1"># delta to tx</span>
+        <span class="n">jacobian</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_px</span>
+        <span class="c1"># delta to ty</span>
+        <span class="n">jacobian</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_py</span>
+        <span class="k">return</span> <span class="n">jacobian</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="cost-function_1">点到点cost function<a class="headerlink" href="#cost-function_1" title="Permanent link">&para;</a></h3>
+<p>即优化点<span class="arithmatex">\(P\)</span>到目标点<span class="arithmatex">\(P_t\)</span>的距离
+$$
+f(x) = f[P(x)] = |PP_t| = d.  \tag{10}
+$$</p>
+<h4 id="jacobian_2">计算jacobian<a class="headerlink" href="#jacobian_2" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(\dfrac{\partial P_x}{\partial \theta}\)</span>和 <span class="arithmatex">\(\dfrac{\partial P_y}{\partial \theta}\)</span>同点到线一致
+$$
+\frac{\partial f}{\partial P_x} =  \frac{\partial f}{\partial P_y} = \frac{1}{d}  \tag{11}
+$$</p>
+<h4 id="_3">代码如下<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CostFunctionPoint2Point</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src_pt</span><span class="p">:</span> <span class="n">Point</span><span class="p">,</span> <span class="n">tar_pt</span><span class="p">:</span> <span class="n">Point</span><span class="p">,</span> <span class="n">score</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">src_point</span> <span class="o">=</span> <span class="n">src_pt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tar_point</span> <span class="o">=</span> <span class="n">tar_pt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="n">score</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_px</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_py</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_px_to_theta</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_py_to_theta</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">def</span> <span class="nf">compute_residual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="n">param_yaw</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">param_tx</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">param_ty</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">tmp_src_pt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_point</span><span class="o">.</span><span class="n">transform_point</span><span class="p">(</span><span class="n">param_yaw</span><span class="p">,</span> <span class="n">param_tx</span><span class="p">,</span> <span class="n">param_ty</span><span class="p">)</span>
+
+        <span class="n">residual</span> <span class="o">=</span> <span class="n">tmp_src_pt</span><span class="o">.</span><span class="n">distance_to_point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tar_point</span><span class="p">)</span> 
+        <span class="k">if</span> <span class="n">residual</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_px</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">residual</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_py</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">residual</span>
+            <span class="n">delta_pt_to_theta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_point</span><span class="o">.</span><span class="n">jacobian_point_to_theta</span><span class="p">(</span><span class="n">param_yaw</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delta_px_to_theta</span> <span class="o">=</span> <span class="n">delta_pt_to_theta</span><span class="o">.</span><span class="n">x</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delta_py_to_theta</span> <span class="o">=</span> <span class="n">delta_pt_to_theta</span><span class="o">.</span><span class="n">y</span>
+        <span class="k">return</span> <span class="n">residual</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">score</span>
+
+    <span class="k">def</span> <span class="nf">compute_jacobian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)):</span>
+        <span class="n">jacobian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="c1"># delta to yaw</span>
+        <span class="n">jacobian</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_px</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_px_to_theta</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_py</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_py_to_theta</span>
+        <span class="p">)</span>
+        <span class="c1"># delta to tx</span>
+        <span class="n">jacobian</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_px</span>
+        <span class="c1"># delta to ty</span>
+        <span class="n">jacobian</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_f_to_py</span>
+        <span class="k">return</span> <span class="n">jacobian</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="_4">优化求解<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">construct_problem</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; options.iter_num:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">iter_num</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">iter_num</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxx optimizer iter: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">iter</span><span class="p">)</span>
+            <span class="n">k_pairs_num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">measurements_dims</span><span class="p">()</span>
+            <span class="n">jacobian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k_pairs_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters_dims</span><span class="p">()))</span>
+            <span class="n">fx_residuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k_pairs_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cost_function_dims</span><span class="p">()))</span>
+            <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">k_pairs_num</span><span class="p">):</span>
+                <span class="n">fx_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">cost_function_list</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">.</span><span class="n">compute_residual</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">fx_value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">fx_residuals</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">fx_value</span>
+                    <span class="n">jacobian</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">cost_function_list</span><span class="p">[</span>
+                        <span class="nb">id</span>
+                    <span class="p">]</span><span class="o">.</span><span class="n">compute_jacobian</span><span class="p">()</span>
+            <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">jacobian</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">jacobian</span><span class="p">)</span>
+            <span class="n">gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">jacobian</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">fx_residuals</span><span class="p">)</span>
+            <span class="c1">#solve: H*delta_x = -JT*f</span>
+            <span class="c1"># gradient_delta = np.linalg.solve(H, -gradient)</span>
+
+            <span class="n">gradient_delta</span> <span class="o">=</span> <span class="n">CompareDiffDecompositionNumpy</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="o">-</span><span class="n">gradient</span><span class="p">)</span> 
+
+            <span class="c1"># TODO: optimizer coverage or not, condition is gradient_delta or costfunction value is fine</span>
+            <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">gradient_delta</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;solver done, final gradient_delta:&quot;</span><span class="p">,</span> <span class="n">gradient_delta</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">covergence</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters_plus</span><span class="p">(</span><span class="n">gradient_delta</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="3d">3D空间<a class="headerlink" href="#3d" title="Permanent link">&para;</a></h2>
+<h3 id="_5">优化变量用例<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(x = \{yaw \quad pitch  \quad roll \quad x \quad y\quad  z\}\)</span>
+如Loam系列等，对旋转求导繁琐负责，容易出错</p>
+<h3 id="so3t">基于SO(3)+t<a class="headerlink" href="#so3t" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(x = \{ R \quad t\}\)</span></p>
+<h3 id="cost-function_2">点到点cost function<a class="headerlink" href="#cost-function_2" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+f(x) = f(\{R,t\}) = P_i - (Rq_i+t) \tag{12}
+\]</div>
+<h4 id="jacobian_3">计算jacobian<a class="headerlink" href="#jacobian_3" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{align}
+\frac{\partial f(x)}{\partial R} = Rq_i^{\times} \\\\
+\frac{\partial f(x)}{\partial t} = -I    
+\end{align} \tag{13}
+\]</div>
+<p>相当于最小化 <span class="arithmatex">\(f(x) = f(\{R,t\}) = \min\limits_{R,t}\sum_i|P_i - (Rq_i+t)|^2\)</span></p>
+<h4 id="_6">代码如下<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CostFunctionPoint2Point</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src_pt</span><span class="p">:</span> <span class="n">Point</span><span class="p">,</span> <span class="n">tar_pt</span><span class="p">:</span> <span class="n">Point</span><span class="p">,</span> <span class="n">score</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">src_point</span> <span class="o">=</span> <span class="n">src_pt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tar_point</span> <span class="o">=</span> <span class="n">tar_pt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="n">score</span>  <span class="c1"># 6x6</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span> 
+    <span class="k">def</span> <span class="nf">compute_residual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">))):</span> 
+        <span class="n">param_yaw</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">param_tx</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">param_ty</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">tmp_src_pt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_point</span><span class="o">.</span><span class="n">transform_point</span><span class="p">(</span><span class="n">param_yaw</span><span class="p">,</span> <span class="n">param_tx</span><span class="p">,</span> <span class="n">param_ty</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+        <span class="n">R</span> <span class="o">=</span> <span class="n">get_matrix33_yaw</span><span class="p">(</span><span class="n">param_yaw</span><span class="p">)</span>
+        <span class="n">delta_e_to_R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_point</span><span class="o">.</span><span class="n">skew_symmetric</span><span class="p">())</span>
+        <span class="n">delta_e_to_t</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">J</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">delta_e_to_R</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">J</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">:]</span> <span class="o">=</span> <span class="n">delta_e_to_t</span>
+        <span class="n">residual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tar_point</span> <span class="o">-</span> <span class="n">tmp_src_pt</span>
+        <span class="k">return</span> <span class="n">residual</span><span class="o">.</span><span class="n">to_vec3d</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">score</span>
+    <span class="k">def</span> <span class="nf">compute_jacobian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">J</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="cost-function_3">点到线cost function<a class="headerlink" href="#cost-function_3" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+f(x) = f(\{R,t\}) =  \frac{|PP_1 \times PP_2|}{|P_1P_2|} =d\times(Rq_i+t - p_1) \tag{14}
+\]</div>
+<h4 id="jacobian_4">计算jacobian<a class="headerlink" href="#jacobian_4" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\frac{\partial f(x)}{\partial R} = -d^{\times}Rq_i^{\times}\\\\
+\frac{\partial f(x)}{\partial t} = d^{\times}    \tag{15}
+\]</div>
+<h4 id="_7">代码如下<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CostFunctionPointToLine</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">src_pt</span><span class="p">:</span> <span class="n">Point</span><span class="p">,</span> <span class="n">tar_pt1</span><span class="p">:</span> <span class="n">Point</span><span class="p">,</span> <span class="n">tar_pt2</span><span class="p">:</span> <span class="n">Point</span><span class="p">,</span> <span class="n">score</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">src_point</span> <span class="o">=</span> <span class="n">src_pt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tar_point1</span> <span class="o">=</span> <span class="n">tar_pt1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tar_point2</span> <span class="o">=</span> <span class="n">tar_pt2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="n">score</span>  <span class="c1"># 6x6</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span> 
+
+    <span class="k">def</span> <span class="nf">compute_residual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">))):</span> 
+        <span class="n">param_yaw</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">param_tx</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">param_ty</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">tmp_src_pt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_point</span><span class="o">.</span><span class="n">transform_point</span><span class="p">(</span><span class="n">param_yaw</span><span class="p">,</span> <span class="n">param_tx</span><span class="p">,</span> <span class="n">param_ty</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+        <span class="n">p2p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tar_point2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tar_point1</span>
+        <span class="n">d_vec</span> <span class="o">=</span> <span class="n">p2p1</span><span class="o">.</span><span class="n">normlize</span><span class="p">()</span>
+        <span class="n">d_vec_skew</span> <span class="o">=</span> <span class="n">d_vec</span><span class="o">.</span><span class="n">skew_symmetric</span><span class="p">()</span>
+        <span class="n">pp1</span> <span class="o">=</span> <span class="n">tmp_src_pt</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tar_point1</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">get_matrix33_yaw</span><span class="p">(</span><span class="n">param_yaw</span><span class="p">)</span>
+        <span class="c1"># print(&quot;d_vec_skew:\n&quot;,d_vec_skew)</span>
+        <span class="c1"># print(&quot;R:\n&quot;,R)</span>
+        <span class="n">delta_e_to_R</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">d_vec_skew</span><span class="p">,</span> <span class="n">R</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_point</span><span class="o">.</span><span class="n">skew_symmetric</span><span class="p">())</span>
+        <span class="n">delta_e_to_t</span> <span class="o">=</span> <span class="n">d_vec_skew</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">J</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">delta_e_to_R</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">J</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">:]</span> <span class="o">=</span> <span class="n">delta_e_to_t</span>
+        <span class="n">residual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">d_vec_skew</span><span class="p">,</span> <span class="n">pp1</span><span class="o">.</span><span class="n">to_vec3d</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">residual</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">score</span>
+
+    <span class="k">def</span> <span class="nf">compute_jacobian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">J</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="_8">优化效果示例<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>如下图所示，模拟视觉定位生成6条车道线和2个地标marking, 车道线间距3.5m, 长度40m, 
+- 绿色表示高精地图车道线
+- 红色表示感知车道心线：通过对地图车道线添加最大10cm噪声并进行<span class="arithmatex">\(R: yaw = 3.5deg   x横向: 0.5.   y:0.5m\)</span>的变换
+- 蓝色：通过2D or 3D优化后的结果
+<img alt="" src="../images/gauss_newton_vloc.png" /></p>
+<hr />
+<p>Loam(Lego-Loam后端优化推导)</p>
+<p><a href="https://zhuanlan.zhihu.com/p/205648834">LOAM后端优化算法分析</a></p>
+<h2 id="lego-loam">三维变换(Lego-Loam后端推导)<a class="headerlink" href="#lego-loam" title="Permanent link">&para;</a></h2>
+<p>其中旋转矩阵R定义如下，使用的是欧拉角表示方式，s表示sin，c表示cos，例如cry表示cos(ry)</p>
+<p><span class="arithmatex">\(rx、ry、rz\)</span>分别表示绕轴<span class="arithmatex">\(X、Y、Z\)</span>的角
+$$
+R=R(rx,ry,rz) = 
+\begin{bmatrix}
+c_{ry}c_{rz}+s_{rx}s_{ry}s_{rz} &amp;c_{rz}s_{rx}s_{ry} - c_{ry}s_{rz} &amp; c_{rx}s_{ry} \\
+c_{rx}s_{rz} &amp; c_{rx}c_{rz} &amp; -s_{rx} \\
+c_{ry}s_{rx}s_{rz} - c_{rz}s_{ry} &amp; c_{ry}c_{rz}s_{rx} + s_{ry}s_{rz}&amp; c_{rx}c_{ry}
+\end{bmatrix} \tag{1}
+$$
+平移t:</p>
+<div class="arithmatex">\[
+T=(t_x,t_y,t_z)^T
+\]</div>
+<h2 id="_9">变量<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p><span class="arithmatex">\(x = (r_x,r_y,r_z, t_x, t_y,t_z)\)</span>, 表示<span class="arithmatex">\(roll、pitch、yaw\)</span>及translation的变化</p>
+<h2 id="cost-function_4">点线cost function<a class="headerlink" href="#cost-function_4" title="Permanent link">&para;</a></h2>
+<p>即优化点<span class="arithmatex">\(P\)</span>到线段<span class="arithmatex">\(P_1 \quad P_2\)</span>的距离,以求得<span class="arithmatex">\(x = (r_x,r_y,r_z, t_x, t_y,t_z)\)</span></p>
+<div class="arithmatex">\[
+f(x) =f[P(x)]  = \dfrac{|PP_1 \times PP_2|}{|P_1P_2|} = \dfrac{\sqrt{a^2+b^2+c^2}}{|P_1P_2|} = d \tag{2}
+\]</div>
+<p>其中<span class="arithmatex">\(PP_1 \times PP_2 = (a,b,c)\)</span>,且</p>
+<div class="arithmatex">\[
+\begin{align}
+a=PP_{1x}PP_{2y} - PP_{2x}PP_{1y} \\\\
+b=PP_{1x}PP_{2z} - PP_{2x}PP_{1z} \\\\
+c=PP_{1y}PP_{2z} - PP_{2y}PP_{1z}
+\end{align}
+\]</div>
+<h3 id="_10">优化求解优过程<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>即求解<span class="arithmatex">\(x = (r_x,r_y,r_z, t_x, t_y,t_z)\)</span>的过程，损失函数为</p>
+<div class="arithmatex">\[
+f(x)  = d = f(P^w, Target) = f[G(x), Target]
+\]</div>
+<ol>
+<li>给定初始值<span class="arithmatex">\(x_0\)</span></li>
+<li>对于第<span class="arithmatex">\(k\)</span>次迭代, 求jacobian和f(x)</li>
+<li>求解增量方程 <span class="arithmatex">\(H \Delta x = -g,\quad H = J^TJ, \quad g = J^Tf(x)\)</span></li>
+<li>如果<span class="arithmatex">\(\Delta x_k\)</span>或者损失函数<span class="arithmatex">\(f(x_k)\)</span> 足够小，则优化停止，否则令<span class="arithmatex">\(x_{k+1} = x_k+\Delta x\)</span> ,然后step2</li>
+</ol>
+<h4 id="step2jocabian">step2详解：求Jocabian<a class="headerlink" href="#step2jocabian" title="Permanent link">&para;</a></h4>
+<ul>
+<li>将第<span class="arithmatex">\(i\)</span>个观测通过变量<span class="arithmatex">\(x_k\)</span>进行转换 
+  $$P^w = G(x)=TP=RP+t \\ \quad \quad T=(R,t) = (r_x,r_y,r_z, t_x, t_y,t_z)^T
+  $$
+$$
+P^{iw} = 
+\begin{bmatrix}
+P_x \\
+P_y \\
+P_z
+\end{bmatrix} = R 
+\begin{bmatrix}
+x_i \\
+y_i \\
+z_i
+\end{bmatrix} + 
+\begin{bmatrix}
+t_x \\
+t_y \\
+t_z
+\end{bmatrix} = T_i P_i \tag{3}
+$$</li>
+</ul>
+<h4 id="jacobian_5">计算jacobian<a class="headerlink" href="#jacobian_5" title="Permanent link">&para;</a></h4>
+<p>单次观测Jacobian为
+$$
+J_i = 
+\begin{bmatrix}
+\dfrac{\partial f}{\partial r_x} \\
+\dfrac{\partial f}{\partial r_y} \\
+\dfrac{\partial f}{\partial r_z} \\
+\dfrac{\partial f}{\partial t_x} \\
+\dfrac{\partial f}{\partial t_y} \\
+\dfrac{\partial f}{\partial t_z} 
+\end{bmatrix}^T = 
+\dfrac{\partial f}{\partial P^{w}}\dfrac{\partial P^{w}}{\partial x} =
+\begin{bmatrix}
+\dfrac{\partial f}{\partial P_x} \dfrac{\partial P_x}{\partial r_x} + \dfrac{\partial f}{\partial P_y} \dfrac{\partial P_y}{\partial r_x} + \dfrac{\partial f}{\partial P_z} \dfrac{\partial P_z}{\partial r_x} \\
+\dfrac{\partial f}{\partial P_x} \dfrac{\partial P_x}{\partial r_y} + \dfrac{\partial f}{\partial P_y} \dfrac{\partial P_y}{\partial r_y} + \dfrac{\partial f}{\partial P_z} \dfrac{\partial P_z}{\partial r_y} \\
+\dfrac{\partial f}{\partial P_x} \dfrac{\partial P_x}{\partial r_z} + \dfrac{\partial f}{\partial P_y} \dfrac{\partial P_y}{\partial r_z} + \dfrac{\partial f}{\partial P_z} \dfrac{\partial P_z}{\partial r_z} \\
+\dfrac{\partial f}{\partial P_x} \dfrac{\partial P_x}{\partial t_x} + \dfrac{\partial f}{\partial P_y} \dfrac{\partial P_y}{\partial t_x}+ \dfrac{\partial f}{\partial P_z} \dfrac{\partial P_z}{\partial t_x} \\
+\dfrac{\partial f}{\partial P_x} \dfrac{\partial P_x}{\partial t_y} + \dfrac{\partial f}{\partial P_y} \dfrac{\partial P_y}{\partial t_y}+ \dfrac{\partial f}{\partial P_z} \dfrac{\partial P_z}{\partial t_y} \\
+\dfrac{\partial f}{\partial P_x} \dfrac{\partial P_x}{\partial t_z} + \dfrac{\partial f}{\partial P_y} \dfrac{\partial P_y}{\partial t_z}+ \dfrac{\partial f}{\partial P_z} \dfrac{\partial P_z}{\partial t_z} \\
+\end{bmatrix}^T  \tag{4}
+$$
+其中
+$$
+\dfrac{\partial f}{\partial P^w} =[
+\dfrac{\partial f}{\partial P_x} \quad
+\dfrac{\partial f}{\partial P_y} \quad
+\dfrac{\partial f}{\partial P_z}
+] 
+$$
+为cost function对点的导数，具体到点到线和点到面距离d即为：距离d对点求导，可理解为求一个点的移动方向，在这个方向上移动d减小的最快，显然是垂线方向</p>
+<p>所有观测对应Jacobian为: <span class="arithmatex">\(m \times n\)</span>
+$$
+J = 
+\begin{bmatrix}
+J_1 \\
+J_2 \\
+... \\
+J_m
+\end{bmatrix}
+$$</p>
+<p>cost function单次结果<span class="arithmatex">\(f(x) = dx\)</span>
+所有观测结果为：mx1
+$$
+f = [f[P_1(x)] \quad f[P_2(x)] \quad ... \quad f[P_m(x)]]^T = [d_1 \quad d_2 \quad ... \quad d_m]^T
+$$</p>
+<h4 id="jacobian_6">详细计算Jacobian<a class="headerlink" href="#jacobian_6" title="Permanent link">&para;</a></h4>
+<p>cost function
+即优化点<span class="arithmatex">\(P\)</span>到线段<span class="arithmatex">\(P_1 \quad P_2\)</span>的距离,以求得<span class="arithmatex">\(x = (r_x,r_y,r_z, t_x, t_y,t_z)\)</span></p>
+<div class="arithmatex">\[
+f(x) =f[P(x)]  = \dfrac{|PP_1 \times PP_2|}{|P_1P_2|} = \dfrac{\sqrt{a^2+b^2+c^2}}{B} = d \tag{5}
+\]</div>
+<p>其中<span class="arithmatex">\(P(x) = \quad PP_1 \times PP_2 = (a,b,c)\)</span>,且<span class="arithmatex">\(B = |P_1P_2|\)</span></p>
+<div class="arithmatex">\[
+\begin{align}
+a=PP_{1x}PP_{2y} - PP_{2x}PP_{1y} \\\\
+b=PP_{1x}PP_{2z} - PP_{2x}PP_{1z} \\\\
+c=PP_{1y}PP_{2z} - PP_{2y}PP_{1z} \\\\
+\end{align}
+\]</div>
+<ul>
+<li>计算<span class="arithmatex">\(\dfrac{\partial f}{\partial P_x}\)</span></li>
+<li>方法1：公式<span class="arithmatex">\(5\)</span>两边平方,再对<span class="arithmatex">\(P_x\)</span>直接求导</li>
+</ul>
+<div class="arithmatex">\[
+\begin{gather}
+   [f(x)]^2 = \dfrac{a^2+b^2+c^2}{B^2} = d^2 \\\\
+  2f(x){f}'(x) = \dfrac{2a \dfrac{\partial a}{\partial P_x} + 2b \dfrac{\partial b}{\partial P_x} + 2c \dfrac{\partial c}{\partial P_x}}{B^2}
+\end{gather}
+\]</div>
+<div class="arithmatex">\[
+\begin{align}
+   {f}'(x) &amp;= \dfrac{a \dfrac{\partial a}{\partial P_x} + b \dfrac{\partial b}{\partial P_x}}{d \cdot B^2} \\\\
+   &amp;= \dfrac{1}{d\cdot B^2}(a(PP_{2y} - PP_{1y})+b(PP_{2z} - PP_{1z})) \\\\
+   &amp;= \dfrac{a P_1P_{2y} + bP_1P{2z}}{d\cdot B^2}
+\end{align}
+\]</div>
+<ul>
+<li>方法2：公式<span class="arithmatex">\(5\)</span>对<span class="arithmatex">\(P_x\)</span>直接求导</li>
+</ul>
+<div class="arithmatex">\[
+\begin{align}
+    {f}'(x) &amp;= \dfrac{2a \dfrac{\partial a}{\partial P_x} + 2b \dfrac{\partial b}{\partial P_x} + 2c \dfrac{\partial c}{\partial P_x} }{B\cdot 2\sqrt{a^2+b^2+c^2}} \\\\
+    &amp;= \dfrac{a \dfrac{\partial a}{\partial P_x} + b \dfrac{\partial b}{\partial P_x}}{B\cdot \sqrt{a^2+b^2+c^2}} \quad 然后两边同时乘f(x)
+\end{align}
+\]</div>
+<div class="arithmatex">\[
+f(x){f}'(x) =  \dfrac{a \dfrac{\partial a}{\partial P_x} + b \dfrac{\partial b}{\partial P_x}}{B^2} 
+\]</div>
+<div class="arithmatex">\[
+then, \quad {f}'(x) = \dfrac{\partial f}{\partial P_x} = \dfrac{a \dfrac{\partial a}{\partial P_x} + b \dfrac{\partial b}{\partial P_x}}{d \cdot B^2} 
+\]</div>
+<ul>
+<li>计算<span class="arithmatex">\(\dfrac{\partial P_x}{\partial r_x}\)</span>,由<span class="arithmatex">\(\quad P^w =RP+t\)</span>得</li>
+</ul>
+<div class="arithmatex">\[
+  P_x = (c_{ry}c_{rz} + s_{rx}s_{ry}s_{rz} )x_i + (-c_{ry}s_{rz}+s_{rx}s_{ry}c_{rz})y_i+ s_{ry}c_{rx}z_i + t_x
+\]</div>
+<div class="arithmatex">\[
+  \dfrac{\partial P_x}{\partial r_x} = c_{rx}s_{ry}s_{rz} x_i + c_{rx}s_{ry}c_{rz}y_i  - s_{ry}s_{rx}z_i
+\]</div>
+<h2 id="cost-function_5">点到面cost function<a class="headerlink" href="#cost-function_5" title="Permanent link">&para;</a></h2>
+<p><span class="arithmatex">\(P\)</span>为观测点，<span class="arithmatex">\(P_i\)</span>为平面一点，<span class="arithmatex">\(n\)</span>为平面法向量</p>
+<div class="arithmatex">\[
+\begin{align}
+f(x) = f[P(x)] = |PP_1|\cdot |n|\cdot cos&lt;PP_1,n&gt; = d 
+\end{align}
+\]</div>
+<div class="arithmatex">\[
+f(x) = f[P(x)]  =PP_1 \cdot n =  n_x(x - x_i) + n_y(y - y_i) + n_z(z - z_i) 
+\]</div>
+<p>Jacobian计算</p>
+<div class="arithmatex">\[
+\dfrac{\partial f}{\partial P} = 
+\begin{bmatrix}
+    \dfrac{\partial f}{\partial P_x} \\\\
+    \dfrac{\partial f}{\partial P_y} \\\\
+    \dfrac{\partial f}{\partial P_z} 
+\end{bmatrix}^T = 
+\begin{bmatrix}
+    n_x \\\\
+    n_y \\\\
+    n_z
+\end{bmatrix}^T
+\]</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
