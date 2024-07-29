@@ -113,7 +113,8 @@ md5sum /usr/local/lib/libpcl_io.so /usr/lib/x86_64-linux-gnu/libpcl_io.so
   >运行时不能加载库的问题，很多时候需要设置lib库环境变量，目的是为了指路
   ```sh
   #通常setup.bash中添加export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/$  {path}
-  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/a/b/lib
+  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/path1/lib:/path2/lib
+  #查看当前环境变量
   echo $LD_LIBRARY_PATH
   ```
   `env | grep LD`查看当前环境变量`LD_LIBRARY_PATH`的目录有哪些

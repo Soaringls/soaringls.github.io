@@ -61,3 +61,31 @@ plt.axis("equal")
 
 #坐标轴尺度不一致，比如x轴单位为index或时间戳，y轴单位为m ---> 则不能使用 plt.axis("equal")
 ```
+
+## 字符串拼接
+```py
+name = "Alice"
+age = 30
+city = "New York"
+
+# 使用 + 运算符:最简单的方法，但当需要拼接多个字符串时，代码可能会显得冗长
+info = "Name: " + name + ", Age: " + str(age) + ", City: " + city
+print(info)
+
+# 使用 str.format():灵活，可以处理更复杂的字符串格式化需求
+info = "Name: {}, Age: {}, City: {}".format(name, age, city)
+print(info)
+
+# 使用 f-string: Python 3.6 引入的一种非常简洁和强大的字符串格式化方法
+info = f"Name: {name}, Age: {age}, City: {city}"
+print(info)
+
+# 使用 join():当需要拼接多个字符串时，join() 方法是一个非常高效的选择
+parts = ["Name:", name, "Age:", str(age), "City:", city]
+info = " ".join(parts)
+print(info)
+
+# 使用 % 操作符: 一种较旧的方法，但在某些情况下仍然有用
+info = "Name: %s, Age: %d, City: %s" % (name, age, city)
+print(info)
+```

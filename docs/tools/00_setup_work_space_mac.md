@@ -21,6 +21,53 @@ which clang-format
  
 - install vim
 
+## remote development
+1. machine1和machine2 vscode install plugin `remote-ssh`
+2. machine1和machine2生成新的SSH密钥对: `ssh-keygen -t rsa -b 4096 -C "your_email@example.com"`, 生成的公钥通过`cat ~/.ssh/id_rsa.pub`查看
+3. 配置server: machine1 remote server
+   ```bash
+   # copy content of machine1's public key(`~/.ssh/id_rsa.pub`) to remote server's `~/.ssh/authorized_keys`
+   ```
+4. 配置machine1
+   ```bash
+   ## /Users/{username}/.ssh/config 里加入如下内容
+   Host {serverNickName} # 自定义主机名
+    HostName 172.18.3.29 # 远程服务器IP地址
+    User {username} # 远程服务器用户名
+    ProxyCommand ssh -W %h:%p M1
+    IdentityFile /Users/{machine1-username}/.ssh/id_rsa # 私钥文件路径
+   ```
+5. machine2通过machine1连接到server 
+   ```bash
+   #step1: copy content of machine2's public key(`~/.ssh/id_rsa.pub`) to machine1 and remote server's `~/.ssh/authorized_keys`
+   #step2: modify /Users/{machine2-username}/.ssh/config, 加入如下内容
+   Host {machine1-nickname}
+       HostName <machine1-ip>
+       User {machine1-username}
+       IdentityFile /Users/{machine2-username}/.ssh/id_rsa 
+   
+   Host {server-nickname}
+       HostName 172.18.3.29 # 远程服务器IP地址
+       User {username} 
+       ProxyCommand ssh -W %h:%p {machine1-nickname}
+       IdentityFile /Users/{machine2-username}/.ssh/id_rsa
+   ```
+  
+6. client免密登录serer
+   ```bash
+   #step1: generate public-key on client(machine1 or machine2)
+   ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+   #step2: copy content of client's public key(`~/.ssh/id_rsa.pub`) to server's `~/.ssh/authorized_keys`
+   you can use `ssh-copy-id` to copy public key to remote server
+   ssh-copy-id -i ~/.ssh/id_rsa.pub {username}@{server-ip}
+
+   #step3: copy the below content to of `~/.ssh/sshd_config` of server
+   PubkeyAuthentication yes
+   AuthorizedKeysFile .ssh/authorized_keys
+
+   #step4: test and use client to connect server without password
+   ```
 
 ## shortcuts
 - common shortcut cmd

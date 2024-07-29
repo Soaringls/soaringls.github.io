@@ -403,6 +403,43 @@ msg = ss.str();        //stringstream->string,而c_str()将string转为C串
 ![s](./img/note_tips_cpp.png)
 
 
+> NaN值(Not a Number)是指非数值，是浮点数运算中表示无效结果的特殊值。
+
+- 非法计算可能产生NaN值，如0/0、sqrt(-1)、log(0)等。
+- NaN 与其他任何值相比，结果都是false, 包括NaN本身。
+- NaN作为结果无法插入关联容器中
+  ```cpp
+  std::set<double> test;
+  test.insert(NaNvalue); //存在Nan后无法再向集合中插入任何值
+  test.insert(1.0); // 存在Nan,导致不会插入 
+  test.insert(2.0); // 不会插入
+  ```
+
+- 创建并判断NaN值
+
+  ```cpp
+  #include <cmath>
+  #include <iostream>
+  #include <limits>
+  int main() {
+    
+    float nan_v1 = std::nanf(""); // create a NaN value
+    float nan_v2 = std::numeric_limits<double>::quiet_NaN();// create a NaN value
+    if (std::isnan(nan_v1)) { //true
+      std::cout << "nan_v1 is NaN" << std::endl;
+    } 
+    if (std::isnan(nan_v2)) { //true
+      std::cout << "nan_v1 is NaN" << std::endl;
+    }
+    std::cout<<" isfinite(nan):"<<std::isfinite(nan_v2)<<std::endl; //false
+    std::cout<<" isfinite(1):"<<std::isfinite(1.0)<<std::endl; //true
+    return 0;
+  }
+  ```
+
+**不仅检查一个数字是否为 NaN，还应该进行更全面的检查——判断数字是否有限，`std::isfinite`。**
+
+
 ### array
 
 >初始化时如果分配的空间比较大位于**栈区**
@@ -2072,8 +2109,7 @@ gcc肯定支持，对clang的支持性 https://stackoverflow.com/questions/37690
 https://github.com/gperftools/gperftools
 
 https://gperftools.github.io/gperftools/
-
-https://qcraft.feishu.cn/docs/doccnbdAq2SkvlLB4FDfYxhTLed#
+ 
  
 ### usage
 
