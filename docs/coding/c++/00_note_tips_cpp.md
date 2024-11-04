@@ -15,14 +15,7 @@
 ```cpp
 //如果const位于*的左侧，则const就是用来修饰指针所指向的变量，即指针指向为常量；
 //如果const位于*的右侧，const就是修饰指针本身，即指针本身是常量
-
-
-//指向以及指向的内容都可改变
-typedef std::shared_ptr<Config> ConfigPtr;
-//指向的对象内容不可改变,但指向可以改变
-typedef std::shared_ptr<const Config> ConfigConstPtr;  //等同于"const ConfigPtr"
-//指向的对象内容不可改变,且指向不可改变
-typedef std::shared_ptr<const Config> const ConstConfigConstPtr;
+ 
 
 int i = 42;
 int *p;      //p是一个未初始化的只想int对象的指针
@@ -30,7 +23,8 @@ int *&r = p; //r是一个指向int型指针的引用，(离变量名最近的符
 r = &i;      //相当于指针p指向i, 即p = &i
 
 ```
-
+**const和智能指针组合**
+![Alt text](./img/note_tips_cpp_const.png)
 
  
 ## 位运算(bit opertion)
@@ -448,6 +442,43 @@ msg = ss.str();        //stringstream->string,而c_str()将string转为C串
 
 - **解决方法**： 避免在栈区分配较大的空间，最好使用new操作符在堆空间申请内存
  
+### push_back和emplace_back
+- push_back: 插入对象时候会执行拷贝构造或移动构造，它会将对象复制或移动到容器中,调用 push_back 时，会有一个已经构造好的对象，容器再为它调用 拷贝构造函数 或 移动构造函数
+  ```cpp
+  #include <iostream>
+  #include <vector>
+  
+  class MyClass {
+  public:
+      MyClass(int x) { std::cout << "Constructor called with " << x << std::endl; }
+      MyClass(const MyClass& other) { std::cout << "Copy constructor called" << std::endl; }
+      MyClass(MyClass&& other) { std::cout << "Move constructor called" << std::endl; }
+  };
+  
+  int main() {
+      std::vector<MyClass> vec;
+      MyClass obj(10);
+      vec.push_back(obj);   // Copy constructor is called
+      vec.push_back(MyClass(20)); //临时对象触发移动构造被调用(if MyClass supports move semantics)
+  }
+  ```
+- emplace_back: 与push_back类似，但是它不会拷贝或移动对象，而是直接构造对象，这样可以避免构造和拷贝的开销，提高效率。
+  ```cpp
+  #include <iostream>
+  #include <vector>
+  
+  class MyClass {
+  public:
+      MyClass(int x) { std::cout << "Constructor called with " << x << std::endl; }
+      MyClass(const MyClass& other) { std::cout << "Copy constructor called" << std::endl; }
+      MyClass(MyClass&& other) { std::cout << "Move constructor called" << std::endl; }
+  };
+  
+  int main() {
+      std::vector<MyClass> vec;
+      vec.emplace_back(30);  // Constructor is called directly with 30, no copy or move involved
+  }
+  ```
 
 ### enum和enum class
  

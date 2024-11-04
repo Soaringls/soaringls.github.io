@@ -30,3 +30,23 @@ bazel query  //offboard/...|grep cpplint$|xargs bazel test
         --gnss_strict_good \
         --vantage_server_addr=0.0.0.0:65001 #先启动vantage
   ```
+### 引入第三方库(clipper)
+
+#### 获取repo下载地址
+   `https://github.com/mit-acl/clipper/archive/764b2d9a752af4ad9da03df1490baa0409dc5baa.zip`
+
+#### 生成文件的sha256值
+   ```sh
+   shasum -a  256  clipper-764b2d9a752af4ad9da03df1490baa0409dc5baa.zip  #cmd
+   # output:
+   f0a592e5419e22e8d6bd479348bbca9eb309a966bec0f2f8145089e71e1cb633  clipper-764b2d9a752af4ad9da03df1490baa0409dc5baa.zip
+   ```
+
+#### 在WORKSPACE文件中引入
+  ```sh
+  #bazel/workspace.bzl 文件中引入
+  load("//third_party/clipper:workspace.bzl", clipper = "repo")
+  #...
+  clipper()
+  #...
+  ```
