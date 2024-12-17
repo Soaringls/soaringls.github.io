@@ -1,0 +1,3142 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../01_setup_ubuntu/">
+      
+      
+        <link rel="next" href="../mathjax/">
+      
+      
+      <link rel="icon" href="../../logo.jpg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
+    
+    
+      
+        <title>Git、Docker、等工具的使用 - Notebook of Dexter</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gitdocker" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Notebook of Dexter" class="md-header__button md-logo" aria-label="Notebook of Dexter" data-md-component="logo">
+      
+  <img src="../../logo.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Notebook of Dexter
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Git、Docker、等工具的使用
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../DeepLearn/00model_deploy/" class="md-tabs__link">
+          
+  
+  DeepLearn
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Map-Localization/00_lidar_mechanical_theory/" class="md-tabs__link">
+          
+  
+  Map Localization
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../coding/coding_debug_tips/" class="md-tabs__link">
+          
+  
+  Coding
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../dairy/about_human/" class="md-tabs__link">
+          
+  
+  Dairy
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../math/00_functions/" class="md-tabs__link">
+          
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../00_setup_work_space_mac/" class="md-tabs__link">
+          
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Notebook of Dexter" class="md-nav__button md-logo" aria-label="Notebook of Dexter" data-md-component="logo">
+      
+  <img src="../../logo.jpg" alt="logo">
+
+    </a>
+    Notebook of Dexter
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    DeepLearn
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            DeepLearn
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DeepLearn/00model_deploy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00model deploy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Map Localization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Map Localization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/00_lidar_mechanical_theory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    机械雷达原理(Velodyne为例)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/01_tf_rigid_motion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    刚体运动-三维旋转变换-2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/01_tf_rigid_motion_neolix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    刚体运动-三维旋转变换-2020
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/calib_imu_wheel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TODO: calib_imu_wheel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/cloud_registration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点云配准
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/imu_kernel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IMU使用示例及噪声计算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/loc_gauss_newton_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高斯牛顿实践-以视觉定位为例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/loc_visual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    视觉定位(车道线匹配)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/mapping_kernel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mapping kernel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/slam_based_lidar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ing-slam-lidar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/slam_based_visual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ing-slam-visual
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/slambook2_appendix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    done-slambook2额外补充材料
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_13" id="__nav_3_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Segmentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_13">
+            <span class="md-nav__icon md-icon"></span>
+            Segmentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/segmentation/cloud-segmentation-hdmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点云分割实例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Slam opensource
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_14">
+            <span class="md-nav__icon md-icon"></span>
+            Slam opensource
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/slam_opensource/slam_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slam basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Map-Localization/slam_opensource/slam_loam_series/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loam series
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Coding
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Coding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/coding_debug_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Coding Debug Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/coding_work_style/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Style
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Algorithm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Algorithm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/algorithm/00_sorting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    排序算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            C++
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/00_note_tips_cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ Tips and Tricks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/01_cpp_new_future/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ New Feture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/02_cpp_note_gpt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ Note GPT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/03_cpp_boost_note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Boost usage note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/04_camke_faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cmake FAQ&Examples
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/05_debug_dev_neolix_note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debug Dev Final Neolix Note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/c%2B%2B/the_essence_of_c%2B%2B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Essence of C++
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Linux shell
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Linux shell
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/linux-shell/00_linux_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux日常使用命令
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/linux-shell/01_linux_advance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 高级技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/linux-shell/shell_function/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bash Shell Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/000_summary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Summary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/00_book_basic_note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Basic Note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/01_book_basic_class/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 类和对象
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/02_book_advance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python advance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/03_dev_env/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python开发环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/python/04_appendix_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appendix: tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ros
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            Ros
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/ros/00_ros_msg_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS&Cartographer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    System&structure
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8">
+            <span class="md-nav__icon md-icon"></span>
+            System&structure
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/system%26structure/operation_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operation system
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/system%26structure/several_design_patterns_by_cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Several Design Patterns By C++
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding/system%26structure/uml_graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UML Graphic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Dairy
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Dairy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dairy/about_human/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About human
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dairy/meetint_key_points/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Meetint key points
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dairy/note-no-valience-chatting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    读书笔记:非暴力沟通
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dairy/note-the-seven-habits-of-effective-awosome/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    读书笔记:高效人士的七个习惯
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/00_functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00 functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/algebraist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    矩阵和向量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/estimation_filter_kalman/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    状态估计-滤波
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/estimation_optimizer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    状态估计-优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/geometry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    几何学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/pca_theory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主成分分析PCA-TODO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00_setup_work_space_mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup work space on Mac
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_setup_ubuntu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup for Ubuntu
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Git、Docker、等工具的使用
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Git、Docker、等工具的使用
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Git">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      git日常使用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="git日常使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      分支的使用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      tag
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#urlrepourlf" class="md-nav__link">
+    <span class="md-ellipsis">
+      url变化后repo的url更改f
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commit-amend" class="md-nav__link">
+    <span class="md-ellipsis">
+      撤销误操作的commit --amend
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dockerubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      docker+ubuntu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos-big-sur" class="md-nav__link">
+    <span class="md-ellipsis">
+      macos big sur
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathjax/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    usage of mathjax
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_matplotlib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tools python-matploglib
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools-devel-environment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tools devel-enviroment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage_bazel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage Bazel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage_markdown/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage markdown
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage_shortcut/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage shortcut
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workspace_setup_ubuntu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup worksapce in ubuntu
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Git">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      git日常使用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="git日常使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      分支的使用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      tag
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#urlrepourlf" class="md-nav__link">
+    <span class="md-ellipsis">
+      url变化后repo的url更改f
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commit-amend" class="md-nav__link">
+    <span class="md-ellipsis">
+      撤销误操作的commit --amend
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dockerubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      docker+ubuntu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos-big-sur" class="md-nav__link">
+    <span class="md-ellipsis">
+      macos big sur
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="gitdocker">Git、Docker、等工具的使用<a class="headerlink" href="#gitdocker" title="Permanent link">&para;</a></h1>
+<h2 id="git">Git<a class="headerlink" href="#git" title="Permanent link">&para;</a></h2>
+<h3 id="git_1">git日常使用<a class="headerlink" href="#git_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>git workflow</li>
+<li>rebase 代替 merge的使用
+  <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>rebase<span class="w"> </span>master<span class="w"> </span><span class="c1">#更新master后合并master到当前分支</span>
+</code></pre></div></td></tr></table></div></li>
+<li>normal workflow
+    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>add<span class="w">    </span><span class="c1">#new file or modified file    之前的commit为 e.g commit0</span>
+git<span class="w"> </span>commit<span class="w"> </span><span class="c1">#it&#39;s best to always keep 1 commit,e.g commit1</span>
+git<span class="w"> </span>pull<span class="w">   </span><span class="c1">#pull有会和本地merge产生一个新的commit,e.g commit2</span>
+git<span class="w"> </span>rebase<span class="w"> </span>-i<span class="w"> </span>&lt;id<span class="w"> </span>of<span class="w"> </span>commit0<span class="p">|</span>head<span class="w"> </span>master&gt;<span class="w"> </span><span class="c1">#合并commit1和commit2为一个新的commit2-&gt;1-&gt;3(text为commit1),超过HEAD一个身位</span>
+git<span class="w"> </span>push<span class="w"> </span><span class="o">[</span>origin<span class="w"> </span>dev<span class="o">]</span><span class="w"> </span><span class="c1">#push content</span>
+git<span class="w"> </span>pull<span class="w"> </span><span class="o">[</span>origin<span class="w"> </span>dev<span class="o">]</span><span class="w"> </span><span class="c1">#更新代码去除超前的commit,即commit2-&gt;1-&gt;3</span>
+</code></pre></div></td></tr></table></div></li>
+<li>
+<p>advanced workflow
+  <strong>分支很久未更新时如何提交本地的大量改动</strong>
+    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">#branch lyu/tool很久未与master同步,远远落后master, 而且本地还存在多个commit,e.g commit1(早)-&gt;commit9(晚)</span>
+
+<span class="c1">#step.1 切到master 更新master</span>
+git<span class="w"> </span>checkout<span class="w"> </span>master
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>master<span class="w"> </span><span class="c1">#git pull会更新origin下所有分支,但不能吧每个分支最新的内容拉下来(只能拉取本地不存在但远端存在的新的分支),需要通过&#39;git pull origin   &lt;branch-name&gt;&#39;单独更新某分支内容</span>
+
+<span class="c1">#step.2 切到目标分支lyu/tool,吧master上近期的变动同步过来</span>
+git<span class="w"> </span>checkout<span class="w"> </span>lyu/tool
+git<span class="w"> </span>rebase<span class="w"> </span>master<span class="w"> </span><span class="c1"># 也可使用git merge master,但这样会把master近期所有变动的commit都带过来</span>
+git<span class="w"> </span>status<span class="w"> </span><span class="c1">#本地此时有多commit,需要合并多个commit为一个</span>
+
+<span class="c1">#step.3 合并commit</span>
+git<span class="w"> </span>rebase<span class="w"> </span>-i<span class="w"> </span>&lt;commit_head_id&gt;<span class="w"> </span><span class="c1">#即commit1的上一个commit_id, 内部切勿使用d误删某个commit, 使用squash将多个commit压缩为一个commit</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>lyu/tool<span class="w"> </span><span class="c1">#分支lyu/tool合入master后gitlab会默认吧远程的该分支删掉,因此本地切勿基于该分支再次开发,否则下次提交时会……很麻烦,会产生上百个commit</span>
+
+<span class="c1">#step.4 新function的开发</span>
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>master<span class="w">       </span><span class="c1">#之前的lyu/tool合入master后更新master </span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>&lt;new-branch&gt;<span class="w"> </span><span class="c1">#创建新的分支进行新任务的开发</span>
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>
+<p>qz-maps-china
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>status
+git<span class="w"> </span>reset<span class="w"> </span>--hard
+git<span class="w"> </span>lfs<span class="w"> </span>uninstall
+git<span class="w"> </span>reset<span class="w"> </span>--hard
+git<span class="w"> </span>lfs<span class="w"> </span>install
+git<span class="w"> </span>lfs<span class="w"> </span>update
+git<span class="w"> </span>branch
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>dev<span class="w"> </span>--rebase
+<span class="c1">### work from youhuang 经过验证</span>
+git<span class="w"> </span>lfs<span class="w"> </span>uninstall
+git<span class="w"> </span>reset<span class="w"> </span>--hard
+git<span class="w"> </span>lfs<span class="w"> </span>install<span class="w"> </span><span class="c1">#git lfs update #lfs支持单独update</span>
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>dev<span class="w"> </span>--rebase
+<span class="c1">##.git/lfs/objects会保存某些组每次commit的大文件,可直接删除,仓库瞬间小很多</span>
+git<span class="w"> </span>lfs<span class="w"> </span>prune<span class="w"> </span><span class="c1">#从 lfs 中删除文件并推送到原点, 处理.git/lfs/object过大的问题, </span>
+git<span class="w"> </span>remote<span class="w"> </span>prune<span class="w"> </span>origin
+<span class="c1">#临时方案,有待验证,不行就删掉</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>chongqing
+git<span class="w"> </span>status
+git<span class="w"> </span>reset<span class="w"> </span>--hard
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>dev<span class="w"> </span>--rebase
+<span class="c1">### work from chenyu(prt模型测试)  经过验证</span>
+<span class="c1">#lfs pull不会更新全部文件，只会更新当前branch相关的文件(zoulu)</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>git-lfs
+git<span class="w"> </span>lfs<span class="w"> </span>install
+git<span class="w"> </span>lfs<span class="w"> </span>pull
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>安装git后初步配置
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">##全局配置</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w">    </span><span class="c1">#查看当前用户</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w">   </span><span class="c1">#查看当前绑定邮箱</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Soaringls&quot;</span><span class="w"> </span><span class="c1">#config</span>
+
+<span class="c1">##repo目录下局部环境配置</span>
+git<span class="w"> </span>config<span class="w"> </span>--local<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Your Full Name&quot;</span><span class="w"> </span>
+git<span class="w"> </span>config<span class="w"> </span>--local<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;you@qz.ai&quot;</span><span class="w"> </span>
+git<span class="w"> </span>config<span class="w"> </span>--local<span class="w"> </span>include.path<span class="w"> </span><span class="s2">&quot;../.gitconfig&quot;</span>
+<span class="c1">#添加当前机器的ssh key到github(setting-&gt;SSH and GPS keys)</span>
+ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-b<span class="w"> </span><span class="m">4096</span><span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;&lt;email_address&gt;&quot;</span><span class="w"> </span><span class="c1">#</span>
+cat<span class="w"> </span>~/.ssh/id_rsa.pub<span class="w"> </span><span class="c1">#赋值key值到github</span>
+ssh<span class="w"> </span>-T<span class="w"> </span>git@github.com<span class="w"> </span><span class="c1">#验证</span>
+</code></pre></div></td></tr></table></div></li>
+<li>远程拉仓库自有-用户名<strong>wo</strong><br>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>&lt;url&gt;<span class="w"> </span><span class="c1">#拉取代码,第一次输入用户名和密码</span>
+<span class="c1">#拉取某分支到指定目录，拉完后可离线切换到任一分支</span>
+git<span class="w"> </span>clone<span class="w"> </span><span class="o">[</span>-b<span class="w"> </span>&lt;branc_name&gt;<span class="o">]</span><span class="w"> </span>&lt;url&gt;<span class="w"> </span><span class="o">[</span>&lt;directory&gt;<span class="o">]</span><span class="w">   </span><span class="c1">#默认拉master到当前目录</span>
+git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>lidar-odom<span class="w"> </span>&lt;url&gt;<span class="w"> </span>./ranger_lidar_odom<span class="w"> </span><span class="c1">#将ranger当前目录，仓库名为ranger_lidar_odom</span>
+<span class="c1">###about submodules</span>
+<span class="c1">#添加submodule</span>
+git<span class="w"> </span>submodule<span class="w"> </span>add<span class="w"> </span>&lt;sub-repo<span class="w"> </span>url&gt;
+git<span class="w"> </span>clone<span class="w"> </span>&lt;url&gt;<span class="w"> </span>--recurse-submodule<span class="w"> </span><span class="c1">#拉取url地址仓库及子地url址仓库</span>
+<span class="c1">#e.g git clone https://github.com/CPFL/Autoware.git --recurse-submodule #main and submodules repo together</span>
+git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive<span class="w">  </span><span class="c1">#update submodules, such as dev-env|vehicles</span>
+git<span class="w"> </span>submodule<span class="w"> </span>foreach<span class="w"> </span>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>master<span class="w"> </span><span class="c1">#更新每个submodules的master</span>
+git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span><span class="c1">#更新新增的submodule代码</span>
+<span class="c1">#删除submodule</span>
+git<span class="w"> </span>submodule<span class="w"> </span>deinit<span class="w"> </span>&lt;sub-repo-name&gt;
+git<span class="w"> </span>rm<span class="w"> </span>&lt;sub-repo-name&gt;
+<span class="c1">#修改子模块url</span>
+<span class="c1">#修改`.gitmodules`内url即可,然后`git submodule sync`</span>
+<span class="c1">#保存第一次的username、password</span>
+git<span class="w"> </span>config<span class="w"> </span>credential.helper<span class="w"> </span>store
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>credential.helper<span class="w"> </span>store
+</code></pre></div></td></tr></table></div></li>
+<li>如果仓库fork自他人<strong>bai</strong>,则需关联<strong>bai</strong>的仓库地址<br>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>bai<span class="w"> </span>&lt;bai_url&gt;<span class="w"> </span><span class="c1">#其中&quot;bai&quot;为nickname,自定义</span>
+git<span class="w"> </span>fetch<span class="w"> </span>--all<span class="w"> </span><span class="c1">#查看origin和remote的fork信息(将显示origin和bai)</span>
+git<span class="w"> </span>fetch<span class="w"> </span><span class="c1">#更新所有branch</span>
+git<span class="w"> </span>fetch<span class="w"> </span>--tags<span class="w"> </span><span class="c1">#更新所有的tag</span>
+git<span class="w"> </span>remote<span class="w"> </span>-v<span class="w">   </span><span class="c1">#查看origin和bai的fetch、push地址</span>
+</code></pre></div></td></tr></table></div></li>
+<li>添加本地改动或新增文件
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>status<span class="w"> </span><span class="c1">#查看当前工程位置(master还是某分支)及文件状态</span>
+git<span class="w"> </span>diff<span class="w"> </span>&lt;file&gt;<span class="w"> </span><span class="c1">#查看文件的具体改动</span>
+git<span class="w"> </span>add<span class="w"> </span>-u<span class="w">                </span><span class="c1">#add仓库原有文件的改动</span>
+git<span class="w"> </span>add<span class="w"> </span>&lt;file<span class="p">|</span>directory&gt;<span class="w"> </span><span class="c1">#add新文件</span>
+git<span class="w"> </span>checkout<span class="w"> </span>--HEAD<span class="w"> </span>index.js<span class="w"> </span><span class="c1">#从远程仓库单独拉取index.js文件</span>
+</code></pre></div></td></tr></table></div></li>
+<li>提交本地修改和新增文件<br>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">#nano:-&gt;ctr+x-&gt;y-&gt;enter)</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="s2">&quot;&lt;comment&gt;&quot;</span><span class="c1">#新增提交，同时加comment</span>
+git<span class="w"> </span>commit<span class="w">               </span><span class="c1">#新增提交，编辑器中加comment</span>
+git<span class="w"> </span>commit<span class="w"> </span>--amend<span class="w">       </span><span class="c1">#修改上次的提交</span>
+</code></pre></div></td></tr></table></div></li>
+<li>拉取合并最新代码<br>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>pull<span class="w"> </span>bai<span class="w"> </span>master<span class="w"> </span><span class="c1">#拉取bai的最新代码</span>
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>master<span class="w"> </span><span class="c1">#拉取自己master的最新代码</span>
+</code></pre></div></td></tr></table></div></li>
+<li><strong>git stash使用</strong>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>stash<span class="w"> </span>save<span class="w"> </span><span class="s2">&quot;save msg&quot;</span>
+git<span class="w"> </span>stash<span class="w"> </span>list<span class="w"> </span><span class="c1">#查看有哪些临时的存储，stash@${0}是最近一次的stash保存</span>
+git<span class="w"> </span>stash<span class="w"> </span>show<span class="w"> </span><span class="c1">#现实改动，git stash stash@${3} 显示stash@${3}的变化</span>
+git<span class="w"> </span>stash<span class="w"> </span>apply<span class="w"> </span>stash@<span class="si">${</span><span class="nv">$num</span><span class="si">}</span><span class="w"> </span><span class="c1">#使用某个存储 同时保留当前存储</span>
+git<span class="w"> </span>stash<span class="w"> </span>pop<span class="w">                </span><span class="c1">#默认使用并删除最近一次的存储stash@${0}</span>
+git<span class="w"> </span>stash<span class="w"> </span>pop<span class="w">  </span>stash@<span class="si">${</span><span class="nv">$num</span><span class="si">}</span><span class="w"> </span><span class="c1">#使用并删除存储stash@${$num}</span>
+git<span class="w"> </span>stash<span class="w"> </span>drop<span class="w"> </span>stash@<span class="si">${</span><span class="nv">$num</span><span class="si">}</span><span class="w"> </span><span class="c1">#丢弃stash@${$num}，即从列表里删除</span>
+git<span class="w"> </span>stash<span class="w"> </span>clear<span class="w"> </span><span class="c1">#清除所有存储</span>
+</code></pre></div></td></tr></table></div></li>
+</ul>
+<h4 id="_1">常用指令<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>rm<span class="w"> </span>--help<span class="w">         </span><span class="c1">#查看rm帮助</span>
+git<span class="w"> </span>rm<span class="w"> </span>--cached<span class="w"> </span>index.js<span class="w"> </span><span class="c1">#取消追踪，保留本地文件</span>
+git<span class="w"> </span>rm<span class="w"> </span>--f<span class="w"> </span>index.js<span class="w">     </span><span class="c1">#取消追踪并删除本地文件</span>
+
+git<span class="w"> </span>rm<span class="w"> </span>--cached<span class="w"> </span>-r<span class="w"> </span>my_directory<span class="w"> </span><span class="c1">#取消追踪目录及其子文件</span>
+git<span class="w"> </span>rm<span class="w"> </span>-r<span class="w"> </span>-f<span class="w"> </span>folderA<span class="w">    </span><span class="c1">#删除folderA文件夹及里面所有文件</span>
+
+git<span class="w"> </span>reset<span class="w"> </span>&lt;commit_id&gt;<span class="w"> </span>--hard<span class="w"> </span><span class="c1">#回退都某一版的提交(当前改动将丢失)</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="_2">分支的使用<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>新建本地分支/上传分支/删除远程分支<br>分支和主干的互相合并
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>branch<span class="w">  </span><span class="c1">#查看当前处于那个分支,若从未建过分支,则默认为remote/origin/master分支</span>
+
+<span class="c1">#建立本地分支`branch_test`,同时切换到新建的remote/origin/branch_tes分支t</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>branch_test<span class="w"> </span><span class="c1">#新建并切换到新建分支</span>
+git<span class="w"> </span>checkout<span class="w"> </span>master<span class="w">      </span><span class="c1">#切换到master分支(即remote/origin/master)</span>
+git<span class="w"> </span>checkout<span class="w"> </span>branch_test<span class="w"> </span><span class="c1">#切换到branch_test分支(即remote/origin/branch_test)</span>
+
+git<span class="w"> </span>branch<span class="w">    </span><span class="c1">#可看到当前处于新建的branch_test分支</span>
+git<span class="w"> </span>branch<span class="w"> </span>-a<span class="w"> </span><span class="c1">#查看所有分支, 可看到 `remotes/origin/&lt;brance_name&gt;`,如branch_test</span>
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>branch_test<span class="w"> </span><span class="c1">#删除本地分支branch_test</span>
+
+<span class="c1">#合并最新master内容到分支branch_test</span>
+git<span class="w"> </span>checkout<span class="w"> </span>master<span class="w"> </span><span class="c1">#切换到master</span>
+git<span class="w"> </span>pull<span class="w"> </span>bai<span class="w"> </span>master<span class="w"> </span><span class="c1">#拉取最新代码</span>
+git<span class="w"> </span>checkout<span class="w"> </span>branch_test<span class="w"> </span><span class="c1">#切换到分支</span>
+git<span class="w"> </span>merge<span class="w"> </span>master<span class="w">    </span><span class="c1">#将origin/master内容更新到origin/branch_test</span>
+
+<span class="c1">#合并分支branch_test内容到master</span>
+git<span class="w"> </span>checkout<span class="w"> </span>master<span class="w">    </span><span class="c1">#切换到master</span>
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>master<span class="w"> </span><span class="c1">#更新代码</span>
+git<span class="w"> </span>merge<span class="w"> </span>branch_test<span class="w">  </span><span class="c1">#将origin/branch_test内容更新到origin/master</span>
+
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master<span class="w">      </span><span class="c1">#上传代码到master(可申请pull request合并到bai的master下面)</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>branch_test<span class="w">                    </span><span class="c1">#上传代码,远程分支为`branch_test`</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>branch_test:branch_test_remote<span class="w"> </span><span class="c1">#上传代码,远程分支为`branch_test_remote`</span>
+
+<span class="c1">#删除远程分支</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>:branch_test_remote<span class="w">            </span><span class="c1">#上传空分支,即可删除名为`branch_test_remote`的远程分支</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span>branch_test_remote<span class="w">    </span><span class="c1">#删除名为`branch_test_remote`的远程分支</span>
+<span class="c1">##远程tag</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>tag<span class="w"> </span>-d<span class="w"> </span>tagName
+<span class="c1">##远端branch和tag重名时</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>:refs/heads/branchName<span class="w">    </span>//删除远端branch
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>:refs/tags/tagName<span class="w">        </span>//删除远端tag
+git<span class="w"> </span>push<span class="w"> </span>--set-upstream<span class="w"> </span>origin<span class="w"> </span>lyu/notebook<span class="w"> </span>
+</code></pre></div></td></tr></table></div></p>
+</blockquote>
+<h3 id="tag">tag<a class="headerlink" href="#tag" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">##list tag names</span>
+git<span class="w"> </span>tag<span class="w"> </span>-l<span class="w">  </span>
+<span class="c1">## delete specific tag</span>
+git<span class="w"> </span>tag<span class="w"> </span>-d<span class="w"> </span>&lt;tag-name&gt;<span class="w"> </span>
+</code></pre></div></td></tr></table></div>
+<h3 id="urlrepourlf">url变化后repo的url更改f<a class="headerlink" href="#urlrepourlf" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">#查看本地repo的url</span>
+git<span class="w"> </span>remote<span class="w"> </span>-v
+<span class="c1">#设置新的url, 然后git remote -v查看是否设置成功</span>
+git<span class="w"> </span>remote<span class="w"> </span>set-url<span class="w"> </span>origin<span class="w"> </span>git@gitlab-cn.qzai.com:qz-all/vehicles.git
+</code></pre></div></td></tr></table></div>
+<h3 id="commit-amend">撤销误操作的commit --amend<a class="headerlink" href="#commit-amend" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>reflog<span class="w"> </span><span class="c1">#查看git Head记录</span>
+bf81b971a1<span class="w"> </span><span class="o">(</span>HEAD<span class="w"> </span>-&gt;<span class="w"> </span>refactor/unique_ptr<span class="o">)</span><span class="w"> </span>HEAD@<span class="o">{</span><span class="m">0</span><span class="o">}</span>:<span class="w"> </span>commit<span class="w"> </span><span class="o">(</span>amend<span class="o">)</span>:<span class="w"> </span><span class="o">[</span>posrt<span class="o">]</span><span class="w"> </span>...
+517bbf7d1a<span class="w"> </span><span class="o">(</span>origin/master,<span class="w"> </span>origin/HEAD,<span class="w"> </span>master<span class="o">)</span><span class="w"> </span>HEAD@<span class="o">{</span><span class="m">1</span><span class="o">}</span>:<span class="w"> </span>checkout:<span class="w"> </span>moving<span class="w"> </span>from<span class="w"> </span>master<span class="w"> </span>to<span class="w"> </span>refactor/unique_ptr<span class="w"> </span><span class="c1">##本来应该给予这个branch提交新的commit,结果amend</span>
+517bbf7d1a<span class="w"> </span><span class="o">(</span>origin/master,<span class="w"> </span>origin/HEAD,<span class="w"> </span>master<span class="o">)</span><span class="w"> </span>HEAD@<span class="o">{</span><span class="m">2</span><span class="o">}</span>:<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>master:<span class="w"> </span>Fast-forward
+3fac916797<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">3</span><span class="o">}</span>:<span class="w"> </span>checkout:<span class="w"> </span>moving<span class="w"> </span>from<span class="w"> </span>refactor/1209float-double<span class="w"> </span>to<span class="w"> </span>master
+
+<span class="c1">#修复git commit --amend误操作</span>
+git<span class="w"> </span>reflog<span class="w"> </span><span class="c1">#查看git Head记录</span>
+git<span class="w"> </span>reset<span class="w"> </span>--soft<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">1</span><span class="o">}</span><span class="w"> </span><span class="c1">#回到刚刚创建分支的时候，--soft保留改动</span>
+git<span class="w"> </span>commit<span class="w"> </span><span class="c1">#创建新的commit</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
+<h3 id="dockerubuntu">docker+ubuntu<a class="headerlink" href="#dockerubuntu" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code>bash<span class="w"> </span>docker/scripts/dev_start.sh<span class="w"> </span><span class="c1">#Start the docker release environment using the command:</span>
+<span class="w">    </span><span class="c1">#dev_start.sh Got permission denied while trying to connect to the Docker daemon socket </span>
+<span class="w">    </span>sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span><span class="c1">#-a -G和-aG一样</span>
+
+<span class="c1">#启动docker服务</span>
+systemctl<span class="w"> </span>start<span class="w"> </span>docker.service<span class="w">  </span><span class="c1">#sudo systemctl enable docker 开机默认启动  sudo systemctl disable docker 关闭开机启动 </span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>docker
+<span class="c1">#停止docker服务</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>docker<span class="w">   </span><span class="c1">#对于问题&quot;docker Image: removal in progress&quot;可以重启docker服务</span>
+<span class="c1">#查看docker服务运行状态</span>
+systemctl<span class="w"> </span>stats<span class="w"> </span>&lt;container-id&gt;<span class="w"> </span><span class="c1">#查看docker服务是否启动</span>
+
+docker<span class="w"> </span>search<span class="w"> </span>-s<span class="w"> </span><span class="m">10</span><span class="w"> </span>ubuntu<span class="w"> </span><span class="c1">#搜索10星以上的ubuntu镜像</span>
+docker<span class="w"> </span>search<span class="w"> </span>--filter<span class="o">=</span><span class="nv">stars</span><span class="o">=</span><span class="m">50</span><span class="w"> </span>ubuntu<span class="w"> </span><span class="c1">#索评星50以上的镜像</span>
+docker<span class="w"> </span>pull<span class="w"> </span>ansible/ubuntu14.04-ansible<span class="w"> </span><span class="c1">#下载搜索到的某个镜像</span>
+
+docker<span class="w"> </span>images<span class="w">    </span><span class="c1">#查看镜像列表，查看本地所有的镜像信息，即列出了所有顶层（top-level）镜像</span>
+docker<span class="w"> </span>images<span class="w"> </span>–a<span class="w"> </span><span class="c1">#命令列出了所有的镜像，也可以说是列出了所有的可读层</span>
+docker<span class="w"> </span>rmi<span class="w"> </span>-f<span class="w"> </span>&lt;image-id&gt;<span class="p">|</span>&lt;REPOSITORY:TAG&gt;<span class="w"> </span><span class="c1">#强制删除镜像,只有基于该镜像的容器停止状态下才能够删除</span>
+docker<span class="w"> </span>images<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>docker<span class="w"> </span>rmi<span class="w"> </span><span class="c1">#删除所有非运行容器相关的镜像</span>
+docker<span class="w"> </span>inspect<span class="w"> </span>&lt;image-id&gt;<span class="p">|</span>&lt;REPOSITORY<span class="o">[</span>:TAG<span class="o">]</span>&gt;<span class="w"> </span><span class="c1">#查看镜像详细信息</span>
+<span class="c1">#----------------------------</span>
+<span class="c1"># brief:启动容器</span>
+<span class="c1">#----------------------------</span>
+<span class="c1">####根据镜像的REPOSITORY和TAG创建并运行容器,即创建并进入容器(REPOSITORY、TAG根据docker images获取)</span>
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>ubuntu14:latest<span class="w"> </span><span class="c1">#docker run -it ubuntu14  或者直接根据镜像名称,即根据REPOSITORY创建并运行容器</span>
+<span class="c1">####创建并运行容器，并挂载宿主机目录(无需commit,退出后重新进入仍然挂载，且容器内修改文件宿主机能看到--宿主机修改文件容器内也能看到)</span>
+<span class="c1">####使用镜像caros:latest创建并运行容器，且指定容器名称为apolyu,将宿主机目录/home/lyu/work/Cybertron挂载到容器内目录/home/caros/...</span>
+docker<span class="w"> </span>run<span class="w">   </span>--name<span class="w"> </span>apolyu<span class="w"> </span>-it<span class="w">  </span>-v<span class="w"> </span>/home/lyu/work/Cybertron:/home/caros/baidu/adu/cybertron<span class="w"> </span>caros:latest<span class="w"> </span>/bin/bash
+<span class="c1">####创建并运行容器，且指定容器名称，指定进入容器的/home/caros目录，同时挂载多个宿主机目录/home/lyu/...到容器/home/caros/...</span>
+docker<span class="w"> </span>run<span class="w">   </span>--name<span class="w"> </span>apolyu<span class="w"> </span>-w<span class="w"> </span>/home/caros<span class="w"> </span>-it<span class="w">  </span>-v<span class="w"> </span>/home/lyu/a:/home/caros/a<span class="w"> </span>-v<span class="w"> </span>/home/lyu/b:/home/caros/b<span class="w">  </span>caros:latest<span class="w"> </span>/bin/bash<span class="w"> </span>
+docker<span class="w"> </span>start<span class="w"> </span>&lt;container-id&gt;<span class="p">|</span>&lt;container-name&gt;<span class="w">  </span><span class="c1">#启动容器,为容器文件系统创建了一个进程隔离空间。注意，每一个容器只能够有一个进程隔离空间 </span>
+docker<span class="w"> </span>start<span class="w"> </span>&lt;container-id&gt;<span class="p">|</span>&lt;container-name&gt;<span class="w"> </span><span class="c1">#重启容器</span>
+<span class="c1">#----------------------------</span>
+<span class="c1"># brief:运行容器，即进入容器</span>
+<span class="c1">#----------------------------</span>
+<span class="c1">####根据容器id进入(容器id根据docker ps获取)， ctrl+c即进入容器,使用该方法非首次进入后将和首次进入的终端内容同步，即等同于一个窗口</span>
+docker<span class="w"> </span>attach<span class="w"> </span>&lt;container-id&gt;<span class="w"> </span><span class="p">|</span>&lt;container-name&gt;<span class="w">  </span>
+<span class="c1">####根据容器容器id直接进入，首次进入和非首次进入-各自终端独立，内容不同步，即支持多窗口</span>
+docker<span class="w"> </span>container<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>&lt;container-id&gt;<span class="p">|</span>&lt;container-name&gt;<span class="w"> </span>/bin/bash
+docker<span class="w"> </span>ps<span class="w">                    </span><span class="c1">#列出所有运行中的容器</span>
+docker<span class="w"> </span>ps<span class="w"> </span>-a<span class="w">                 </span><span class="c1">#列出所有容器,不管是运行的，还是停止的</span>
+
+docker<span class="w"> </span>stop<span class="w"> </span>&lt;container-id&gt;<span class="p">|</span>&lt;container-name&gt;<span class="w">   </span><span class="c1">#向运行中的容器发送一个SIGTERM的信号，然后停止所有的进程</span>
+docker<span class="w"> </span><span class="nb">kill</span><span class="w">                  </span><span class="c1">#命令向所有运行在容器中的进程发送了一个不友好的SIGKILL信号</span>
+docker<span class="w"> </span>rm<span class="w"> </span>&lt;container-id&gt;<span class="p">|</span>&lt;container-name&gt;<span class="w">     </span><span class="c1">#移除构成容器的可读写层,只能对非运行态容器执行</span>
+
+docker<span class="w"> </span>commit<span class="w"> </span>&lt;container-id&gt;<span class="w"> </span><span class="c1">#将容器的可读写层转换为一个只读层，这样就把一个容器转换成了不可变的镜像,commit不保留挂载的宿主机目录的内容</span>
+docker<span class="w"> </span>commit<span class="w"> </span>-m<span class="s2">&quot;add caros in docker-ubuntu14&quot;</span><span class="w"> </span>-a<span class="s2">&quot;docker-ubuntu14&quot;</span><span class="w">  </span>4e565e95379f<span class="w"> </span>soaringls/autosys:191001<span class="w"> </span><span class="c1">#soaringls为docker.hub用户名</span>
+
+docker<span class="w"> </span>save<span class="w"> </span>-o<span class="w"> </span>./data/docker_microcar.tar.gz<span class="w"> </span>microcar:v1<span class="w"> </span><span class="c1">#保存本地镜像“microcar:v1”为docker_microcar.tar.gz文件，保存在当前目录的data里面</span>
+docker<span class="w"> </span>load<span class="w"> </span>&lt;<span class="w"> </span>docker_microcar.tar.gz<span class="w">                     </span><span class="c1">#将保存的docker_microcar.tar.gz加载为本机镜像</span>
+<span class="c1">###################</span>
+<span class="c1">###宿主机与容器数据拷贝</span>
+<span class="c1">###################</span>
+docker<span class="w"> </span>ps<span class="w"> </span>-a<span class="w"> </span><span class="c1">#宿主机终端，查看docker名称和id</span>
+docker<span class="w"> </span>cp<span class="w"> </span><span class="m">2341234</span>:/apollo/a.log<span class="w"> </span>/home/lyu/Desktop<span class="w"> </span><span class="c1">#宿主机终端，从某个id的docker中拷贝文件到宿主机，不支持多文件拷贝？？？？</span>
+docker<span class="w"> </span>cp<span class="w"> </span>apollo_dev:/apollo/a.log<span class="w"> </span>/home/lyu/Desktop<span class="w"> </span><span class="c1">#宿主机终端，从某个id的docker中拷贝文件到宿主机，不支持多文件拷贝？？？？</span>
+docker<span class="w"> </span>cp<span class="w"> </span>/home/lyu/suzhou<span class="w">  </span>apollo_dev:/maps/<span class="w">  </span><span class="c1">#文件夹suzhou拷贝到容器内(文件夹必须要也不支持docker cp -r), 宿主机----&gt;容器apollo_dev</span>
+
+<span class="c1">###################</span>
+<span class="c1">###docker.hub</span>
+<span class="c1">###################</span>
+docker<span class="w"> </span>login<span class="w"> </span><span class="c1">#登录-https://hub.docker.com[soaringls upc_ls@163.com docker.hub.92]</span>
+docker<span class="w"> </span>images
+docker<span class="w"> </span>push<span class="w"> </span>soaringls/autosys:191001
+<span class="c1">#下载镜像&quot;docker pull soaringls/autosys&quot;将默认为&quot;docker pull soaringls/autosys:latest&quot;,会导致无法找到镜像</span>
+docker<span class="w"> </span>pull<span class="w"> </span>soaringls/autosys:191001<span class="w"> </span><span class="c1">#docker pull前先docker login登录</span>
+<span class="c1">###################</span>
+<span class="c1">###docker 删除未使用的无用images</span>
+<span class="c1">###################</span>
+docker<span class="w"> </span>image<span class="w"> </span>prune<span class="w"> </span>-a<span class="w"> </span><span class="c1">#not &quot;docker images prune -a&quot;</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="macos-big-sur">macos big sur<a class="headerlink" href="#macos-big-sur" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">#####create and goto docker container</span>
+ubuntu:latest<span class="w">        </span><span class="c1">#image:tag</span>
+macos_ubuntu_arm64<span class="w">   </span><span class="c1">#docker-container</span>
+ubuntu-arm64<span class="w">         </span><span class="c1">#hostname of docker-container</span>
+-w<span class="w"> </span>/home/<span class="nv">$USER</span><span class="w">       </span><span class="c1">#进入docker-container内部指定用户目录</span>
+-it<span class="w"> </span>-v<span class="w"> </span>/&lt;real-dir&gt;/:/&lt;container-dir&gt;/<span class="w"> </span><span class="c1">#目录挂载</span>
+docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>macos_ubuntu_arm64<span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>--hostname<span class="w"> </span>ubuntu-arm64<span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>-w<span class="w"> </span>/home/<span class="nv">$USER</span><span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>/Users/lyu/work/:/home/<span class="nv">$USER</span>/work/<span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>ubuntu:latest<span class="w"> </span>/bin/bash
+
+<span class="c1">#####goto dokcer container, maybe use cmd&#39;docker start &lt;container-name&gt;&#39;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">USER</span><span class="o">=</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#进container内的指定用户</span>
+<span class="w">            </span>-it<span class="w"> </span><span class="s2">&quot;macos_ubuntu22.10_arm32v7&quot;</span><span class="w"> </span><span class="se">\ </span><span class="c1">#container name</span>
+<span class="w">            </span>/bin/bash
+xhost<span class="w"> </span>-local:<span class="s2">&quot;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">1</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+<span class="c1">##-----------------------------------------</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>-it<span class="w"> </span>macos_ubuntu_arm64<span class="w"> </span>bash
+<span class="c1">#保存当前container为image &quot;soaringls/ubuntu22.04-aarch64:latest&quot;</span>
+docker<span class="w"> </span>commit<span class="w"> </span>-m<span class="s2">&quot;message&quot;</span><span class="w"> </span>-a<span class="s2">&quot;ubuntu22.04-aarch64&quot;</span><span class="w"> </span>6765d4d384d4<span class="w">  </span>soaringls/ubuntu22.04-aarch64:latest
+</code></pre></div></td></tr></table></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

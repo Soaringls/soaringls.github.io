@@ -1,0 +1,2856 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../03_cpp_boost_note/">
+      
+      
+        <link rel="next" href="../05_debug_dev_neolix_note/">
+      
+      
+      <link rel="icon" href="../../../logo.jpg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
+    
+    
+      
+        <title>Cmake FAQ&Examples - Notebook of Dexter</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cmake-faqexamples" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Notebook of Dexter" class="md-header__button md-logo" aria-label="Notebook of Dexter" data-md-component="logo">
+      
+  <img src="../../../logo.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Notebook of Dexter
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cmake FAQ&Examples
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../DeepLearn/00model_deploy/" class="md-tabs__link">
+          
+  
+  DeepLearn
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Map-Localization/00_lidar_mechanical_theory/" class="md-tabs__link">
+          
+  
+  Map Localization
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../coding_debug_tips/" class="md-tabs__link">
+          
+  
+  Coding
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../dairy/about_human/" class="md-tabs__link">
+          
+  
+  Dairy
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/00_functions/" class="md-tabs__link">
+          
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../tools/00_setup_work_space_mac/" class="md-tabs__link">
+          
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Notebook of Dexter" class="md-nav__button md-logo" aria-label="Notebook of Dexter" data-md-component="logo">
+      
+  <img src="../../../logo.jpg" alt="logo">
+
+    </a>
+    Notebook of Dexter
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    DeepLearn
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            DeepLearn
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DeepLearn/00model_deploy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00model deploy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Map Localization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Map Localization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/00_lidar_mechanical_theory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    机械雷达原理(Velodyne为例)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/01_tf_rigid_motion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    刚体运动-三维旋转变换-2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/01_tf_rigid_motion_neolix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    刚体运动-三维旋转变换-2020
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/calib_imu_wheel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TODO: calib_imu_wheel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/cloud_registration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点云配准
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/imu_kernel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IMU使用示例及噪声计算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/loc_gauss_newton_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高斯牛顿实践-以视觉定位为例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/loc_visual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    视觉定位(车道线匹配)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/mapping_kernel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mapping kernel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/slam_based_lidar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ing-slam-lidar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/slam_based_visual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ing-slam-visual
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/slambook2_appendix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    done-slambook2额外补充材料
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_13" id="__nav_3_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Segmentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_13">
+            <span class="md-nav__icon md-icon"></span>
+            Segmentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/segmentation/cloud-segmentation-hdmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点云分割实例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Slam opensource
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_14">
+            <span class="md-nav__icon md-icon"></span>
+            Slam opensource
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/slam_opensource/slam_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slam basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/slam_opensource/slam_loam_series/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loam series
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Coding
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Coding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding_debug_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Coding Debug Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding_work_style/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Style
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Algorithm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Algorithm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithm/00_sorting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    排序算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            C++
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00_note_tips_cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ Tips and Tricks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_cpp_new_future/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ New Feture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_cpp_note_gpt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ Note GPT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_cpp_boost_note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Boost usage note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Cmake FAQ&Examples
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Cmake FAQ&Examples
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cmake-faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cmake FAQ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cmake FAQ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本使用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      犯过的傻瓜问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      第三方库的另类引入方式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第三方库的另类引入方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#find_pathfind_library" class="md-nav__link">
+    <span class="md-ellipsis">
+      find_path和find_library的使用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmake-of-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cmake of example
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cmake of example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ch02" class="md-nav__link">
+    <span class="md-ellipsis">
+      ch02
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ch03" class="md-nav__link">
+    <span class="md-ellipsis">
+      ch03
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ch04" class="md-nav__link">
+    <span class="md-ellipsis">
+      ch04
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ch05" class="md-nav__link">
+    <span class="md-ellipsis">
+      ch05
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_debug_dev_neolix_note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debug Dev Final Neolix Note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the_essence_of_c%2B%2B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Essence of C++
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Linux shell
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Linux shell
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux-shell/00_linux_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux日常使用命令
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux-shell/01_linux_advance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 高级技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux-shell/shell_function/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bash Shell Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/000_summary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Summary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/00_book_basic_note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Basic Note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/01_book_basic_class/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 类和对象
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/02_book_advance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python advance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/03_dev_env/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python开发环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/04_appendix_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appendix: tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ros
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            Ros
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ros/00_ros_msg_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS&Cartographer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    System&structure
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8">
+            <span class="md-nav__icon md-icon"></span>
+            System&structure
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system%26structure/operation_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operation system
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system%26structure/several_design_patterns_by_cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Several Design Patterns By C++
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system%26structure/uml_graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UML Graphic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Dairy
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Dairy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dairy/about_human/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About human
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dairy/meetint_key_points/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Meetint key points
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dairy/note-no-valience-chatting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    读书笔记:非暴力沟通
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dairy/note-the-seven-habits-of-effective-awosome/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    读书笔记:高效人士的七个习惯
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/00_functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00 functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/algebraist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    矩阵和向量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/estimation_filter_kalman/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    状态估计-滤波
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/estimation_optimizer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    状态估计-优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/geometry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    几何学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/pca_theory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主成分分析PCA-TODO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/00_setup_work_space_mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup work space on Mac
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/01_setup_ubuntu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup for Ubuntu
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/02_git_docker_etc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git、Docker、等工具的使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/mathjax/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    usage of mathjax
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/python_matplotlib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tools python-matploglib
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/tools-devel-environment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tools devel-enviroment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/usage_bazel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage Bazel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/usage_markdown/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage markdown
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/usage_shortcut/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage shortcut
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/workspace_setup_ubuntu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup worksapce in ubuntu
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cmake-faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cmake FAQ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cmake FAQ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本使用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      犯过的傻瓜问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      第三方库的另类引入方式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第三方库的另类引入方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#find_pathfind_library" class="md-nav__link">
+    <span class="md-ellipsis">
+      find_path和find_library的使用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmake-of-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cmake of example
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cmake of example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ch02" class="md-nav__link">
+    <span class="md-ellipsis">
+      ch02
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ch03" class="md-nav__link">
+    <span class="md-ellipsis">
+      ch03
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ch04" class="md-nav__link">
+    <span class="md-ellipsis">
+      ch04
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ch05" class="md-nav__link">
+    <span class="md-ellipsis">
+      ch05
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="cmake-faqexamples">Cmake FAQ&amp;Examples<a class="headerlink" href="#cmake-faqexamples" title="Permanent link">&para;</a></h1>
+<h2 id="cmake-faq">Cmake FAQ<a class="headerlink" href="#cmake-faq" title="Permanent link">&para;</a></h2>
+<h3 id="_1">基本使用<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>CMakeLists.txt中的命令不区分大小写，可全部大写或小写</strong></p>
+</blockquote>
+<p><code>ccmake build10_vtk       #查看修改编译配置</code>
+- 编译命令设置</p>
+<blockquote>
+<p>使用是<code>-D${COMMAND}=${VALUE}</code>如<code>camke -DCMAKE_INSTALL_PREFIX:PATH=$INSTALL_DIR -DCMAKE_BUILD_TYPE=Debug ../</code>,将覆盖CMakeLists.txt内的相关配置信息</p>
+</blockquote>
+<ul>
+<li>编译类型
+命令设置<code>-DCMAKE_BUILD_TYPE=[Debug | Release | RelWithDebInfo | MinSizeRel]</code>
+cmake文件内<code>set(CMAKE_BUILD_TYPE Release[Debug | RelWithDebInfo)</code></li>
+<li>其他cmake系统set的常规配置
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">#配置编译器</span>
+set<span class="o">(</span>CMAKE_C_COMPILER<span class="w"> </span>/usr/bin/gcc<span class="w"> </span>CACHE<span class="w"> </span>PATH<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="o">)</span>
+set<span class="o">(</span>CMAKE_CXX_COMPILER<span class="w"> </span>/usr/bin/g++<span class="w"> </span>CACHE<span class="w"> </span>PATH<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="o">)</span>
+
+set<span class="o">(</span>CMAKE_CXX_STANDARD<span class="w"> </span><span class="m">11</span><span class="o">[</span><span class="m">14</span><span class="o">])</span><span class="w"> </span><span class="c1">#编译c++标准</span>
+set<span class="o">(</span>CMAKE_CXX_FLAGS<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CMAKE_CXX_FLAGS</span><span class="si">}</span><span class="s2"> -std=gnu++11 -pthread&quot;</span><span class="o">)</span>
+</code></pre></div></td></tr></table></div></li>
+<li>设置编译时终端编译内容颜色
+对于gcc4.9以上编译器，在CMakeLists.txt中添加<code>add_compile_options(-fdiagnostics-color=auto)</code>，注意这样设置<em>set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}"  -fdiagnostics-color=auto)</em>是无效的</li>
+</ul>
+<h3 id="_2">犯过的傻瓜问题<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>编译pcl找不到vtk, 单命令的在build目录下<code>cmake ..</code>可以找到，使用脚本找不到(还傻乎乎的从其他地方拷贝pcl或者安装vtk7.1，一顿乱搞)
+  <code>cmake -DCMAKE_INSTALL_PREFIX:PATH=$INSTALL_DIR -DWITH_VTK=TRUE -DCMAKE_BUILD_TYPE=RelWithDebInfo ../</code>，必须将脚本内<code>-DWITH_VTK</code>设为<code>TRUE</code>才行啊！</li>
+<li><strong>只改了代码可以只make,改过cmake则须清掉build重新cmake ..构建工程然后make</strong>改过<code>CMakeLists.txt</code>后一定要将之前构建的cmake工程配置删除掉(即将build文件夹内容删除掉)，否则新的改动将有可能不会生效
+  e.g:<code>/usr/include</code>和<code>/usr/local/incldue</code>下有不同版本的eigen,而pcl依赖前者的eigen时程序才能正常工作，如果pcl内build之前构建的工程配置依赖后者的话，改掉<code>CMakeLists.txt</code>使得依赖<code>/usr/include/eigen3</code>后必须删掉build中内容重新<code>cmake ..</code></li>
+</ul>
+<h3 id="_3">第三方库的另类引入方式<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h4 id="find_pathfind_library">find_path和find_library的使用<a class="headerlink" href="#find_pathfind_library" title="Permanent link">&para;</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">#引入eigen3</span>
+find_path<span class="o">(</span>EIGEN3_INCLUDE_DIR<span class="w"> </span>Eigen
+<span class="w">    </span>/usr/include/eigen3
+<span class="o">)</span>
+include_directories<span class="o">(</span>SYSTEM<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">EIGEN3_INCLUDE_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">)</span>
+<span class="c1">#引入libusb</span>
+find_path<span class="o">(</span>LIBUSB_1_INCLUDE_DIR
+<span class="w">      </span>NAMES<span class="w"> </span>libusb-1.0/libusb.h
+<span class="w">      </span>PATHS<span class="w"> </span>/usr/include<span class="w"> </span>/usr/local/include<span class="w"> </span>/opt/local/include<span class="w"> </span>/sw/include
+<span class="w">      </span>PATH_SUFFIXES<span class="w"> </span>libusb-1.0<span class="o">)</span>
+
+find_library<span class="o">(</span>LIBUSB_1_LIBRARY
+<span class="w">      </span>NAMES<span class="w"> </span>usb-1.0
+<span class="w">      </span>PATHS<span class="w"> </span>/usr/lib<span class="w"> </span>/usr/local/lib<span class="w"> </span>/opt/local/lib<span class="w"> </span>/sw/lib<span class="o">)</span>
+<span class="c1">#引入yaml</span>
+find_path<span class="o">(</span>yaml-cpp_INCLUDE_DIRS<span class="w"> </span>yaml-cpp/yaml.h
+<span class="w">            </span>/usr/local/include
+<span class="w">    </span><span class="o">)</span>
+find_library<span class="o">(</span>yaml-cpp_LIBRARIES<span class="w"> </span>yaml-cpp<span class="w"> </span>PATHS
+<span class="w">            </span>/usr/local/lib
+<span class="w">    </span><span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="cmake-of-example">Cmake of example<a class="headerlink" href="#cmake-of-example" title="Permanent link">&para;</a></h2>
+<p>chapter examples from slambook1</p>
+<ul>
+<li>from“一起做RGB-D SLAM(6)”-g2o
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">#将g2o引入自己的cmake工程</span>
+<span class="c1"># 添加g2o的依赖</span>
+<span class="c1"># 因为g2o不是常用库，要添加它的findg2o.cmake文件</span>
+LIST<span class="o">(</span><span class="w"> </span>APPEND<span class="w"> </span>CMAKE_MODULE_PATH<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="si">}</span>/cmake_modules<span class="w"> </span><span class="o">)</span>
+SET<span class="o">(</span><span class="w"> </span>G2O_ROOT<span class="w"> </span>/usr/local/include/g2o<span class="w"> </span><span class="o">)</span>
+FIND_PACKAGE<span class="o">(</span><span class="w"> </span>G2O<span class="w"> </span><span class="o">)</span>
+<span class="c1"># CSparse</span>
+FIND_PACKAGE<span class="o">(</span><span class="w"> </span>CSparse<span class="w"> </span><span class="o">)</span>
+INCLUDE_DIRECTORIES<span class="o">(</span><span class="w"> </span><span class="si">${</span><span class="nv">G2O_INCLUDE_DIR</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">CSPARSE_INCLUDE_DIR</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+<span class="c1">#同时，在代码根目录下新建cmake_modules文件夹，把g2o代码目录下的cmake_modules里的东西都拷进来，保证cmake能够顺利找到g2o</span>
+</code></pre></div></td></tr></table></div></li>
+</ul>
+<h3 id="ch02">ch02<a class="headerlink" href="#ch02" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 声明要求的 cmake 最低版本</span>
+cmake_minimum_required<span class="o">(</span><span class="w"> </span>VERSION<span class="w"> </span><span class="m">2</span>.8<span class="w"> </span><span class="o">)</span>
+
+<span class="c1"># 声明一个 cmake 工程</span>
+project<span class="o">(</span><span class="w"> </span>HelloSLAM<span class="w"> </span><span class="o">)</span>
+
+<span class="c1"># 设置编译模式</span>
+set<span class="o">(</span><span class="w"> </span>CMAKE_BUILD_TYPE<span class="w"> </span><span class="s2">&quot;Debug&quot;</span><span class="w"> </span><span class="o">)</span>
+
+<span class="c1"># 添加一个可执行程序</span>
+<span class="c1"># 语法：add_executable( 程序名 源代码文件 ）</span>
+add_executable<span class="o">(</span><span class="w"> </span>helloSLAM<span class="w"> </span>helloSLAM.cpp<span class="w"> </span><span class="o">)</span>
+
+<span class="c1"># 添加一个库</span>
+add_library<span class="o">(</span><span class="w"> </span>hello<span class="w"> </span>libHelloSLAM.cpp<span class="w"> </span><span class="o">)</span>
+<span class="c1"># 共享库</span>
+add_library<span class="o">(</span><span class="w"> </span>hello_shared<span class="w"> </span>SHARED<span class="w"> </span>libHelloSLAM.cpp<span class="w"> </span><span class="o">)</span>
+
+add_executable<span class="o">(</span><span class="w"> </span>useHello<span class="w"> </span>useHello.cpp<span class="w"> </span><span class="o">)</span>
+<span class="c1"># 将库文件链接到可执行程序上</span>
+target_link_libraries<span class="o">(</span><span class="w"> </span>useHello<span class="w"> </span>hello_shared<span class="w"> </span><span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="ch03">ch03<a class="headerlink" href="#ch03" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code>cmake_minimum_required<span class="o">(</span><span class="w"> </span>VERSION<span class="w"> </span><span class="m">2</span>.8<span class="w"> </span><span class="o">)</span>
+project<span class="o">(</span><span class="w"> </span>useEigen<span class="w"> </span><span class="o">)</span>
+
+set<span class="o">(</span><span class="w"> </span>CMAKE_BUILD_TYPE<span class="w"> </span><span class="s2">&quot;Release&quot;</span><span class="w"> </span><span class="o">)</span>
+set<span class="o">(</span><span class="w"> </span>CMAKE_CXX_FLAGS<span class="w"> </span><span class="s2">&quot;-O3&quot;</span><span class="w"> </span><span class="o">)</span>
+<span class="c1">#set(CMAKE_CXX_FLAGS &quot;-std=c++11&quot;)</span>
+
+<span class="c1"># 添加Eigen头文件</span>
+include_directories<span class="o">(</span><span class="w"> </span><span class="s2">&quot;/usr/include/eigen3&quot;</span><span class="w"> </span><span class="o">)</span>
+
+<span class="c1"># in osx and brew install</span>
+<span class="c1"># include_directories( /usr/local/Cellar/eigen/3.3.3/include/eigen3 )</span>
+
+add_executable<span class="o">(</span><span class="w"> </span>eigenMatrix<span class="w"> </span>eigenMatrix.cpp<span class="w"> </span><span class="o">)</span>
+----------------------------------------------------------
+cmake_minimum_required<span class="o">(</span><span class="w"> </span>VERSION<span class="w"> </span><span class="m">2</span>.8<span class="w"> </span><span class="o">)</span>
+project<span class="o">(</span><span class="w"> </span>visualizeGeometry<span class="w"> </span><span class="o">)</span>
+
+set<span class="o">(</span>CMAKE_CXX_FLAGS<span class="w"> </span><span class="s2">&quot;-std=c++11&quot;</span><span class="o">)</span>
+
+<span class="c1"># 添加Eigen头文件</span>
+include_directories<span class="o">(</span><span class="w"> </span><span class="s2">&quot;/usr/include/eigen3&quot;</span><span class="w"> </span><span class="o">)</span>
+
+<span class="c1"># 添加Pangolin依赖</span>
+find_package<span class="o">(</span><span class="w"> </span>Pangolin<span class="w"> </span><span class="o">)</span>
+include_directories<span class="o">(</span><span class="w"> </span><span class="si">${</span><span class="nv">Pangolin_INCLUDE_DIRS</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+
+add_executable<span class="o">(</span><span class="w"> </span>visualizeGeometry<span class="w"> </span>visualizeGeometry.cpp<span class="w"> </span><span class="o">)</span>
+target_link_libraries<span class="o">(</span><span class="w"> </span>visualizeGeometry<span class="w"> </span><span class="si">${</span><span class="nv">Pangolin_LIBRARIES</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="ch04">ch04<a class="headerlink" href="#ch04" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code>cmake_minimum_required<span class="o">(</span><span class="w"> </span>VERSION<span class="w"> </span><span class="m">2</span>.8<span class="w"> </span><span class="o">)</span>
+project<span class="o">(</span><span class="w"> </span>useSophus<span class="w"> </span><span class="o">)</span>
+set<span class="o">(</span>CMAKE_BUILD_TYPE<span class="w"> </span><span class="s2">&quot;Debug&quot;</span><span class="o">)</span>
+<span class="c1"># 为使用 sophus，您需要使用find_package命令找到它</span>
+find_package<span class="o">(</span><span class="w"> </span>Sophus<span class="w"> </span>REQUIRED<span class="w"> </span><span class="o">)</span>
+include_directories<span class="o">(</span><span class="w"> </span><span class="si">${</span><span class="nv">Sophus_INCLUDE_DIRS</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+
+add_executable<span class="o">(</span><span class="w"> </span>useSophus<span class="w"> </span>useSophus.cpp<span class="w"> </span><span class="o">)</span>
+target_link_libraries<span class="o">(</span><span class="w"> </span>useSophus<span class="w"> </span><span class="si">${</span><span class="nv">Sophus_LIBRARIES</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="ch05">ch05<a class="headerlink" href="#ch05" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code>cmake_minimum_required<span class="o">(</span><span class="w"> </span>VERSION<span class="w"> </span><span class="m">2</span>.8<span class="w"> </span><span class="o">)</span>
+project<span class="o">(</span><span class="w"> </span>joinMap<span class="w"> </span><span class="o">)</span>
+
+<span class="c1"># 添加c++ 11标准支持</span>
+set<span class="o">(</span><span class="w"> </span>CMAKE_CXX_FLAGS<span class="w"> </span><span class="s2">&quot;-std=c++11 -O3&quot;</span><span class="w"> </span><span class="o">)</span><span class="w"> </span><span class="c1">#O3 not 03</span>
+
+<span class="c1"># opencv </span>
+find_package<span class="o">(</span><span class="w"> </span>OpenCV<span class="w"> </span>REQUIRED<span class="w"> </span><span class="o">)</span>
+include_directories<span class="o">(</span><span class="w"> </span><span class="si">${</span><span class="nv">OpenCV_INCLUDE_DIRS</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+
+<span class="c1"># eigen </span>
+include_directories<span class="o">(</span><span class="w"> </span><span class="s2">&quot;/usr/include/eigen3/&quot;</span><span class="w"> </span><span class="o">)</span>
+
+<span class="c1"># pcl </span>
+find_package<span class="o">(</span><span class="w"> </span>PCL<span class="w"> </span>REQUIRED<span class="w"> </span>COMPONENT<span class="w"> </span>common<span class="w"> </span>io<span class="w"> </span><span class="o">)</span>
+include_directories<span class="o">(</span><span class="w"> </span><span class="si">${</span><span class="nv">PCL_INCLUDE_DIRS</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+add_definitions<span class="o">(</span><span class="w"> </span><span class="si">${</span><span class="nv">PCL_DEFINITIONS</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+
+add_executable<span class="o">(</span><span class="w"> </span>joinMap<span class="w"> </span>joinMap.cpp<span class="w"> </span><span class="o">)</span>
+target_link_libraries<span class="o">(</span><span class="w"> </span>joinMap<span class="w"> </span><span class="si">${</span><span class="nv">OpenCV_LIBS</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">PCL_LIBRARIES</span><span class="si">}</span><span class="w"> </span><span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

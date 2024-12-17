@@ -1,0 +1,3585 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../c%2B%2B/the_essence_of_c%2B%2B/">
+      
+      
+        <link rel="next" href="../01_linux_advance/">
+      
+      
+      <link rel="icon" href="../../../logo.jpg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
+    
+    
+      
+        <title>Linux日常使用命令 - Notebook of Dexter</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linux" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Notebook of Dexter" class="md-header__button md-logo" aria-label="Notebook of Dexter" data-md-component="logo">
+      
+  <img src="../../../logo.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Notebook of Dexter
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux日常使用命令
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../DeepLearn/00model_deploy/" class="md-tabs__link">
+          
+  
+  DeepLearn
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Map-Localization/00_lidar_mechanical_theory/" class="md-tabs__link">
+          
+  
+  Map Localization
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../coding_debug_tips/" class="md-tabs__link">
+          
+  
+  Coding
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../dairy/about_human/" class="md-tabs__link">
+          
+  
+  Dairy
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/00_functions/" class="md-tabs__link">
+          
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../tools/00_setup_work_space_mac/" class="md-tabs__link">
+          
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Notebook of Dexter" class="md-nav__button md-logo" aria-label="Notebook of Dexter" data-md-component="logo">
+      
+  <img src="../../../logo.jpg" alt="logo">
+
+    </a>
+    Notebook of Dexter
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    DeepLearn
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            DeepLearn
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DeepLearn/00model_deploy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00model deploy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Map Localization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Map Localization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/00_lidar_mechanical_theory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    机械雷达原理(Velodyne为例)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/01_tf_rigid_motion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    刚体运动-三维旋转变换-2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/01_tf_rigid_motion_neolix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    刚体运动-三维旋转变换-2020
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/calib_imu_wheel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TODO: calib_imu_wheel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/cloud_registration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点云配准
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/imu_kernel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IMU使用示例及噪声计算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/loc_gauss_newton_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高斯牛顿实践-以视觉定位为例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/loc_visual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    视觉定位(车道线匹配)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/mapping_kernel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mapping kernel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/slam_based_lidar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ing-slam-lidar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/slam_based_visual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ing-slam-visual
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/slambook2_appendix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    done-slambook2额外补充材料
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_13" id="__nav_3_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Segmentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_13">
+            <span class="md-nav__icon md-icon"></span>
+            Segmentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/segmentation/cloud-segmentation-hdmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点云分割实例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Slam opensource
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_14">
+            <span class="md-nav__icon md-icon"></span>
+            Slam opensource
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/slam_opensource/slam_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slam basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Map-Localization/slam_opensource/slam_loam_series/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loam series
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Coding
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Coding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding_debug_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Coding Debug Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding_work_style/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Style
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Algorithm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Algorithm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithm/00_sorting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    排序算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            C++
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c%2B%2B/00_note_tips_cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ Tips and Tricks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c%2B%2B/01_cpp_new_future/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ New Feture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c%2B%2B/02_cpp_note_gpt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ Note GPT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c%2B%2B/03_cpp_boost_note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Boost usage note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c%2B%2B/04_camke_faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cmake FAQ&Examples
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c%2B%2B/05_debug_dev_neolix_note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debug Dev Final Neolix Note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c%2B%2B/the_essence_of_c%2B%2B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Essence of C++
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Linux shell
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Linux shell
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Linux日常使用命令
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Linux日常使用命令
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础使用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基础使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用命令
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常用命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      小工具
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看文件内容
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统相关
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      开关机、移动复制、创建删除
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      远程操作-需要安装ssh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scp" class="md-nav__link">
+    <span class="md-ellipsis">
+      scp操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      权限相关
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      文件压缩、解压
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wget" class="md-nav__link">
+    <span class="md-ellipsis">
+      wget
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      安装与卸载
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看磁盘大小
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervisor" class="md-nav__link">
+    <span class="md-ellipsis">
+      supervisor进程管理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      增大虚拟内存
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      监听端口
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcpdump" class="md-nav__link">
+    <span class="md-ellipsis">
+      tcpdump
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nohup" class="md-nav__link">
+    <span class="md-ellipsis">
+      nohup、进程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#awk-sed-grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      三剑客 awk sed grep
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      GDB调试
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GDB调试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gdb-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      GDB调试 Debug
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      多文件调试
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-dump" class="md-nav__link">
+    <span class="md-ellipsis">
+      core dump查找错误方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      linux的查找命令
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="linux的查找命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#find" class="md-nav__link">
+    <span class="md-ellipsis">
+      find 可找到想找的任何文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locate" class="md-nav__link">
+    <span class="md-ellipsis">
+      locate 快速定位文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whereis" class="md-nav__link">
+    <span class="md-ellipsis">
+      whereis 查找可执行文件路径
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#which" class="md-nav__link">
+    <span class="md-ellipsis">
+      which 查找可执行文件路径
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type" class="md-nav__link">
+    <span class="md-ellipsis">
+      type 查看文件类型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      grep 文本搜索命令
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      重定向
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="重定向">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用命令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      实例解析：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      挂载
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_linux_advance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 高级技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_function/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bash Shell Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/000_summary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Summary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/00_book_basic_note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Basic Note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/01_book_basic_class/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 类和对象
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/02_book_advance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python advance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/03_dev_env/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python开发环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/04_appendix_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appendix: tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ros
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            Ros
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ros/00_ros_msg_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS&Cartographer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    System&structure
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8">
+            <span class="md-nav__icon md-icon"></span>
+            System&structure
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system%26structure/operation_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operation system
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system%26structure/several_design_patterns_by_cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Several Design Patterns By C++
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system%26structure/uml_graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UML Graphic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Dairy
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Dairy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dairy/about_human/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About human
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dairy/meetint_key_points/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Meetint key points
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dairy/note-no-valience-chatting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    读书笔记:非暴力沟通
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dairy/note-the-seven-habits-of-effective-awosome/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    读书笔记:高效人士的七个习惯
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/00_functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00 functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/algebraist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    矩阵和向量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/estimation_filter_kalman/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    状态估计-滤波
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/estimation_optimizer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    状态估计-优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/geometry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    几何学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/pca_theory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主成分分析PCA-TODO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/00_setup_work_space_mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup work space on Mac
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/01_setup_ubuntu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup for Ubuntu
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/02_git_docker_etc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git、Docker、等工具的使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/mathjax/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    usage of mathjax
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/python_matplotlib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tools python-matploglib
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/tools-devel-environment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tools devel-enviroment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/usage_bazel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage Bazel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/usage_markdown/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage markdown
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/usage_shortcut/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage shortcut
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/workspace_setup_ubuntu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup worksapce in ubuntu
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础使用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基础使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用命令
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常用命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      小工具
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看文件内容
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统相关
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      开关机、移动复制、创建删除
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      远程操作-需要安装ssh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scp" class="md-nav__link">
+    <span class="md-ellipsis">
+      scp操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      权限相关
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      文件压缩、解压
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wget" class="md-nav__link">
+    <span class="md-ellipsis">
+      wget
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      安装与卸载
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看磁盘大小
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervisor" class="md-nav__link">
+    <span class="md-ellipsis">
+      supervisor进程管理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      增大虚拟内存
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      监听端口
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcpdump" class="md-nav__link">
+    <span class="md-ellipsis">
+      tcpdump
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nohup" class="md-nav__link">
+    <span class="md-ellipsis">
+      nohup、进程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#awk-sed-grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      三剑客 awk sed grep
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      GDB调试
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GDB调试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gdb-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      GDB调试 Debug
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      多文件调试
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-dump" class="md-nav__link">
+    <span class="md-ellipsis">
+      core dump查找错误方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      linux的查找命令
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="linux的查找命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#find" class="md-nav__link">
+    <span class="md-ellipsis">
+      find 可找到想找的任何文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locate" class="md-nav__link">
+    <span class="md-ellipsis">
+      locate 快速定位文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whereis" class="md-nav__link">
+    <span class="md-ellipsis">
+      whereis 查找可执行文件路径
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#which" class="md-nav__link">
+    <span class="md-ellipsis">
+      which 查找可执行文件路径
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type" class="md-nav__link">
+    <span class="md-ellipsis">
+      type 查看文件类型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      grep 文本搜索命令
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      重定向
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="重定向">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用命令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      实例解析：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      挂载
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="linux">Linux日常使用命令<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h1>
+<h2 id="_1">基础使用<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">常用命令<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h4 id="_3">小工具<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>cmp [ARG] file1 file2</code> <blockquote>
+<p>比较两个任意类型的文件，若内容相同则默认不输出任何信息，若内容不同则输出第一个不同<br>
+  之处的字符和列数编号</p>
+</blockquote>
+</li>
+<li><code>diff [ARG] &lt;文件|目录&gt; &lt;文件|目录&gt;</code>逐行比较文件。如果指定目录则比较目录中相同文件名的文件，但不会比较其中子目录</li>
+<li>日历
+  <code>cal -3</code>查看最近3个月日历</li>
+</ul>
+<h4 id="_4">查看文件内容<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">#=============================================</span>
+<span class="c1">#cat使用指南</span>
+<span class="c1">#=============================================</span>
+cat<span class="w"> </span><span class="o">[</span>-n<span class="o">]</span><span class="w"> </span>test.txt<span class="w">      </span><span class="c1">#test.txt的内容直接输出到终端，-n输出到终端的内容显示行号</span>
+<span class="c1">#用file1中的内容覆盖掉file2的内容，</span>
+<span class="c1">#param: -n表示将行号写入file2中</span>
+<span class="c1">#param: -b表示将行号写入file2中，但空行没有行号</span>
+cat<span class="w"> </span><span class="o">[</span>-n<span class="o">][</span>-b<span class="o">]</span><span class="w"> </span>file1<span class="w"> </span>&gt;<span class="w"> </span>file2<span class="w"> </span>
+</code></pre></div></td></tr></table></div>
+<h4 id="_5">系统相关<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code>nautilus<span class="w"> </span>.<span class="w">  </span><span class="c1">#打开当前目录下文件管理器</span>
+cal<span class="w"> </span>-3<span class="w">     </span><span class="c1">#查看当前月份的日历,当前为6月，将显示5-7月</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;caros&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>-S<span class="w"> </span>shutdown<span class="w"> </span>now<span class="w">  </span><span class="c1">#免密码关机,小写s也行 `echo &quot;caros&quot; | sudo -s shutdown now`</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;12&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>-s<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>file<span class="w">    </span><span class="c1">#免密码赋予执行权限</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>python-rosinstall<span class="w"> </span>-y<span class="w"> </span><span class="c1">#安装过程中默认选择Y</span>
+ln<span class="w"> </span>-s<span class="w"> </span>real_path_or_file<span class="w"> </span>soft_link_path_or_file<span class="w">  </span><span class="c1">#创建软链接</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>sleep
+  <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>sleep<span class="w"> </span><span class="m">1</span><span class="w">  </span><span class="c1">#睡眠1s,同sleep 1s</span>
+sleep<span class="w"> </span>1m<span class="w"> </span><span class="c1">#睡眠1分钟</span>
+sleep<span class="w"> </span>1h<span class="w"> </span><span class="c1">#睡眠1小时</span>
+</code></pre></div></td></tr></table></div></li>
+</ul>
+<h4 id="_6">开关机、移动复制、创建删除<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>shutdown<span class="w"> </span>-r<span class="w"> </span><span class="m">0</span><span class="w">            </span><span class="c1">#-r重启  0s后执行，sudo reboot</span>
+sudo<span class="w"> </span>shutdown<span class="w"> </span>-h<span class="w"> </span><span class="m">0</span><span class="w">            </span><span class="c1">#同sudo shutdown -h now 立即关机</span>
+<span class="c1">#===================</span>
+<span class="c1">#复制移动cp/mv</span>
+cp<span class="w"> </span>src_file<span class="w"> </span>dest_file<span class="w">    </span><span class="c1">#复制文件,src_file会覆盖dest_file</span>
+cp<span class="w"> </span>-i<span class="w"> </span>src_file<span class="w"> </span>dest_file<span class="w">    </span><span class="c1">#复制文件,dest_file存在时会询问是否被src_file覆盖</span>
+cp<span class="w"> </span>-r<span class="w"> </span>/<span class="o">{</span>path<span class="o">}</span>/A<span class="w"> </span>/<span class="o">{</span>path2<span class="o">}</span>/B/<span class="w">   </span><span class="c1">#把文件夹A复制到B中</span>
+cp<span class="w"> </span>-r<span class="w">  </span>A/<span class="w"> </span>B/<span class="w"> </span>C<span class="w">   </span>/home/tmp/ros/share<span class="w">    </span><span class="c1">#从当前目录复制文件夹A、B、C到/home/tmp/ros/share</span>
+mv<span class="w"> </span>/<span class="o">{</span>path<span class="o">}</span>/A<span class="w"> </span>/<span class="o">{</span>path2<span class="o">}</span>/<span class="w">        </span><span class="c1">#把文件夹A移动到路径path2下面,不需要-r参数</span>
+mv<span class="w"> </span>old<span class="w"> </span>new<span class="w">                    </span><span class="c1">#将old目录移动并重命名为new</span>
+<span class="c1">#将多个文件同时移动到指定目录 参数 -t</span>
+mv<span class="w"> </span>file1<span class="w"> </span>file2<span class="w"> </span>file3<span class="w"> </span>-t<span class="w">  </span>../<span class="w">   </span><span class="c1">#将当前目录下file1、file2、file3都移动至上层目录</span>
+cp<span class="w"> </span>file1<span class="w"> </span>file2<span class="w"> </span>file3<span class="w"> </span>-t<span class="w">  </span>../<span class="w">   </span><span class="c1">#将当前目录下file1、file2、file3都复制至上层目录</span>
+<span class="c1">#===================</span>
+<span class="c1">#删除rm</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>velodyne<span class="w">               </span><span class="c1">#删除文件夹velodyne及其中包含的文件夹和文件</span>
+rm<span class="w"> </span>*.pcd<span class="w">                      </span><span class="c1">#删除当前目录下所有pcd格式点云文件</span>
+<span class="c1">#===================</span>
+<span class="c1">#mkdri创建目录</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>catkin/src<span class="w">           </span><span class="c1">#创建目录catkin/src  不加-p参数只能创建单个文件夹catkin</span>
+touch<span class="w"> </span>old<span class="w">                     </span><span class="c1">#新建old文件 </span>
+
+ctrl+h<span class="w"> </span><span class="c1">#是否显示隐藏文件</span>
+ctrl+l<span class="w"> </span><span class="c1">#显示目录</span>
+<span class="nb">pwd</span><span class="w">    </span><span class="c1">#显示当前完整的绝对目录</span>
+
+tail<span class="w"> </span>-200f<span class="w"> </span>/home/lyu/calib.txt<span class="w"> </span><span class="c1">#查看calib.txt中的后200行</span>
+
+du<span class="w"> </span>-sh<span class="w"> </span>work/*<span class="w">  </span><span class="c1">#查看特定目录下各文件大小</span>
+
+<span class="c1">#`df [ARG] [文件]`全称&quot;DiskFree&quot;显示系统可使用的磁盘空间</span>
+df<span class="w"> </span>-h<span class="w">  </span><span class="c1">#查看不同盘符使用情况(包括挂载的盘符等)</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="-ssh">远程操作-需要安装ssh<a class="headerlink" href="#-ssh" title="Permanent link">&para;</a></h4>
+<p><a href="https://www.cnblogs.com/kex1n/p/6017963.html?utm_source=itdadao&amp;utm_medium=referral">ssh操作</a> 
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">#ssh username@ip</span>
+ssh<span class="w"> </span>usery@192.168.10.6
+</code></pre></div></td></tr></table></div></p>
+<h4 id="scp">scp操作<a class="headerlink" href="#scp" title="Permanent link">&para;</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>ifconfig<span class="w"> </span><span class="c1">#查看ip信息</span>
+<span class="c1">#拷贝文件夹从pathA to pathB  </span>
+scp<span class="w"> </span>-r<span class="w"> </span>pathA<span class="w">  </span>pathB<span class="w">  </span>
+scp<span class="w"> </span>./*.bag<span class="w">   </span>user@192.168.8.142:/home/user/cmake_velo/data/<span class="w">    </span>
+scp<span class="w"> </span>-r<span class="w"> </span>user@192.168.10.6:/home/user/apollo<span class="w">  </span>/home/user/data/bag/
+</code></pre></div></td></tr></table></div>
+<h4 id="_7">权限相关<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>-s<span class="w">     </span><span class="c1">#获取root权限(exit/logout/ctrl+d退出)  sudo su也可切换到root用户，并可显示终端当前所在的完整目录</span>
+
+<span class="c1">#取消0.2文件夹的root用户权限 取消root权限</span>
+sudo<span class="w"> </span>su-&gt;chown<span class="w"> </span>-hR<span class="w"> </span>orange:orange<span class="w"> </span><span class="m">0</span>.2
+sudo<span class="w"> </span>chown<span class="w"> </span>-hR<span class="w"> </span>orange<span class="w"> </span><span class="m">0</span>.2<span class="w"> </span><span class="c1">#同 sudo chown -hR orange:orange 0.2</span>
+sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span>caros:caros<span class="w"> </span>apollo<span class="w"> </span><span class="c1">#修改apollo目录下所有文件权限为caros</span>
+
+<span class="c1">#/etc/apt/sources.list下文件修改后怎么保存退出  </span>
+sudo<span class="w"> </span>gedit<span class="w"> </span>/etc/apt/source.list
+</code></pre></div></td></tr></table></div>
+<blockquote>
+<p><a href="https://blog.csdn.net/my_wade/article/details/47066905">chmod用数字来表示权限的方法</a>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">#chmod abd file</span>
+<span class="c1">#a:user b:group c:other  可读r=4 可写w=2 可执行x=1</span>
+<span class="c1">#rwx 7  读、写、执行  </span>
+<span class="c1">#rw- 6  读、写</span>
+<span class="c1">#r-w 5  读、执行</span>
+
+<span class="c1">#赋予velodyne及其子目录下文件”rwx“的权限</span>
+chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>velodyne<span class="w"> </span>-R<span class="w"> </span><span class="c1">#-R 即对velodyne目录下的所有文件及其子目录进行相同的权限变更(即以递回的方式逐个变更）</span>
+</code></pre></div></td></tr></table></div></p>
+</blockquote>
+<h4 id="_8">文件压缩、解压<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code>tar<span class="w"> </span>-zcvf<span class="w"> </span>压缩文件名.tar.gz<span class="w"> </span>被压缩文件名<span class="w"> </span><span class="c1">#压缩</span>
+tar<span class="w"> </span>-zxvf<span class="w"> </span>压缩文件名.tar.gz<span class="w">            </span><span class="c1">#解压-解压后文件只能放在当前目录</span>
+tar<span class="w"> </span>-zxvf<span class="w"> </span>压缩文件名.tar.gz<span class="w">  </span>-C<span class="w"> </span>&lt;dir&gt;<span class="w">  </span><span class="c1">#解压-解压后文件位于指定目录</span>
+
+zip<span class="w"> </span>fileA<span class="w">   </span><span class="c1">#压缩fileA</span>
+unzip<span class="w"> </span>fileB<span class="w"> </span><span class="c1">#解压fileB</span>
+
+unrar<span class="w"> </span>x<span class="w"> </span>fileA<span class="w"> </span><span class="c1">#解压</span>
+rar<span class="w"> </span>a<span class="w"> </span>fileA.rar<span class="w"> </span>fileA<span class="w"> </span><span class="c1">#压缩fileA</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="wget">wget<a class="headerlink" href="#wget" title="Permanent link">&para;</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">#下载一个文件并保存在当前目录</span>
+wget<span class="w"> </span>http://cn.wordpress.org/wordpress-3.1-zh_CN.zip<span class="w"> </span>
+<span class="c1">#使用wget -O下载并以&quot;wordpress&quot;的文件名保存 </span>
+wget<span class="w"> </span>-O<span class="w"> </span>wordpress.zip<span class="w"> </span>http://www.centos.bz/download.php?id<span class="o">=</span><span class="m">1080</span><span class="w"> </span>
+<span class="c1">#使用wget -P $DIR $URL 下载到指定目录</span>
+<span class="c1">#wget –limit -rate限速下载</span>
+wget<span class="w"> </span>–limit-rate<span class="o">=</span>300k<span class="w"> </span>http://cn.wordpress.org/wordpress-3.1-zh_CN.zip<span class="w"> </span>
+</code></pre></div></td></tr></table></div>
+<h4 id="_9">安装与卸载<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>upgrade
+apt-cache<span class="w"> </span>search<span class="w"> </span>gflag*<span class="w">  </span><span class="c1">#搜寻gflag相关的安装包或者库</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>glag*<span class="w"> </span><span class="c1">#安装</span>
+
+<span class="c1">#干净卸载  sudo apt-get remove 或者 sudo apt-get autoremove卸载不干净  两个小时的教训！！！！！！！！！！！！！！！ </span>
+<span class="c1">#fuck the environment</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>purge<span class="w"> </span>****<span class="w"> </span>
+</code></pre></div></td></tr></table></div>
+<h3 id="_10">查看磁盘大小<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>du<span class="w"> </span>-sh<span class="w"> </span>./*<span class="w">  </span><span class="c1">#查看当前路径下各内容空间占用</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="supervisor">supervisor进程管理<a class="headerlink" href="#supervisor" title="Permanent link">&para;</a></h3>
+<p>安装supervisor<code>sudo apt-get install supervisor</code>
+将每个进程的配置文件放在<code>/etc/supervisor/conf.d/</code>目录下，以<code>.conf</code>为拓展名
+<a href="https://www.cnblogs.com/xishuai/p/ubuntu-install-supervisor.html">ubuntu16_使用supervisor</a></p>
+<p><a href="https://www.cnblogs.com/zhoujinyi/p/6073705.html">进程管理supervisor说明</a>
+<a href="http://blog.51cto.com/lixcto/1539136">supervisor(1)基础篇</a></p>
+<h3 id="_11">增大虚拟内存<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p><a href="https://linuxize.com/post/create-a-linux-swap-file/">增大虚拟内存</a></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>fallocate<span class="w"> </span>-l<span class="w"> </span>16G<span class="w"> </span>/swapfile
+sudo<span class="w"> </span>swapoff<span class="w"> </span>-a
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/swapfile
+sudo<span class="w"> </span>mkswap<span class="w"> </span>/swapfile
+sudo<span class="w"> </span>swapon<span class="w"> </span>/swapfile<span class="w">  </span><span class="c1">#sudo swapoff /swapfile 停用</span>
+sudo<span class="w"> </span>swapon<span class="w"> </span>--show
+sudo<span class="w"> </span>free<span class="w"> </span>-h
+</code></pre></div></td></tr></table></div>
+<h3 id="_12">监听端口<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>lsof<span class="w"> </span>-i:8888
+</code></pre></div></td></tr></table></div>
+<h3 id="tcpdump">tcpdump<a class="headerlink" href="#tcpdump" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>tcpdump<span class="w"> </span>-i<span class="w"> </span>eth0<span class="w"> </span>-w<span class="w"> </span>file.p<span class="w"> </span>udp<span class="w"> </span>port<span class="w"> </span><span class="m">2014</span><span class="w"> </span><span class="c1">#保存网口的数据到file.pcap,如保存北科天汇雷达数据</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="nohup">nohup、进程<a class="headerlink" href="#nohup" title="Permanent link">&para;</a></h3>
+<p><a href="https://www.cnblogs.com/baby123/p/6477429.html">nohup和&amp;后台运行，进程查看及终止</a></p>
+<blockquote>
+<p>后台启动后有事直接关掉终端后台进程也会自动关闭,可尝试使用exit退出终端避免该问题
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">#后台执行test.sh,默认log输出到当前目录下的nohup.out中,并显示当前进程的PID</span>
+nohup<span class="w"> </span>./test.sh<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>
+<span class="c1">#后台启动,并将log输出到当前目录下的nohup_test.out中</span>
+nohup<span class="w"> </span>./test.sh&gt;nohup_test.out<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>
+<span class="c1">#查看后台进程,只能在当前终端生效！！！ 关闭终端后在另一个终端是能通过ps aux j| grep test.sh查询</span>
+<span class="nb">jobs</span><span class="w"> </span>-l<span class="w"> </span>
+ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>test*<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>grep<span class="w"> </span><span class="c1">#查找进程并将grep自身排除</span>
+ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>test*<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>grep<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="w"> </span><span class="c1">#使用awk提取进程的ID</span>
+
+<span class="c1">#a:显示所有程序 u:以用户为主的格式显示 x:显示所有程序,不以终端机区分</span>
+ps<span class="w"> </span>auxf<span class="w"> </span><span class="c1">#ps即process status, ps auxf | grep vscode*,搜索vscode的进程</span>
+<span class="c1">#显示进程名为program_name的ID, f参数匹配program_name</span>
+pgrep<span class="w"> </span>-f<span class="w"> </span>program_name
+<span class="c1">#显示进程名为program_name的进程的个数, f参数匹配program_name,c匹配数目</span>
+pgrep<span class="w"> </span>-f<span class="w"> </span>-c<span class="w"> </span>program_name
+
+<span class="c1">###**********************</span>
+<span class="c1">###kill</span>
+<span class="c1">###kill -Signal pid,默认15(SIGTERM),即kill -15 pid1 pid2 pid3,告诉进程1、2、3&quot;你需要被关闭,请自行停止运行并退出&quot;</span>
+<span class="c1">###----------------------</span>
+<span class="nb">kill</span><span class="w"> </span>pid1<span class="w"> </span>pid2<span class="w"> </span>pid3<span class="w">  </span>
+<span class="nb">kill</span><span class="w"> </span>-9<span class="w"> </span>pid1<span class="w"> </span>pid2<span class="w"> </span>pid3<span class="w"> </span><span class="c1">#kill -9(SIGKILL)发送SIGKILL信号给进程”你被终结了,请立刻退出“</span>
+<span class="nb">kill</span><span class="w"> </span><span class="k">$(</span>pgrep<span class="w"> </span>-f<span class="w"> </span>test.sh<span class="k">)</span><span class="w">            </span><span class="c1">#杀死进程test.sh</span>
+
+printenv<span class="w">   </span><span class="c1">#显示环境变量值  &quot;printenv | grep ROS&quot;显示ROS的环境变量值</span>
+</code></pre></div></td></tr></table></div></p>
+</blockquote>
+<h3 id="awk-sed-grep">三剑客 awk sed grep<a class="headerlink" href="#awk-sed-grep" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIwNDY3MDg1OA==&amp;mid=2247484984&amp;idx=1&amp;sn=9cbd41eaac5381f7250f1c1118685da6&amp;chksm=973dd4dda04a5dcbf5b83939c48d94578a8937c1a5c61f3743f6d7b8b6b5efbff69db6816e74&amp;mpshare=1&amp;scene=1&amp;srcid=0325QLcn4A1QOTybSkSxMZiP&amp;pass_ticket=fQr7CNGwehzzUbllHOZD7ajpIkwvVYLB9O6YQislROek5x2FVewESx3J5BSa%2FIDn#rd"> 性能工具之linux三剑客awk、grep、sed详解 </a></p>
+</li>
+<li>
+<p><strong>sed</strong> stream editor数据修改,编辑匹配到的文本
+    &gt;<a href="https://www.cnblogs.com/maxincai/p/5146338.html">sed命令用法</a>
+    &gt;<a href="https://www.jb51.net/tools/shell_regex.html">linux中shell正则表达式</a>
+    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>sed<span class="w"> </span>-i<span class="w"> </span>s/address:.*/address:<span class="s2">&quot;asaf&quot;</span>/g<span class="w"> </span><span class="nb">test</span>
+sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/address:.*/address:&quot;asaf&quot;/g&#39;</span><span class="w"> </span><span class="nb">test</span>
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI2NzE3NjQ2Ng==&amp;mid=2650098312&amp;idx=1&amp;sn=8db88dd1de34704dd62599e178cb25d3&amp;chksm=f28335f5c5f4bce309aebc2f34f4d28876d45608c63dd96f6280f8dcebc39cc3568a83b37877&amp;mpshare=1&amp;scene=1&amp;srcid=0124C2T1nqN40XMnGMTN1AqP&amp;pass_ticket=WKN0WrrA%2BngpcnKYE%2B1RIo2QHNmF4BAvgy%2FjHhgQBNdaKf41S3apnyK0jlq4GDoB#rd">sed与正则表达(helpful)</a> </p>
+</li>
+</ul>
+<blockquote>
+<p>可以以非交互的方式编辑文件,对一个字符串进行<code>搜索和替换</code>为另一个字符串
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">#使用()组 \1,  必须使用 -r 参数</span>
+<span class="c1">#参数i,编辑现有文件,而不仅仅是看改动后的效果</span>
+sed<span class="w"> </span>-i<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;s/([ |\t]*address).*/\1:&quot;192.168.1.1&quot;/&#39;</span><span class="w"> </span>../file/test
+sed<span class="w"> </span>-i<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;s/([ |\t]*port).*/\1:2222/&#39;</span><span class="w">  </span>../file/test
+
+sed<span class="w"> </span>-i<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;s/^(workspace)[ ]*[0-9]+;$/\1 4;/&#39;</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="c1">#修改workspace的值</span>
+
+<span class="c1">#查找文件test中包含”{/apollo/sensor/velodyne16/VelodyneScanUnified}“的内容,  [ ]与[]效果不一样</span>
+grep<span class="w"> </span><span class="s1">&#39;[ ]*|[ ]*{[ ]*/apollo/sensor/velodyne16/VelodyneScanUnified[ ]*}&#39;</span><span class="w"> </span><span class="nb">test</span>
+sed<span class="w"> </span>-i<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;s/([ ]*\|[ ]*\{[ ]*\/apollo\/sensor\/velodyne16\/VelodyneScanUnified[ ]*\})//g&#39;</span><span class="w"> </span><span class="nb">test</span>
+sed<span class="w"> </span>-i<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;s/([ ]*\|[ ]*\([ ]*\/apollo\/sensor\/velodyne16\/VelodyneScanUnified[ ]*\))//g&#39;</span><span class="w"> </span><span class="nb">test</span>
+</code></pre></div></td></tr></table></div>
+<strong>awk</strong> 数据切片,格式化文本,对文本进行复杂格式化处理</p>
+</blockquote>
+<h2 id="gdb">GDB调试<a class="headerlink" href="#gdb" title="Permanent link">&para;</a></h2>
+<h3 id="gdb-debug">GDB调试 Debug<a class="headerlink" href="#gdb-debug" title="Permanent link">&para;</a></h3>
+<p>(cpp)LINUX网络编程(第2版)-Page52
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code>g++<span class="w"> </span>-g<span class="w"> </span>example.cpp<span class="w"> </span>-o<span class="w"> </span>example1<span class="w"> </span><span class="c1">#编译C++语言源文件</span>
+gcc<span class="w"> </span>-g<span class="w"> </span>example.c<span class="w"> </span>-o<span class="w"> </span>example<span class="w">    </span><span class="c1">#编译C语言源文件</span>
+gdb<span class="w"> </span>example
+gdb<span class="w"> </span>--args<span class="w"> </span><span class="o">{</span>biany<span class="o">}</span><span class="w"> </span>argv1<span class="w"> </span>argv2<span class="w"> </span>
+gdb<span class="w"> </span><span class="o">{</span>binary<span class="o">}</span><span class="w"> </span><span class="si">${</span><span class="nv">core_file</span><span class="si">}</span>
+<span class="c1">#command in gdb</span>
+file<span class="w"> </span>&lt;excutable_file&gt;<span class="w"> </span><span class="c1">#加载可执行文件</span>
+<span class="nb">set</span><span class="w"> </span>args<span class="w"> </span>&lt;arguments&gt;<span class="w">  </span><span class="c1">#设置执行文件运行时需要的参数</span>
+core-file<span class="w"> </span>core<span class="w">    </span><span class="c1">#加载当前core文件</span>
+info<span class="w"> </span>thread<span class="w">       </span><span class="c1">#显示所有的线程</span>
+thread<span class="w"> </span><span class="m">1</span><span class="w">          </span><span class="c1">#根据线程id查看某线程信息,如查看id为1的线程信息</span>
+bt<span class="w">                </span><span class="c1">#当前线程的堆栈情况, `bt -20`则为查看最底层的20个调用</span>
+thread<span class="w"> </span>apply<span class="w"> </span>all<span class="w"> </span>bt<span class="w"> </span><span class="c1">#查看所有线程堆栈信息</span>
+
+l<span class="w">                 </span><span class="c1">#即list, 显示程序行, 如`list ProE`即显示函数ProE的代码</span>
+r<span class="w">                 </span><span class="c1">#即run, 开始运行</span>
+c<span class="w">                 </span><span class="c1">#continue</span>
+q<span class="w">                 </span><span class="c1">#退出</span>
+s<span class="w">                 </span><span class="c1">#step,下一步，如果有函数会进入函数</span>
+n<span class="w">                 </span><span class="c1">#next,下一步，如果有函数不会进入函数</span>
+p<span class="w"> </span>val<span class="w">             </span><span class="c1">#打印值</span>
+</code></pre></div></td></tr></table></div></p>
+<h3 id="_13">多文件调试<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>b<span class="w"> </span>collator.cc:44<span class="w">  </span><span class="c1">#collator.cc 44行处打断点，只有包含main函数一个文件时使用命令b num即可</span>
+delete<span class="w"> </span><span class="m">5</span><span class="w">          </span><span class="c1">#删除5好断点</span>
+delete<span class="w"> </span><span class="m">1</span>-10<span class="w">       </span><span class="c1">#删除1-10号所有断点</span>
+clear<span class="w">             </span><span class="c1">#删除所在行的所有断点</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="core-dump">core dump查找错误方法<a class="headerlink" href="#core-dump" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">ulimit</span><span class="w"> </span>-a<span class="w">           </span><span class="c1">#查看,或者 ulimit -c查看,如果结果为0表示core dump是关闭的,不会生成core dump文件</span>
+<span class="nb">ulimit</span><span class="w"> </span>-c<span class="w"> </span>unlimited<span class="w"> </span><span class="c1">#打开core dump,设置core文件大小不受限,或ulimit -c 500 即限制文件不超过500KB</span>
+<span class="nb">ulimit</span><span class="w"> </span>-c<span class="w"> </span><span class="m">0</span><span class="w">         </span><span class="c1">#关闭core dump</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="linux_1">linux的查找命令<a class="headerlink" href="#linux_1" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.cnblogs.com/kex1n/p/5233821.html">Linux的五个查找命令：find,locate,whereis,which,type 及其区别</a></p>
+<h3 id="find"><strong>find 可找到想找的任何文件</strong><a class="headerlink" href="#find" title="Permanent link">&para;</a></h3>
+<ul>
+<li>查找文件：<code>find /path -name "filename"</code></li>
+<li>查找目录：<code>find /path -type d</code></li>
+<li>查找文件类型：<code>find /path -type f -name "*.txt"</code></li>
+<li>查找文件大小：<code>find /path -size +10M</code></li>
+<li>查找文件权限：<code>find /path -perm 777</code></li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code>find<span class="w"> </span>.<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;my*&quot;</span><span class="w">     </span><span class="c1">#当前目录(含子目录,以下同)查找所有文件名以my开头的文件</span>
+find<span class="w"> </span>.<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;my*&quot;</span><span class="w"> </span>-ls<span class="w"> </span><span class="c1">#当前目录(含子目录,以下同)查找所有文件名以my开头的文件,并显示详细信息</span>
+find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span><span class="c1">#查看当前目录下所有目录(包括子目录包含的所有目录)</span>
+find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="c1">#查看当前目录下所有文件(包括子目录包含的所有文件)</span>
+
+<span class="c1">#----------------------------</span>
+<span class="c1"># brief:与xargs结合使用</span>
+<span class="c1">#----------------------------</span>
+find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-size<span class="w"> </span>+1M<span class="w"> </span><span class="c1">##查找当前目录所有大于`1M`的文件</span>
+find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-size<span class="w"> </span>+1M<span class="w"> </span><span class="c1">##查找当前目录所有大于`1M`的目录</span>
+find<span class="w"> </span>.<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*x64*&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w">     </span><span class="c1">#删除搜索的结果,find、rm组合使用</span>
+find<span class="w"> </span>.<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.so&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;.a&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;.git&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span><span class="c1">#删除当前目录下所有的 `.so` `.a`文件和 `.git`文件夹</span>
+find<span class="w"> </span>.<span class="w"> </span>-mtime<span class="w"> </span>+10<span class="w"> </span>-name<span class="w">  </span><span class="s2">&quot;*&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rm<span class="w"> </span><span class="c1">#删除搜索到的10天前的任何文件</span>
+find<span class="w"> </span>.<span class="w"> </span>-mmin<span class="w">  </span>+10<span class="w"> </span>-name<span class="w">  </span><span class="s2">&quot;*&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rm<span class="w"> </span><span class="c1">#删除搜索到的10mins前的任何文件</span>
+find<span class="w"> </span>.<span class="w"> </span>-maxdepth<span class="w"> </span><span class="m">1</span><span class="w">  </span>-group<span class="w"> </span>root<span class="w"> </span>-name<span class="w"> </span>bin<span class="w"> </span><span class="c1">#只查找当前目录下隶属root用户的名称为bin的文件</span>
+find<span class="w"> </span>.<span class="w"> </span>-group<span class="w"> </span>root<span class="w"> </span>-name<span class="w"> </span>bin<span class="w">              </span><span class="c1">#只查找当前目录及其所有子目录下隶属root用户的名称为bin的文  件</span>
+find<span class="w"> </span>.<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.cpp&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>grep<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;main()&quot;</span><span class="w"> </span><span class="c1">#在当前目录及子目录中所有cpp文件中搜索关键字main(),并  显示行号</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="locate"><strong>locate</strong> 快速定位文件<a class="headerlink" href="#locate" title="Permanent link">&para;</a></h3>
+<p>linux每天自动更新一次包含本地所有文件信息的数据库,locate不搜索具体目录而是搜索这个数据库,因此locate查不到最新变动过的文件,因此使用locate命令之前可以先使用updatedb手动更新数据库</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>updatedb
+<span class="c1">#搜索test中所有以fil开头的文件,即使当前目录为test,也不能用locate ./fil</span>
+locate<span class="w">  </span>/home/lyu/Desktop/test/fil
+locate<span class="w">  </span>~/Desktop/test/fil
+</code></pre></div></td></tr></table></div>
+<h3 id="whereis"><strong>whereis</strong> 查找可执行文件路径<a class="headerlink" href="#whereis" title="Permanent link">&para;</a></h3>
+<p>用于对程序名的搜索,
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>whereis<span class="w"> </span>grep<span class="w"> </span><span class="c1">#返回grep二进制文件的路径、man说明文件和参数文件的路经</span>
+</code></pre></div></td></tr></table></div></p>
+<h3 id="which"><strong>which</strong> 查找可执行文件路径<a class="headerlink" href="#which" title="Permanent link">&para;</a></h3>
+<p>PATH变量指定的路径中,搜索某个系统命令的位置,可查看某个系统命令是否存在
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>which<span class="w"> </span>find<span class="w"> </span><span class="c1">#返回&quot;/usr/bin/find&quot;</span>
+</code></pre></div></td></tr></table></div></p>
+<h3 id="type"><strong>type</strong> 查看文件类型<a class="headerlink" href="#type" title="Permanent link">&para;</a></h3>
+<p>查看某个命令的类型,如文件、目录、可执行文件、符号链接等
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">type</span><span class="w"> </span>ls<span class="w"> </span><span class="c1">#返回&quot;ls is a shell builtin&quot;</span>
+<span class="nb">type</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="c1">#返回&quot;cd is a shell builtin&quot;</span>
+</code></pre></div></td></tr></table></div></p>
+<h3 id="grep"><strong>grep</strong> 文本搜索命令<a class="headerlink" href="#grep" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code>grep<span class="w"> </span><span class="s2">&quot;boo&quot;</span><span class="w"> </span>file1<span class="w">      </span><span class="c1">#查询文件file1中包含&quot;boo&quot;的每一行</span>
+grep<span class="w"> </span>-n<span class="w">  </span><span class="s2">&quot;boo&quot;</span><span class="w"> </span>file1<span class="w">  </span><span class="c1">#查询文件file1中包含&quot;boo&quot;的每一行,带行号</span>
+grep<span class="w"> </span>-c<span class="w">  </span><span class="s2">&quot;boo&quot;</span><span class="w"> </span>file1<span class="w">  </span><span class="c1">#查询文件file1中包含&quot;boo&quot;共多少行,只显示匹配到的行的数量,小于等于&quot;boo&quot;的个数</span>
+grep<span class="w"> </span>-vn<span class="w"> </span><span class="s2">&quot;boo&quot;</span><span class="w"> </span>file1<span class="w">  </span><span class="c1">#查询文件file1中不包含&quot;boo&quot;的每一行,带行号</span>
+
+n<span class="w"> </span><span class="c1">#显示行号</span>
+i<span class="w"> </span><span class="c1">#匹配字符串是忽略大小写</span>
+c<span class="w"> </span><span class="c1">#显示匹配到的行数</span>
+
+grep<span class="w"> </span><span class="s2">&quot;e</span>$<span class="s2">&quot;</span><span class="w"> </span>file1<span class="w"> </span><span class="c1">#搜索file1中以e结尾的行,只有一行的最后一个字符为e才符合</span>
+grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;field1 | field2 | field3&quot;</span><span class="w"> </span>target_file<span class="w"> </span><span class="c1">#匹配多个字段,from chh</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="_14">重定向<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<h3 id="_15">常用命令<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p><code>echo "hello" &gt; /dev/null</code> ：将输出重定向到空设备文件，即不显示任何输出。</p>
+<p><code>echo "hello" &gt; /dev/null 2&gt;&amp;1</code> ：将输出重定向到空设备文件，同时将错误输出重定向到标准输出。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>/dev/null<span class="w"> </span>：代表空设备文件
+&gt;<span class="w">  </span>：代表重定向到哪里，例如：echo<span class="w"> </span><span class="s2">&quot;123&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/home/123.txt
+<span class="m">1</span><span class="w">  </span>：表示stdout标准输出，系统默认值是1，所以<span class="s2">&quot;&gt;/dev/null&quot;</span>等同于<span class="s2">&quot;1&gt;/dev/null&quot;</span>
+<span class="m">2</span><span class="w">  </span>：表示stderr标准错误
+<span class="p">&amp;</span><span class="w">  </span>：表示等同于的意思，2&gt;<span class="p">&amp;</span><span class="m">1</span>，表示2的输出重定向等同于1
+</code></pre></div></td></tr></table></div>
+<p><code>1 &gt; /dev/null 2&gt;&amp;1</code> 语句含义：
+<code>1 &gt; /dev/null</code> : 首先表示标准输出重定向到空设备文件，也就是不输出任何信息到终端，说白了就是不显示任何信息。
+<code>2&gt;&amp;1</code> ：接着，标准错误输出重定向（等同于）标准输出，因为之前标准输出已经重定向到了空设备文件，所以标准错误输出也重定向到空设备文件。</p>
+<h3 id="_16">实例解析：<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<ul>
+<li>cmd &gt;a 2&gt;a 和 cmd &gt;a 2&gt;&amp;1 为什么不同？
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>cmd &gt;a 2&gt;a ：stdout和stderr都直接送往文件 a ，a文件会被打开两遍，由此导致stdout和stderr互相覆盖。
+cmd &gt;a 2&gt;&amp;1 ：stdout直接送往文件a ，stderr是继承了FD1的管道之后，再被送往文件a 。a文件只被打开一遍，就是FD1将其打开。
+</code></pre></div></td></tr></table></div>
+两者的不同点在于：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>cmd &gt;a 2&gt;a 相当于使用了FD1、FD2两个互相竞争使用文件 a 的管道；
+cmd &gt;a 2&gt;&amp;1 只使用了一个管道FD1，但已经包括了stdout和stderr。
+从IO效率上来讲，cmd &gt;a 2&gt;&amp;1的效率更高。
+</code></pre></div></td></tr></table></div></li>
+</ul>
+<h2 id="_17">挂载<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<p>重新挂载<code>/app</code>目录为读写模式：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>mount -o remount,rw /app
+</code></pre></div></td></tr></table></div></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
