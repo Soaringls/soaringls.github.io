@@ -1109,6 +1109,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coding/algorithm/01_linear_fit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    直线拟合
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1952,7 +1973,7 @@
         
   
   <span class="md-ellipsis">
-    00 functions
+    函数
   </span>
   
 
@@ -2550,7 +2571,7 @@ K为相机内参矩阵， T为路标点P_w对应的外参 \\\\
 <h4 id="_5">状态估计<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
 <p>机器人状态估计中已知输入数据 <span class="arithmatex">\(\mathcal{u}\)</span> 和观测数据 <span class="arithmatex">\(\mathcal{x}\)</span> 的条件下, 未知状态 <span class="arithmatex">\(x\)</span> 的条件概率分布为: <span class="arithmatex">\(P(x|z,u)\)</span>, 当没有测量运动的传感器时相当于估计<span class="arithmatex">\(P(x|z)\)</span> 的条件概率分布(若忽略时序关系则可理解为一个SFM问题)</p>
 <blockquote>
-<p>求最大后验 <span class="arithmatex">\(\simeq\)</span> 求最大似然估计 <span class="arithmatex">\(\to\)</span> 最小化负对数(最小二乘问题)</p>
+<p>求最大后验 <span class="arithmatex">\(\simeq\)</span> 最大化似然和先验的乘积 <span class="arithmatex">\(\simeq\)</span> 最大化似然估计 <span class="arithmatex">\(\to\)</span> 最小化负对数(最小二乘问题)</p>
 </blockquote>
 <ul>
 <li><strong>利用贝叶斯法则</strong></li>
@@ -2578,8 +2599,8 @@ x^*_{MLE} = argmax P(z|x)
 \]</div>
 <ul>
 <li>对于观测模型 <span class="arithmatex">\(z_{k,j} = h(y_j, x_k) + v_{k,j}\)</span>, 似然 <span class="arithmatex">\(P(z|x) = N(h(y_j, x_k),Q_{k,j})\)</span>服从高斯分布,</li>
-<li>为最大化似 <span class="arithmatex">\(x_k, y_j\)</span>, 然通常使用<strong>最小化负对数</strong>来求一个高斯分布的最大似然
-    一般，对于一个任意的高斯分布 <span class="arithmatex">\(x \sim N(\mu, \Sigma)\)</span>, 其概率密度函数<span class="arithmatex">\(P(x) = \dfrac{1}{\sqrt{(2\pi)^N det(\Sigma)}}exp\left(-\dfrac{1}{2}(x - \mu)^T \Sigma^{-1} (x - \mu)\right)\)</span>
+<li>为了计算使得似然最大化的 <span class="arithmatex">\(x_k, y_j\)</span>, 通常使用<strong>最小化负对数</strong>来求一个高斯分布的最大似然
+    一般，对于一个任意的高纬度的高斯分布 <span class="arithmatex">\(x \sim N(\mu, \Sigma)\)</span>, 其概率密度函数<span class="arithmatex">\(P(x) = \dfrac{1}{\sqrt{(2\pi)^N det(\Sigma)}}exp\left(-\dfrac{1}{2}(x - \mu)^T \Sigma^{-1} (x - \mu)\right)\)</span>，
     取其负对数为: <span class="arithmatex">\(-ln(P(x)) = \dfrac{1}{2}ln\left((2\pi)^N det(\Sigma)\right) + \dfrac{1}{2}(x - \mu)^T \Sigma^{-1} (x - \mu)\)</span></li>
 <li><strong>负对数式</strong>的第一项与 <span class="arithmatex">\(x\)</span> 无关，直接略去, 则求状态的最大似然估计&rarr;最小化右侧的二次型项，代入SLAM观测模型，等同于求
     <span class="arithmatex">\(x^* = argmin \left((z_{k,j} - h(x_k, y_i))^T Q^{-1}_{k,j} (z_{k,j} - h(x_k, y_i)) \right)\)</span> 
@@ -2606,21 +2627,26 @@ x^*_{MLE} = argmax P(z|x)
 <p><span class="arithmatex">\(J\)</span> 为 <span class="arithmatex">\(f(x)^2\)</span> 关于 <span class="arithmatex">\(x\)</span> 的导数(Jacobian矩阵)，而 <span class="arithmatex">\(H\)</span> 为二阶导数(Hessian矩阵)，保留泰勒展开的一阶或二阶项对应的求解方法则为一阶梯度或二阶梯度</p>
 <ul>
 <li>
-<p>保留一阶梯度，增量方程为</p>
+<p><strong>最速下降法</strong>:保留一阶梯度，增量方程为</p>
 <div class="arithmatex">\[
 \Delta x^* = -J(x)
 \]</div>
 <p>直观意义简单，沿反向梯度方向前进即可，通常会计算该方向上的一个步长 <span class="arithmatex">\(\lambda\)</span>, 以获得最快下降的方式---&gt;<strong>最速下降法</strong>(过于贪心,容易走锯齿路线，增加迭代次数)</p>
+<p><strong>反向梯度理解</strong>：以开口向上抛物线为例，对称轴为<span class="arithmatex">\(x=x_d, \quad 假设f(x)\)</span>在<span class="arithmatex">\(x_k\)</span>导数为<span class="arithmatex">\(\Delta_k\)</span>,</p>
+<ul>
+<li>当x位于<span class="arithmatex">\(x_d\)</span>左侧时其导数(或梯度)<span class="arithmatex">\(\Delta_k &lt; 0\)</span>，若想朝y下降方向移动则x应该向右移动，即<span class="arithmatex">\(x_{k+1}=x_{k}+(-\Delta_k)\)</span>;</li>
+<li>当x位于<span class="arithmatex">\(x_d\)</span>右侧时其导数<span class="arithmatex">\(\Delta_k &gt; 0\)</span>，若想朝y下降方向移动则x应该向左移动，即<span class="arithmatex">\(x_{k+1}=x_{k}+(-\Delta_k)\)</span>;</li>
+</ul>
 </li>
 <li>
-<p>保留二阶梯度，增量方程为</p>
+<p><strong>牛顿法</strong>:保留二阶梯度，增量方程为</p>
 <div class="arithmatex">\[
 \Delta x^* = argminf(x)^2 +J(x) \Delta x + \dfrac{1}{2} \Delta x^T \mathbin{H} \Delta x
 \]</div>
-<p>该等式令关于 <span class="arithmatex">\(\Delta x\)</span> 的导数为零，得增量方程为: $H \Delta x = -J  $  <strong>牛顿法</strong>(需计算<span class="arithmatex">\(H\)</span>矩阵，一般比较困难)</p>
+<p>该等式令关于 <span class="arithmatex">\(\Delta x\)</span> 的导数为零，得增量方程为: <span class="arithmatex">\(H \Delta x = -J\)</span>  (需计算<span class="arithmatex">\(H\)</span>矩阵，一般比较困难)</p>
 </li>
 <li>
-<p><strong>Gauss-Newton</strong>(最优化算法最简单的方法之一, 将<span class="arithmatex">\(f(x)\)</span>进行一阶泰勒展开，而非目标函数<span class="arithmatex">\(f(x)^2\)</span>)</p>
+<p><strong>Gauss-Newton</strong>:(最优化算法最简单的方法之一, 将<span class="arithmatex">\(f(x)\)</span>进行一阶泰勒展开，而非目标函数<span class="arithmatex">\(f(x)^2\)</span>)</p>
 <div class="arithmatex">\[
 f(x + \Delta x) \approx f(x) + J(x)\Delta x
 \]</div>
